@@ -31,16 +31,16 @@
 namespace ShapeFile;
 
 class ShapeRecord {
-    var $SHPFile = NULL;
-    var $DBFFile = NULL;
+    private $SHPFile = NULL;
+    private $DBFFile = NULL;
 
-    var $recordNumber = NULL;
-    var $shapeType = NULL;
+    private $recordNumber = NULL;
+    private $shapeType = NULL;
 
-    var $lastError = "";
+    public $lastError = "";
 
-    var $SHPData = array();
-    var $DBFData = array();
+    private $SHPData = array();
+    private $DBFData = array();
 
     public function __construct($shapeType) {
         $this->shapeType = $shapeType;

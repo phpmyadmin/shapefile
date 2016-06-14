@@ -36,21 +36,21 @@ namespace ShapeFile;
  * @package bfShapeFiles
  */
 class ShapeFile {
-    var $FileName;
+    private $FileName;
 
-    var $SHPFile;
-    var $SHXFile;
-    var $DBFFile;
+    private $SHPFile;
+    private $SHXFile;
+    private $DBFFile;
 
-    var $DBFHeader;
+    private $DBFHeader;
 
-    var $lastError = "";
+    public $lastError = "";
 
-    var $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0);
-    var $fileLength = 0;
-    var $shapeType = 0;
+    private $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0);
+    private $fileLength = 0;
+    private $shapeType = 0;
 
-    var $records;
+    public $records;
 
     public function __construct($shapeType, $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0), $FileName = NULL) {
         $this->shapeType = $shapeType;
