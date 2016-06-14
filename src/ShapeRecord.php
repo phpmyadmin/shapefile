@@ -473,30 +473,20 @@ class ShapeRecord {
     }
 
     private function _adjustBBox($point) {
-        //Adds a new point to the selected part
-        if (!isset($this->SHPData["xmin"]) || ($this->SHPData["xmin"] > $point["x"])) {
-            $this->SHPData["xmin"] = $point["x"];
-        }
-        if (!isset($this->SHPData["ymin"]) || ($this->SHPData["ymin"] > $point["y"])) {
-            $this->SHPData["ymin"] = $point["y"];
-        }
-        if (isset($point["m"]) && (!isset($this->SHPData["mmin"]) || ($this->SHPData["mmin"] > $point["m"]))) {
-            $this->SHPData["mmin"] = $point["m"];
-        }
-        if (isset($point["z"]) && (!isset($this->SHPData["zmin"]) || ($this->SHPData["zmin"] > $point["z"]))) {
-            $this->SHPData["zmin"] = $point["z"];
-        }
-        if (!isset($this->SHPData["xmax"]) || ($this->SHPData["xmax"] < $point["x"])) {
-            $this->SHPData["xmax"] = $point["x"];
-        }
-        if (!isset($this->SHPData["ymax"]) || ($this->SHPData["ymax"] < $point["y"])) {
-            $this->SHPData["ymax"] = $point["y"];
-        }
-        if (isset($point["m"]) && (!isset($this->SHPData["mmax"]) || ($this->SHPData["mmax"] < $point["m"]))) {
-            $this->SHPData["mmax"] = $point["m"];
-        }
-        if (isset($point["z"]) && (!isset($this->SHPData["zmax"]) || ($this->SHPData["zmax"] < $point["z"]))) {
-            $this->SHPData["zmax"] = $point["z"];
+        // Adjusts bounding box based on point
+        $directions = array('x', 'y', 'z', 'm');
+        foreach ($directions as $direction) {
+            if (!isset($point[$direction])) {
+                continue;
+            }
+            $min = $direction . 'min';
+            $max = $direction . 'max';
+            if (!isset($this->SHPData[$min]) || ($this->SHPData[$min] > $point[$direction])) {
+                $this->SHPData[$min] = $point[$direction];
+            }
+            if (!isset($this->SHPData[$max]) || ($this->SHPData[$max] < $point[$direction])) {
+                $this->SHPData[$max] = $point[$direction];
+            }
         }
     }
 
