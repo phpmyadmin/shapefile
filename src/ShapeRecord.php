@@ -278,6 +278,9 @@ class ShapeRecord {
         }
     }
 
+    /**
+     * @param string $type
+     */
     private function _loadMultiPointMZRecord($type) {
 
         $this->SHPData[$type."min"] = Util::loadData("d", fread($this->SHPFile, 8));
@@ -311,6 +314,9 @@ class ShapeRecord {
         }
     }
 
+    /**
+     * @param string $type
+     */
     private function _saveMultiPointMZRecord($type) {
 
         fwrite($this->SHPFile, pack("dd", $this->SHPData[$type."min"], $this->SHPData[$type."max"]));
@@ -364,6 +370,9 @@ class ShapeRecord {
         fseek($this->SHPFile, $firstIndex + ($readPoints * 16));
     }
 
+    /**
+     * @param string $type
+     */
     private function _loadPolyLineMZRecord($type) {
 
         $this->SHPData[$type."min"] = Util::loadData("d", fread($this->SHPFile, 8));
@@ -412,6 +421,9 @@ class ShapeRecord {
         }
     }
 
+    /**
+     * @param string $type
+     */
     private function _savePolyLineMZRecord($type) {
         fwrite($this->SHPFile, pack("dd", $this->SHPData[$type."min"], $this->SHPData[$type."max"]));
 
@@ -692,6 +704,9 @@ class ShapeRecord {
         }
     }
 
+    /**
+     * @param string $error
+     */
     public function setError($error) {
         $this->lastError = $error;
         return false;
