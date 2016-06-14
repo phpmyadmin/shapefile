@@ -31,6 +31,7 @@ class ShapeMoFilesTest extends PHPUnit_Framework_TestCase
         return array(
             array('data/capitals.*', 652),
             array('data/mexico.*', 32),
+            array('data/Czech_Republic_AL2.*', 1000),
         );
     }
 
