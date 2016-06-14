@@ -6,10 +6,20 @@ php:
   - 5.6
   - 7.0
 
-before_script:
-- pecl install dbase
-- echo 'extension = dbase.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-- composer install
+before_install:
+  - pip install --user codecov
+
+install:
+  - pecl install dbase
+  - echo 'extension = dbase.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - composer install
 
 script: 
-- phpunit --configuration phpunit.xml
+  - phpunit --configuration phpunit.xml
+
+after_success:
+  - codecov
+
+cache:
+  directories:
+    - $HOME/.composer/cache
