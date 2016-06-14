@@ -170,7 +170,6 @@ class ShapeFile {
         $DBFFile = fopen(str_replace('.*', '.dbf', $this->FileName), 'r');
 
         $result = array();
-        $buff32 = array();
         $i = 1;
         $inHeader = true;
 
