@@ -1,5 +1,5 @@
 <?php
-require_once('lib/ShapeFile.lib.php');
+require_once('src/ShapeFile.lib.php');
 
 $shp = new ShapeFile(1, array("xmin" => 464079.002268, "ymin" => 2120153.74792, "xmax" => 505213.52849, "ymax" => 2163205.70036));
 
