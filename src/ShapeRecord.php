@@ -465,8 +465,12 @@ class ShapeRecord {
             case 1:
             case 11:
             case 21:
-                if (in_array($this->shapeType,array(11,21)) && !isset($point["m"])) $point["m"] = 0.0; // no_value
-                if (in_array($this->shapeType,array(11)) && !isset($point["z"])) $point["z"] = 0.0; // no_value
+                if (in_array($this->shapeType,array(11,21)) && !isset($point["m"])) {
+                    $point["m"] = 0.0; // no_value
+                }
+                if (in_array($this->shapeType,array(11)) && !isset($point["z"])) {
+                    $point["z"] = 0.0; // no_value
+                }
                 //Substitutes the value of the current point
                 $this->SHPData = $point;
                 break;
@@ -476,18 +480,38 @@ class ShapeRecord {
             case 15:
             case 23:
             case 25:
-                if (in_array($this->shapeType,array(13,15,23,25)) && !isset($point["m"])) $point["m"] = 0.0; // no_value
-                if (in_array($this->shapeType,array(13,15)) && !isset($point["z"])) $point["z"] = 0.0; // no_value
+                if (in_array($this->shapeType,array(13,15,23,25)) && !isset($point["m"])) {
+                    $point["m"] = 0.0; // no_value
+                }
+                if (in_array($this->shapeType,array(13,15)) && !isset($point["z"])) {
+                    $point["z"] = 0.0; // no_value
+                }
 
                 //Adds a new point to the selected part
-                if (!isset($this->SHPData["xmin"]) || ($this->SHPData["xmin"] > $point["x"])) $this->SHPData["xmin"] = $point["x"];
-                if (!isset($this->SHPData["ymin"]) || ($this->SHPData["ymin"] > $point["y"])) $this->SHPData["ymin"] = $point["y"];
-                if (isset($point["m"]) && (!isset($this->SHPData["mmin"]) || ($this->SHPData["mmin"] > $point["m"]))) $this->SHPData["mmin"] = $point["m"];
-                if (isset($point["z"]) && (!isset($this->SHPData["zmin"]) || ($this->SHPData["zmin"] > $point["z"]))) $this->SHPData["zmin"] = $point["z"];
-                if (!isset($this->SHPData["xmax"]) || ($this->SHPData["xmax"] < $point["x"])) $this->SHPData["xmax"] = $point["x"];
-                if (!isset($this->SHPData["ymax"]) || ($this->SHPData["ymax"] < $point["y"])) $this->SHPData["ymax"] = $point["y"];
-                if (isset($point["m"]) && (!isset($this->SHPData["mmax"]) || ($this->SHPData["mmax"] < $point["m"]))) $this->SHPData["mmax"] = $point["m"];
-                if (isset($point["z"]) && (!isset($this->SHPData["zmax"]) || ($this->SHPData["zmax"] < $point["z"]))) $this->SHPData["zmax"] = $point["z"];
+                if (!isset($this->SHPData["xmin"]) || ($this->SHPData["xmin"] > $point["x"])) {
+                    $this->SHPData["xmin"] = $point["x"];
+                }
+                if (!isset($this->SHPData["ymin"]) || ($this->SHPData["ymin"] > $point["y"])) {
+                    $this->SHPData["ymin"] = $point["y"];
+                }
+                if (isset($point["m"]) && (!isset($this->SHPData["mmin"]) || ($this->SHPData["mmin"] > $point["m"]))) {
+                    $this->SHPData["mmin"] = $point["m"];
+                }
+                if (isset($point["z"]) && (!isset($this->SHPData["zmin"]) || ($this->SHPData["zmin"] > $point["z"]))) {
+                    $this->SHPData["zmin"] = $point["z"];
+                }
+                if (!isset($this->SHPData["xmax"]) || ($this->SHPData["xmax"] < $point["x"])) {
+                    $this->SHPData["xmax"] = $point["x"];
+                }
+                if (!isset($this->SHPData["ymax"]) || ($this->SHPData["ymax"] < $point["y"])) {
+                    $this->SHPData["ymax"] = $point["y"];
+                }
+                if (isset($point["m"]) && (!isset($this->SHPData["mmax"]) || ($this->SHPData["mmax"] < $point["m"]))) {
+                    $this->SHPData["mmax"] = $point["m"];
+                }
+                if (isset($point["z"]) && (!isset($this->SHPData["zmax"]) || ($this->SHPData["zmax"] < $point["z"]))) {
+                    $this->SHPData["zmax"] = $point["z"];
+                }
 
                 $this->SHPData["parts"][$partIndex]["points"][] = $point;
 
@@ -497,18 +521,38 @@ class ShapeRecord {
             case 8:
             case 18:
             case 28:
-                if (in_array($this->shapeType,array(18,28)) && !isset($point["m"])) $point["m"] = 0.0; // no_value
-                if (in_array($this->shapeType,array(18)) && !isset($point["z"])) $point["z"] = 0.0; // no_value
+                if (in_array($this->shapeType,array(18,28)) && !isset($point["m"])) {
+                    $point["m"] = 0.0; // no_value
+                }
+                if (in_array($this->shapeType,array(18)) && !isset($point["z"])) {
+                    $point["z"] = 0.0; // no_value
+                }
 
                 //Adds a new point
-                if (!isset($this->SHPData["xmin"]) || ($this->SHPData["xmin"] > $point["x"])) $this->SHPData["xmin"] = $point["x"];
-                if (!isset($this->SHPData["ymin"]) || ($this->SHPData["ymin"] > $point["y"])) $this->SHPData["ymin"] = $point["y"];
-                if (isset($point["m"]) && (!isset($this->SHPData["mmin"]) || ($this->SHPData["mmin"] > $point["m"]))) $this->SHPData["mmin"] = $point["m"];
-                if (isset($point["z"]) && (!isset($this->SHPData["zmin"]) || ($this->SHPData["zmin"] > $point["z"]))) $this->SHPData["zmin"] = $point["z"];
-                if (!isset($this->SHPData["xmax"]) || ($this->SHPData["xmax"] < $point["x"])) $this->SHPData["xmax"] = $point["x"];
-                if (!isset($this->SHPData["ymax"]) || ($this->SHPData["ymax"] < $point["y"])) $this->SHPData["ymax"] = $point["y"];
-                if (isset($point["m"]) && (!isset($this->SHPData["mmax"]) || ($this->SHPData["mmax"] < $point["m"]))) $this->SHPData["mmax"] = $point["m"];
-                if (isset($point["z"]) && (!isset($this->SHPData["zmax"]) || ($this->SHPData["zmax"] < $point["z"]))) $this->SHPData["zmax"] = $point["z"];
+                if (!isset($this->SHPData["xmin"]) || ($this->SHPData["xmin"] > $point["x"])) {
+                    $this->SHPData["xmin"] = $point["x"];
+                }
+                if (!isset($this->SHPData["ymin"]) || ($this->SHPData["ymin"] > $point["y"])) {
+                    $this->SHPData["ymin"] = $point["y"];
+                }
+                if (isset($point["m"]) && (!isset($this->SHPData["mmin"]) || ($this->SHPData["mmin"] > $point["m"]))) {
+                    $this->SHPData["mmin"] = $point["m"];
+                }
+                if (isset($point["z"]) && (!isset($this->SHPData["zmin"]) || ($this->SHPData["zmin"] > $point["z"]))) {
+                    $this->SHPData["zmin"] = $point["z"];
+                }
+                if (!isset($this->SHPData["xmax"]) || ($this->SHPData["xmax"] < $point["x"])) {
+                    $this->SHPData["xmax"] = $point["x"];
+                }
+                if (!isset($this->SHPData["ymax"]) || ($this->SHPData["ymax"] < $point["y"])) {
+                    $this->SHPData["ymax"] = $point["y"];
+                }
+                if (isset($point["m"]) && (!isset($this->SHPData["mmax"]) || ($this->SHPData["mmax"] < $point["m"]))) {
+                    $this->SHPData["mmax"] = $point["m"];
+                }
+                if (isset($point["z"]) && (!isset($this->SHPData["zmax"]) || ($this->SHPData["zmax"] < $point["z"]))) {
+                    $this->SHPData["zmax"] = $point["z"];
+                }
 
                 $this->SHPData["points"][] = $point;
                 $this->SHPData["numpoints"] = 1 + (isset($this->SHPData["numpoints"])?$this->SHPData["numpoints"]:0);
@@ -530,8 +574,12 @@ class ShapeRecord {
                 //Sets the value of the point to zero
                 $this->SHPData["x"] = 0.0;
                 $this->SHPData["y"] = 0.0;
-                if (in_array($this->shapeType,array(11,21))) $this->SHPData["m"] = 0.0;
-                if (in_array($this->shapeType,array(11))) $this->SHPData["z"] = 0.0;
+                if (in_array($this->shapeType,array(11,21))) {
+                    $this->SHPData["m"] = 0.0;
+                }
+                if (in_array($this->shapeType,array(11))) {
+                    $this->SHPData["z"] = 0.0;
+                }
                 break;
             case 3:
             case 5:
