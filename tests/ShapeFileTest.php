@@ -160,9 +160,5 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
         $shp->loadFromFile('./data/test_shape.*');
         $shp->deleteRecord(1);
         $this->assertEquals(2, count($shp->records));
-
-        $shp = new ShapeFile(1);
-        $shp->loadFromFile('./data/test_shape.*');
-        $this->assertEquals(2, count($shp->records));
     }
 }
