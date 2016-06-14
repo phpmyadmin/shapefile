@@ -109,7 +109,7 @@ class ShapeRecord {
 
         switch ($this->shapeType) {
             case 0:
-                $this->_saveNullRecord();
+                // Nothing to save
                 break;
             case 1:
                 $this->_savePointRecord();
@@ -226,10 +226,6 @@ class ShapeRecord {
 
     private function _loadNullRecord() {
         $this->SHPData = array();
-    }
-
-    private function _saveNullRecord() {
-        //Don't save anything
     }
 
     private function _loadPointRecord() {
