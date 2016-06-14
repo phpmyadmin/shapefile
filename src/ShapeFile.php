@@ -59,7 +59,7 @@ class ShapeFile {
         $this->fileLength = 50; // The value for file length is the total length of the file in 16-bit words (including the fifty 16-bit words that make up the header).
     }
 
-    function loadFromFile($FileName) {
+    public function loadFromFile($FileName) {
         $this->FileName = $FileName;
 
         if (($this->_openSHPFile()) && ($this->_openDBFFile())) {
@@ -72,7 +72,7 @@ class ShapeFile {
         }
     }
 
-    function saveToFile($FileName = NULL) {
+    public function saveToFile($FileName = NULL) {
         if ($FileName != NULL) $this->FileName = $FileName;
 
         if (($this->_openSHPFile(TRUE)) && ($this->_openSHXFile(TRUE)) && ($this->_openDBFFile(TRUE))) {
@@ -86,7 +86,7 @@ class ShapeFile {
         }
     }
 
-    function addRecord($record) {
+    public function addRecord($record) {
         if ((isset($this->DBFHeader)) && (is_array($this->DBFHeader))) {
             $record->updateDBFInfo($this->DBFHeader);
         }
@@ -114,7 +114,7 @@ class ShapeFile {
         return (count($this->records) - 1);
     }
 
-    function deleteRecord($index) {
+    public function deleteRecord($index) {
         if (isset($this->records[$index])) {
             $this->fileLength -= ($this->records[$index]->getContentLength() + 4);
             for ($i = $index; $i < (count($this->records) - 1); $i++) {
@@ -125,11 +125,11 @@ class ShapeFile {
         }
     }
 
-    function getDBFHeader() {
+    public function getDBFHeader() {
         return $this->DBFHeader;
     }
 
-    function setDBFHeader($header) {
+    public function setDBFHeader($header) {
         $this->DBFHeader = $header;
 
         for ($i = 0; $i < count($this->records); $i++) {
@@ -137,7 +137,7 @@ class ShapeFile {
         }
     }
 
-    function getIndexFromDBFData($field, $value) {
+    public function getIndexFromDBFData($field, $value) {
         $result = -1;
         for ($i = 0; $i < (count($this->records) - 1); $i++) {
             if (isset($this->records[$i]->DBFData[$field]) && (strtoupper($this->records[$i]->DBFData[$field]) == strtoupper($value))) {
@@ -148,7 +148,7 @@ class ShapeFile {
         return $result;
     }
 
-    function _loadDBFHeader() {
+    private function _loadDBFHeader() {
         $DBFFile = fopen(str_replace('.*', '.dbf', $this->FileName), 'r');
 
         $result = array();
@@ -184,13 +184,13 @@ class ShapeFile {
         return($result);
     }
 
-    function _deleteRecordFromDBF($index) {
+    private function _deleteRecordFromDBF($index) {
         if (@dbase_delete_record($this->DBFFile, $index)) {
             @dbase_pack($this->DBFFile);
         }
     }
 
-    function _loadHeaders() {
+    private function _loadHeaders() {
         fseek($this->SHPFile, 24, SEEK_SET);
         $this->fileLength = Util::loadData("N", fread($this->SHPFile, 4));
 
@@ -210,7 +210,7 @@ class ShapeFile {
         $this->DBFHeader = $this->_loadDBFHeader();
     }
 
-    function _saveHeaders() {
+    private function _saveHeaders() {
         fwrite($this->SHPFile, pack("NNNNNN", 9994, 0, 0, 0, 0, 0));
         fwrite($this->SHPFile, pack("N", $this->fileLength));
         fwrite($this->SHPFile, pack("V", 1000));
@@ -238,7 +238,7 @@ class ShapeFile {
         fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['mmax'])?$this->boundingBox['mmax']:0));
     }
 
-    function _loadRecords() {
+    private function _loadRecords() {
         fseek($this->SHPFile, 100);
         while (!feof($this->SHPFile)) {
             $bByte = ftell($this->SHPFile);
@@ -253,7 +253,7 @@ class ShapeFile {
         }
     }
 
-    function _saveRecords() {
+    private function _saveRecords() {
         if (file_exists(str_replace('.*', '.dbf', $this->FileName))) {
             @unlink(str_replace('.*', '.dbf', $this->FileName));
         }
@@ -277,7 +277,7 @@ class ShapeFile {
         @dbase_pack($this->DBFFile);
     }
 
-    function _openSHPFile($toWrite = false) {
+    private function _openSHPFile($toWrite = false) {
         $this->SHPFile = @fopen(str_replace('.*', '.shp', $this->FileName), ($toWrite ? "wb+" : "rb"));
         if (!$this->SHPFile) {
             return $this->setError(sprintf("It wasn't possible to open the Shape file '%s'", str_replace('.*', '.shp', $this->FileName)));
@@ -286,14 +286,14 @@ class ShapeFile {
         return TRUE;
     }
 
-    function _closeSHPFile() {
+    private function _closeSHPFile() {
         if ($this->SHPFile) {
             fclose($this->SHPFile);
             $this->SHPFile = NULL;
         }
     }
 
-    function _openSHXFile($toWrite = false) {
+    private function _openSHXFile($toWrite = false) {
         $this->SHXFile = @fopen(str_replace('.*', '.shx', $this->FileName), ($toWrite ? "wb+" : "rb"));
         if (!$this->SHXFile) {
             return $this->setError(sprintf("It wasn't possible to open the Index file '%s'", str_replace('.*', '.shx', $this->FileName)));
@@ -302,14 +302,14 @@ class ShapeFile {
         return TRUE;
     }
 
-    function _closeSHXFile() {
+    private function _closeSHXFile() {
         if ($this->SHXFile) {
             fclose($this->SHXFile);
             $this->SHXFile = NULL;
         }
     }
 
-    function _openDBFFile($toWrite = false) {
+    private function _openDBFFile($toWrite = false) {
         $checkFunction = $toWrite ? "is_writable" : "is_readable";
         if (($toWrite) && (!file_exists(str_replace('.*', '.dbf', $this->FileName)))) {
             if (!@dbase_create(str_replace('.*', '.dbf', $this->FileName), $this->DBFHeader)) {
@@ -327,14 +327,14 @@ class ShapeFile {
         return TRUE;
     }
 
-    function _closeDBFFile() {
+    private function _closeDBFFile() {
         if ($this->DBFFile) {
             dbase_close($this->DBFFile);
             $this->DBFFile = NULL;
         }
     }
 
-    function setError($error) {
+    public function setError($error) {
         $this->lastError = $error;
         return false;
     }
