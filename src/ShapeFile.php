@@ -24,7 +24,7 @@ namespace ShapeFile;
 /**
  * ShapeFile class
  *
- * @package bfShapeFiles
+ * @package ShapeFile
  */
 class ShapeFile {
     private $FileName;

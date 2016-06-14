@@ -3,7 +3,7 @@
 /**
  * Bootstrap for tests.
  *
- * @package    MoTranslator
+ * @package    ShapeFile
  * @subpackage Tests
  */
 
