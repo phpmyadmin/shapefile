@@ -9,16 +9,20 @@ class ShapeMoFilesTest extends PHPUnit_Framework_TestCase
      *
      * @param string  $filename Name of file
      * @param integer $records  Expected number of records
+     * @param integer $parts    Expected number of parts in first record
      *
      * @return void
      *
      * @dataProvider provideFiles
      */
-    public function testLoad($filename, $records)
+    public function testLoad($filename, $records, $parts)
     {
         $shp = new ShapeFile(1);
         $shp->loadFromFile($filename);
         $this->assertEquals($records, count($shp->records));
+        if (!is_null($parts)) {
+            $this->assertEquals($parts, count($shp->records[0]->SHPData["parts"]));
+        }
     }
 
     /**
@@ -29,8 +33,9 @@ class ShapeMoFilesTest extends PHPUnit_Framework_TestCase
     public function provideFiles()
     {
         return array(
-            array('data/capitals.*', 652),
-            array('data/mexico.*', 32),
+            array('data/capitals.*', 652, null),
+            array('data/mexico.*', 32, 3),
+            array('data/Czech_Republic_AL2.*', 1, 1),
         );
     }
 
