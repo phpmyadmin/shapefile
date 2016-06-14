@@ -1,5 +1,6 @@
 <?php
-namespace ShapeFile;
+use ShapeFile\ShapeFile;
+use ShapeFile\ShapeRecord;
 
 class ShapeFileTest extends PHPUnit_Framework_TestCase
 {
