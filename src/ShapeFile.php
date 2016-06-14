@@ -147,7 +147,8 @@ class ShapeFile {
     public function deleteRecord($index) {
         if (isset($this->records[$index])) {
             $this->fileLength -= ($this->records[$index]->getContentLength() + 4);
-            for ($i = $index; $i < (count($this->records) - 1); $i++) {
+            $count = count($this->records) - 1;
+            for ($i = $index; $i < $count; $i++) {
                 $this->records[$i] = $this->records[$i + 1];
             }
             unset($this->records[count($this->records) - 1]);
@@ -162,14 +163,16 @@ class ShapeFile {
     public function setDBFHeader($header) {
         $this->DBFHeader = $header;
 
-        for ($i = 0; $i < count($this->records); $i++) {
+        $count = count($this->records);
+        for ($i = 0; $i < $count; $i++) {
             $this->records[$i]->updateDBFInfo($header);
         }
     }
 
     public function getIndexFromDBFData($field, $value) {
         $result = -1;
-        for ($i = 0; $i < (count($this->records) - 1); $i++) {
+        $count = count($this->records) - 1;
+        for ($i = 0; $i < $count; $i++) {
             if (isset($this->records[$i]->DBFData[$field]) && (strtoupper($this->records[$i]->DBFData[$field]) == strtoupper($value))) {
                 $result = $i;
             }

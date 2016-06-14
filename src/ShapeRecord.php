@@ -570,7 +570,8 @@ class ShapeRecord {
             case 25:
                 //Deletes the point from the selected part, if exists
                 if (isset($this->SHPData["parts"][$partIndex]) && isset($this->SHPData["parts"][$partIndex]["points"][$pointIndex])) {
-                    for ($i = $pointIndex; $i < (count($this->SHPData["parts"][$partIndex]["points"]) - 1); $i++) {
+                    $count = count($this->SHPData["parts"][$partIndex]["points"]) - 1;
+                    for ($i = $pointIndex; $i < $count; $i++) {
                         $this->SHPData["parts"][$partIndex]["points"][$i] = $this->SHPData["parts"][$partIndex]["points"][$i + 1];
                     }
                     unset($this->SHPData["parts"][$partIndex]["points"][count($this->SHPData["parts"][$partIndex]["points"]) - 1]);
@@ -584,7 +585,8 @@ class ShapeRecord {
             case 28:
                 //Deletes the point, if exists
                 if (isset($this->SHPData["points"][$pointIndex])) {
-                    for ($i = $pointIndex; $i < (count($this->SHPData["points"]) - 1); $i++) {
+                    $count = count($this->SHPData["points"]) - 1;
+                    for ($i = $pointIndex; $i < $count; $i++) {
                         $this->SHPData["points"][$i] = $this->SHPData["points"][$i + 1];
                     }
                     unset($this->SHPData["points"][count($this->SHPData["points"]) - 1]);
@@ -616,22 +618,25 @@ class ShapeRecord {
                 break;
             case 3:
             case 5:
-                $result = 22 + 2 * count($this->SHPData["parts"]);
-                for ($i = 0; $i < count($this->SHPData["parts"]); $i++) {
+                $count = count($this->SHPData["parts"]);
+                $result = 22 + 2 * $count;
+                for ($i = 0; $i < $count; $i++) {
                     $result += 8 * count($this->SHPData["parts"][$i]["points"]);
                 }
                 break;
             case 23:
             case 25:
-                $result = 22 + (2 * 4) + 2 * count($this->SHPData["parts"]);
-                for ($i = 0; $i < count($this->SHPData["parts"]); $i++) {
+                $count = count($this->SHPData["parts"]);
+                $result = 22 + (2 * 4) + 2 * $count;
+                for ($i = 0; $i < $count; $i++) {
                     $result += (8 + 4) * count($this->SHPData["parts"][$i]["points"]);
                 }
                 break;
             case 13:
             case 15:
-                $result = 22 + (4 * 4) + 2 * count($this->SHPData["parts"]);
-                for ($i = 0; $i < count($this->SHPData["parts"]); $i++) {
+                $count = count($this->SHPData["parts"]);
+                $result = 22 + (4 * 4) + 2 * $count;
+                for ($i = 0; $i < $count; $i++) {
                     $result += (8 + 8) * count($this->SHPData["parts"][$i]["points"]);
                 }
                 break;
