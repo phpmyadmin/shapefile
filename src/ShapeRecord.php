@@ -34,7 +34,7 @@ class ShapeRecord {
     private $SHPFile = NULL;
     private $DBFFile = NULL;
 
-    private $recordNumber = NULL;
+    public $recordNumber = NULL;
     private $shapeType = NULL;
 
     public $lastError = "";
