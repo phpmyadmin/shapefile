@@ -35,9 +35,9 @@ class ShapeFile {
 
     private $DBFHeader;
 
-    public $lastError = "";
+    public $lastError = '';
 
-    private $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0);
+    private $boundingBox = array('xmin' => 0.0, 'ymin' => 0.0, 'xmax' => 0.0, 'ymax' => 0.0);
     private $fileLength = 0;
     private $shapeType = 0;
 
@@ -46,7 +46,7 @@ class ShapeFile {
     /**
      * @param integer $shapeType
      */
-    public function __construct($shapeType, $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0), $FileName = null) {
+    public function __construct($shapeType, $boundingBox = array('xmin' => 0.0, 'ymin' => 0.0, 'xmax' => 0.0, 'ymax' => 0.0), $FileName = null) {
         $this->shapeType = $shapeType;
         $this->boundingBox = $boundingBox;
         $this->FileName = $FileName;
@@ -112,35 +112,35 @@ class ShapeFile {
         $this->records[] = $record;
         $this->records[count($this->records) - 1]->recordNumber = count($this->records);
 
-        if ($this->boundingBox["xmin"] == 0.0 || ($this->boundingBox["xmin"] > $record->SHPData["xmin"])) {
-            $this->boundingBox["xmin"] = $record->SHPData["xmin"];
+        if ($this->boundingBox['xmin'] == 0.0 || ($this->boundingBox['xmin'] > $record->SHPData['xmin'])) {
+            $this->boundingBox['xmin'] = $record->SHPData['xmin'];
         }
-        if ($this->boundingBox["xmax"] == 0.0 || ($this->boundingBox["xmax"] < $record->SHPData["xmax"])) {
-            $this->boundingBox["xmax"] = $record->SHPData["xmax"];
+        if ($this->boundingBox['xmax'] == 0.0 || ($this->boundingBox['xmax'] < $record->SHPData['xmax'])) {
+            $this->boundingBox['xmax'] = $record->SHPData['xmax'];
         }
 
-        if ($this->boundingBox["ymin"] == 0.0 || ($this->boundingBox["ymin"] > $record->SHPData["ymin"])) {
-            $this->boundingBox["ymin"] = $record->SHPData["ymin"];
+        if ($this->boundingBox['ymin'] == 0.0 || ($this->boundingBox['ymin'] > $record->SHPData['ymin'])) {
+            $this->boundingBox['ymin'] = $record->SHPData['ymin'];
         }
-        if ($this->boundingBox["ymax"] == 0.0 || ($this->boundingBox["ymax"] < $record->SHPData["ymax"])) {
-            $this->boundingBox["ymax"] = $record->SHPData["ymax"];
+        if ($this->boundingBox['ymax'] == 0.0 || ($this->boundingBox['ymax'] < $record->SHPData['ymax'])) {
+            $this->boundingBox['ymax'] = $record->SHPData['ymax'];
         }
 
         if (in_array($this->shapeType, array(11, 13, 15, 18, 21, 23, 25, 28))) {
-            if (!isset($this->boundingBox["mmin"]) || $this->boundingBox["mmin"] == 0.0 || ($this->boundingBox["mmin"] > $record->SHPData["mmin"])) {
-                $this->boundingBox["mmin"] = $record->SHPData["mmin"];
+            if (!isset($this->boundingBox['mmin']) || $this->boundingBox['mmin'] == 0.0 || ($this->boundingBox['mmin'] > $record->SHPData['mmin'])) {
+                $this->boundingBox['mmin'] = $record->SHPData['mmin'];
             }
-            if (!isset($this->boundingBox["mmax"]) || $this->boundingBox["mmax"] == 0.0 || ($this->boundingBox["mmax"] < $record->SHPData["mmax"])) {
-                $this->boundingBox["mmax"] = $record->SHPData["mmax"];
+            if (!isset($this->boundingBox['mmax']) || $this->boundingBox['mmax'] == 0.0 || ($this->boundingBox['mmax'] < $record->SHPData['mmax'])) {
+                $this->boundingBox['mmax'] = $record->SHPData['mmax'];
             }
         }
 
         if (in_array($this->shapeType, array(11, 13, 15, 18))) {
-            if (!isset($this->boundingBox["zmin"]) || $this->boundingBox["zmin"] == 0.0 || ($this->boundingBox["zmin"] > $record->SHPData["zmin"])) {
-                $this->boundingBox["zmin"] = $record->SHPData["zmin"];
+            if (!isset($this->boundingBox['zmin']) || $this->boundingBox['zmin'] == 0.0 || ($this->boundingBox['zmin'] > $record->SHPData['zmin'])) {
+                $this->boundingBox['zmin'] = $record->SHPData['zmin'];
             }
-            if (!isset($this->boundingBox["zmax"]) || $this->boundingBox["zmax"] == 0.0 || ($this->boundingBox["zmax"] < $record->SHPData["zmax"])) {
-                $this->boundingBox["zmax"] = $record->SHPData["zmax"];
+            if (!isset($this->boundingBox['zmax']) || $this->boundingBox['zmax'] == 0.0 || ($this->boundingBox['zmax'] < $record->SHPData['zmax'])) {
+                $this->boundingBox['zmax'] = $record->SHPData['zmax'];
             }
         }
 
@@ -227,29 +227,29 @@ class ShapeFile {
 
     private function _loadHeaders() {
         fseek($this->SHPFile, 24, SEEK_SET);
-        $this->fileLength = Util::loadData("N", fread($this->SHPFile, 4));
+        $this->fileLength = Util::loadData('N', fread($this->SHPFile, 4));
 
         fseek($this->SHPFile, 32, SEEK_SET);
-        $this->shapeType = Util::loadData("V", fread($this->SHPFile, 4));
+        $this->shapeType = Util::loadData('V', fread($this->SHPFile, 4));
 
         $this->boundingBox = array();
-        $this->boundingBox["xmin"] = Util::loadData("d", fread($this->SHPFile, 8));
-        $this->boundingBox["ymin"] = Util::loadData("d", fread($this->SHPFile, 8));
-        $this->boundingBox["xmax"] = Util::loadData("d", fread($this->SHPFile, 8));
-        $this->boundingBox["ymax"] = Util::loadData("d", fread($this->SHPFile, 8));
-        $this->boundingBox["zmin"] = Util::loadData("d", fread($this->SHPFile, 8));
-        $this->boundingBox["zmax"] = Util::loadData("d", fread($this->SHPFile, 8));
-        $this->boundingBox["mmin"] = Util::loadData("d", fread($this->SHPFile, 8));
-        $this->boundingBox["mmax"] = Util::loadData("d", fread($this->SHPFile, 8));
+        $this->boundingBox['xmin'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->boundingBox['ymin'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->boundingBox['xmax'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->boundingBox['ymax'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->boundingBox['zmin'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->boundingBox['zmax'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->boundingBox['mmin'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->boundingBox['mmax'] = Util::loadData('d', fread($this->SHPFile, 8));
 
         $this->DBFHeader = $this->_loadDBFHeader();
     }
 
     private function _saveHeaders() {
-        fwrite($this->SHPFile, pack("NNNNNN", 9994, 0, 0, 0, 0, 0));
-        fwrite($this->SHPFile, pack("N", $this->fileLength));
-        fwrite($this->SHPFile, pack("V", 1000));
-        fwrite($this->SHPFile, pack("V", $this->shapeType));
+        fwrite($this->SHPFile, pack('NNNNNN', 9994, 0, 0, 0, 0, 0));
+        fwrite($this->SHPFile, pack('N', $this->fileLength));
+        fwrite($this->SHPFile, pack('V', 1000));
+        fwrite($this->SHPFile, pack('V', $this->shapeType));
         fwrite($this->SHPFile, Util::packDouble($this->boundingBox['xmin']));
         fwrite($this->SHPFile, Util::packDouble($this->boundingBox['ymin']));
         fwrite($this->SHPFile, Util::packDouble($this->boundingBox['xmax']));
@@ -259,10 +259,10 @@ class ShapeFile {
         fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['mmin']) ? $this->boundingBox['mmin'] : 0));
         fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['mmax']) ? $this->boundingBox['mmax'] : 0));
 
-        fwrite($this->SHXFile, pack("NNNNNN", 9994, 0, 0, 0, 0, 0));
-        fwrite($this->SHXFile, pack("N", 50 + 4 * count($this->records)));
-        fwrite($this->SHXFile, pack("V", 1000));
-        fwrite($this->SHXFile, pack("V", $this->shapeType));
+        fwrite($this->SHXFile, pack('NNNNNN', 9994, 0, 0, 0, 0, 0));
+        fwrite($this->SHXFile, pack('N', 50 + 4 * count($this->records)));
+        fwrite($this->SHXFile, pack('V', 1000));
+        fwrite($this->SHXFile, pack('V', $this->shapeType));
         fwrite($this->SHXFile, Util::packDouble($this->boundingBox['xmin']));
         fwrite($this->SHXFile, Util::packDouble($this->boundingBox['ymin']));
         fwrite($this->SHXFile, Util::packDouble($this->boundingBox['xmax']));
@@ -280,7 +280,7 @@ class ShapeFile {
             $record = new ShapeRecord(-1);
             $record->loadFromFile($this->SHPFile, $this->DBFFile);
             $eByte = ftell($this->SHPFile);
-            if (($eByte <= $bByte) || ($record->lastError != "")) {
+            if (($eByte <= $bByte) || ($record->lastError != '')) {
                 return false;
             }
 
@@ -294,7 +294,7 @@ class ShapeFile {
             @unlink($dbf_name);
         }
         if (!($this->DBFFile = @dbase_create($dbf_name, $this->DBFHeader))) {
-            return $this->setError(sprintf("It wasn't possible to create the DBase file '%s'", $dbf_name));
+            return $this->setError(sprintf('It wasn\'t possible to create the DBase file '%s'', $dbf_name));
         }
 
         $offset = 50;
@@ -304,8 +304,8 @@ class ShapeFile {
                 $record->saveToFile($this->SHPFile, $this->DBFFile, $index + 1);
 
                 //Save the record to the .shx file
-                fwrite($this->SHXFile, pack("N", $offset));
-                fwrite($this->SHXFile, pack("N", $record->getContentLength()));
+                fwrite($this->SHXFile, pack('N', $offset));
+                fwrite($this->SHXFile, pack('N', $record->getContentLength()));
                 $offset += (4 + $record->getContentLength());
             }
         }
@@ -314,9 +314,9 @@ class ShapeFile {
 
     private function _openSHPFile($toWrite = false) {
         $shp_name = $this->_getFilename('.shp');
-        $this->SHPFile = @fopen($shp_name, ($toWrite ? "wb+" : "rb"));
+        $this->SHPFile = @fopen($shp_name, ($toWrite ? 'wb+' : 'rb'));
         if (!$this->SHPFile) {
-            return $this->setError(sprintf("It wasn't possible to open the Shape file '%s'", $shp_name));
+            return $this->setError(sprintf('It wasn\'t possible to open the Shape file '%s'', $shp_name));
         }
 
         return true;
@@ -331,9 +331,9 @@ class ShapeFile {
 
     private function _openSHXFile($toWrite = false) {
         $shx_name = $this->_getFilename('.shx');
-        $this->SHXFile = @fopen($shx_name, ($toWrite ? "wb+" : "rb"));
+        $this->SHXFile = @fopen($shx_name, ($toWrite ? 'wb+' : 'rb'));
         if (!$this->SHXFile) {
-            return $this->setError(sprintf("It wasn't possible to open the Index file '%s'", $shx_name));
+            return $this->setError(sprintf('It wasn\'t possible to open the Index file '%s'', $shx_name));
         }
 
         return true;
@@ -348,19 +348,19 @@ class ShapeFile {
 
     private function _openDBFFile($toWrite = false) {
         $dbf_name = $this->_getFilename('.dbf');
-        $checkFunction = $toWrite ? "is_writable" : "is_readable";
+        $checkFunction = $toWrite ? 'is_writable' : 'is_readable';
         if (($toWrite) && (!file_exists($dbf_name))) {
             if (!@dbase_create($dbf_name, $this->DBFHeader)) {
-                return $this->setError(sprintf("It wasn't possible to create the DBase file '%s'", $dbf_name));
+                return $this->setError(sprintf('It wasn\'t possible to create the DBase file '%s'', $dbf_name));
             }
         }
         if ($checkFunction($dbf_name)) {
             $this->DBFFile = @dbase_open($dbf_name, ($toWrite ? 2 : 0));
             if (!$this->DBFFile) {
-                return $this->setError(sprintf("It wasn't possible to open the DBase file '%s'", $dbf_name));
+                return $this->setError(sprintf('It wasn\'t possible to open the DBase file '%s'', $dbf_name));
             }
         } else {
-            return $this->setError(sprintf("It wasn't possible to find the DBase file '%s'", $dbf_name));
+            return $this->setError(sprintf('It wasn\'t possible to find the DBase file '%s'', $dbf_name));
         }
         return true;
     }
