@@ -22,11 +22,11 @@
 namespace ShapeFile;
 
 class ShapeRecord {
-    private $SHPFile = NULL;
-    private $DBFFile = NULL;
+    private $SHPFile = null;
+    private $DBFFile = null;
 
-    public $recordNumber = NULL;
-    private $shapeType = NULL;
+    public $recordNumber = null;
+    private $shapeType = null;
 
     public $lastError = "";
 

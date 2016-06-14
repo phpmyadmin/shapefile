@@ -46,7 +46,7 @@ class ShapeFile {
     /**
      * @param integer $shapeType
      */
-    public function __construct($shapeType, $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0), $FileName = NULL) {
+    public function __construct($shapeType, $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0), $FileName = null) {
         $this->shapeType = $shapeType;
         $this->boundingBox = $boundingBox;
         $this->FileName = $FileName;
@@ -72,12 +72,12 @@ class ShapeFile {
     /**
      * @param string|null $FileName Name of file to open
      */
-    public function saveToFile($FileName = NULL) {
+    public function saveToFile($FileName = null) {
         if (! is_null($FileName)) {
             $this->FileName = $FileName;
         }
 
-        if (($this->_openSHPFile(TRUE)) && ($this->_openSHXFile(TRUE)) && ($this->_openDBFFile(TRUE))) {
+        if (($this->_openSHPFile(true)) && ($this->_openSHXFile(true)) && ($this->_openDBFFile(true))) {
             $this->_saveHeaders();
             $this->_saveRecords();
             $this->_closeSHPFile();
@@ -319,13 +319,13 @@ class ShapeFile {
             return $this->setError(sprintf("It wasn't possible to open the Shape file '%s'", $shp_name));
         }
 
-        return TRUE;
+        return true;
     }
 
     private function _closeSHPFile() {
         if ($this->SHPFile) {
             fclose($this->SHPFile);
-            $this->SHPFile = NULL;
+            $this->SHPFile = null;
         }
     }
 
@@ -336,13 +336,13 @@ class ShapeFile {
             return $this->setError(sprintf("It wasn't possible to open the Index file '%s'", $shx_name));
         }
 
-        return TRUE;
+        return true;
     }
 
     private function _closeSHXFile() {
         if ($this->SHXFile) {
             fclose($this->SHXFile);
-            $this->SHXFile = NULL;
+            $this->SHXFile = null;
         }
     }
 
@@ -362,13 +362,13 @@ class ShapeFile {
         } else {
             return $this->setError(sprintf("It wasn't possible to find the DBase file '%s'", $dbf_name));
         }
-        return TRUE;
+        return true;
     }
 
     private function _closeDBFFile() {
         if ($this->DBFFile) {
             dbase_close($this->DBFFile);
-            $this->DBFFile = NULL;
+            $this->DBFFile = null;
         }
     }
 
