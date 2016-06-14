@@ -97,34 +97,34 @@ class ShapeFile {
         $this->records[] = $record;
         $this->records[count($this->records) - 1]->recordNumber = count($this->records);
 
-        if ($this->boundingBox["xmin"]==0.0 || ($this->boundingBox["xmin"]>$record->SHPData["xmin"])) {
+        if ($this->boundingBox["xmin"] == 0.0 || ($this->boundingBox["xmin"] > $record->SHPData["xmin"])) {
             $this->boundingBox["xmin"] = $record->SHPData["xmin"];
         }
-        if ($this->boundingBox["xmax"]==0.0 || ($this->boundingBox["xmax"]<$record->SHPData["xmax"])) {
+        if ($this->boundingBox["xmax"] == 0.0 || ($this->boundingBox["xmax"] < $record->SHPData["xmax"])) {
             $this->boundingBox["xmax"] = $record->SHPData["xmax"];
         }
 
-        if ($this->boundingBox["ymin"]==0.0 || ($this->boundingBox["ymin"]>$record->SHPData["ymin"])) {
+        if ($this->boundingBox["ymin"] == 0.0 || ($this->boundingBox["ymin"] > $record->SHPData["ymin"])) {
             $this->boundingBox["ymin"] = $record->SHPData["ymin"];
         }
-        if ($this->boundingBox["ymax"]==0.0 || ($this->boundingBox["ymax"]<$record->SHPData["ymax"])) {
+        if ($this->boundingBox["ymax"] == 0.0 || ($this->boundingBox["ymax"] < $record->SHPData["ymax"])) {
             $this->boundingBox["ymax"] = $record->SHPData["ymax"];
         }
 
-        if (in_array($this->shapeType,array(11,13,15,18,21,23,25,28))) {
-            if (!isset($this->boundingBox["mmin"]) || $this->boundingBox["mmin"]==0.0 || ($this->boundingBox["mmin"]>$record->SHPData["mmin"])) {
+        if (in_array($this->shapeType, array(11, 13, 15, 18, 21, 23, 25, 28))) {
+            if (!isset($this->boundingBox["mmin"]) || $this->boundingBox["mmin"] == 0.0 || ($this->boundingBox["mmin"] > $record->SHPData["mmin"])) {
                 $this->boundingBox["mmin"] = $record->SHPData["mmin"];
             }
-            if (!isset($this->boundingBox["mmax"]) || $this->boundingBox["mmax"]==0.0 || ($this->boundingBox["mmax"]<$record->SHPData["mmax"])) {
+            if (!isset($this->boundingBox["mmax"]) || $this->boundingBox["mmax"] == 0.0 || ($this->boundingBox["mmax"] < $record->SHPData["mmax"])) {
                 $this->boundingBox["mmax"] = $record->SHPData["mmax"];
             }
         }
 
-        if (in_array($this->shapeType,array(11,13,15,18))) {
-            if (!isset($this->boundingBox["zmin"]) || $this->boundingBox["zmin"]==0.0 || ($this->boundingBox["zmin"]>$record->SHPData["zmin"])) {
+        if (in_array($this->shapeType, array(11, 13, 15, 18))) {
+            if (!isset($this->boundingBox["zmin"]) || $this->boundingBox["zmin"] == 0.0 || ($this->boundingBox["zmin"] > $record->SHPData["zmin"])) {
                 $this->boundingBox["zmin"] = $record->SHPData["zmin"];
             }
-            if (!isset($this->boundingBox["zmax"]) || $this->boundingBox["zmax"]==0.0 || ($this->boundingBox["zmax"]<$record->SHPData["zmax"])) {
+            if (!isset($this->boundingBox["zmax"]) || $this->boundingBox["zmax"] == 0.0 || ($this->boundingBox["zmax"] < $record->SHPData["zmax"])) {
                 $this->boundingBox["zmax"] = $record->SHPData["zmax"];
             }
         }
@@ -237,23 +237,23 @@ class ShapeFile {
         fwrite($this->SHPFile, Util::packDouble($this->boundingBox['ymin']));
         fwrite($this->SHPFile, Util::packDouble($this->boundingBox['xmax']));
         fwrite($this->SHPFile, Util::packDouble($this->boundingBox['ymax']));
-        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['zmin'])?$this->boundingBox['zmin']:0));
-        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['zmax'])?$this->boundingBox['zmax']:0));
-        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['mmin'])?$this->boundingBox['mmin']:0));
-        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['mmax'])?$this->boundingBox['mmax']:0));
+        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['zmin']) ? $this->boundingBox['zmin'] : 0));
+        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['zmax']) ? $this->boundingBox['zmax'] : 0));
+        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['mmin']) ? $this->boundingBox['mmin'] : 0));
+        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['mmax']) ? $this->boundingBox['mmax'] : 0));
 
         fwrite($this->SHXFile, pack("NNNNNN", 9994, 0, 0, 0, 0, 0));
-        fwrite($this->SHXFile, pack("N", 50 + 4*count($this->records)));
+        fwrite($this->SHXFile, pack("N", 50 + 4 * count($this->records)));
         fwrite($this->SHXFile, pack("V", 1000));
         fwrite($this->SHXFile, pack("V", $this->shapeType));
         fwrite($this->SHXFile, Util::packDouble($this->boundingBox['xmin']));
         fwrite($this->SHXFile, Util::packDouble($this->boundingBox['ymin']));
         fwrite($this->SHXFile, Util::packDouble($this->boundingBox['xmax']));
         fwrite($this->SHXFile, Util::packDouble($this->boundingBox['ymax']));
-        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['zmin'])?$this->boundingBox['zmin']:0));
-        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['zmax'])?$this->boundingBox['zmax']:0));
-        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['mmin'])?$this->boundingBox['mmin']:0));
-        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['mmax'])?$this->boundingBox['mmax']:0));
+        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['zmin']) ? $this->boundingBox['zmin'] : 0));
+        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['zmax']) ? $this->boundingBox['zmax'] : 0));
+        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['mmin']) ? $this->boundingBox['mmin'] : 0));
+        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['mmax']) ? $this->boundingBox['mmax'] : 0));
     }
 
     private function _loadRecords() {
