@@ -11,7 +11,6 @@ before_install:
 
 install:
   - pecl install dbase
-  - echo 'extension = dbase.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - composer install
 
 script: 
