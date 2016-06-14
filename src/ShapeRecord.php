@@ -158,8 +158,7 @@ class ShapeRecord {
         $tmp = $this->DBFData;
         unset($this->DBFData);
         $this->DBFData = array();
-        reset($header);
-        while (list($key, $value) = each($header)) {
+        foreach ($header as $value) {
             $this->DBFData[$value[0]] = (isset($tmp[$value[0]])) ? $tmp[$value[0]] : "";
         }
     }
@@ -343,8 +342,7 @@ class ShapeRecord {
 
         $firstIndex = ftell($this->SHPFile);
         $readPoints = 0;
-        reset($this->SHPData["parts"]);
-        while (list($partIndex, $partData) = each($this->SHPData["parts"])) {
+        foreach ($this->SHPData["parts"] as $partIndex => $partData) {
             if (!isset($this->SHPData["parts"][$partIndex]["points"]) || !is_array($this->SHPData["parts"][$partIndex]["points"])) {
                 $this->SHPData["parts"][$partIndex] = array();
                 $this->SHPData["parts"][$partIndex]["points"] = array();
@@ -368,8 +366,7 @@ class ShapeRecord {
 
         $firstIndex = ftell($this->SHPFile);
         $readPoints = 0;
-        reset($this->SHPData["parts"]);
-        while (list($partIndex, $partData) = each($this->SHPData["parts"])) {
+        foreach ($this->SHPData["parts"] as $partIndex => $partData) {
             while (!in_array($readPoints, $this->SHPData["parts"]) && ($readPoints < ($this->SHPData["numpoints"])) && !feof($this->SHPFile)) {
                 $this->SHPData["parts"][$partIndex]["points"][$readPoints][$type] = Util::loadData("d", fread($this->SHPFile, 8));
                 $readPoints++;
@@ -402,8 +399,7 @@ class ShapeRecord {
         }
 
         foreach ($this->SHPData["parts"] as $partData) {
-            reset($partData["points"]);
-            while (list($pointIndex, $pointData) = each($partData["points"])) {
+            foreach ($partData["points"] as $pointData) {
                 $this->_savePoint($pointData);
             }
         }
@@ -416,8 +412,7 @@ class ShapeRecord {
         fwrite($this->SHPFile, pack("dd", $this->SHPData[$type."min"], $this->SHPData[$type."max"]));
 
         foreach ($this->SHPData["parts"] as $partData) {
-            reset($partData["points"]);
-            while (list($pointIndex, $pointData) = each($partData["points"])) {
+            foreach ($partData["points"] as $pointData) {
                 fwrite($this->SHPFile, Util::packDouble($pointData[$type]));
             }
         }

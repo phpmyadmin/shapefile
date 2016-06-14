@@ -295,8 +295,7 @@ class ShapeFile {
 
         $offset = 50;
         if (is_array($this->records) && (count($this->records) > 0)) {
-            reset($this->records);
-            while (list($index, $record) = each($this->records)) {
+            foreach ($this->records as $index => $record) {
                 //Save the record to the .shp file
                 $record->saveToFile($this->SHPFile, $this->DBFFile, $index + 1);
 
