@@ -19,17 +19,19 @@ $shp->addRecord($record2);
 $shp->setDBFHeader(array(
 						array('ID', 'N', 8, 0),
 						array('DESC', 'C', 50, 0)
-					), 'data/new_shape.dbf');
+					));
 
-$shp->records[0]->DBFData['ID_DEN'] = '1';
-$shp->records[0]->DBFData['EXPEDIENTE'] = 'AAAAAAAAA';
+$shp->records[0]->DBFData['ID'] = '1';
+$shp->records[0]->DBFData['DESC'] = 'AAAAAAAAA';
 
-$shp->records[1]->DBFData['ID_DEN'] = '2';
-$shp->records[1]->DBFData['EXPEDIENTE'] = 'BBBBBBBBBB';
+$shp->records[1]->DBFData['ID'] = '2';
+$shp->records[1]->DBFData['DESC'] = 'BBBBBBBBBB';
 
-$shp->records[2]->DBFData['ID_DEN'] = '3';
-$shp->records[2]->DBFData['EXPEDIENTE'] = 'CCCCCCCCCCC';
+$shp->records[2]->DBFData['ID'] = '3';
+$shp->records[2]->DBFData['DESC'] = 'CCCCCCCCCCC';
 
-$shp->saveToFile('data/new_shape.shp', 'data/new_shape.shx', 'data/new_shape.dbf');
-}
+$shp->saveToFile('data/new_shape.*');
+
+echo "The ShapeFile was created.<br />\n";
+echo "Return to the <a href='index.php'>index</a>.";
 ?>

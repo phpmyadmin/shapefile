@@ -1,1 +1,1 @@
-Just copy the file ShapeFile.lib.php to an accesible folder and import it as is shown in the examples.
+Just copy the file ShapeFile.lib.php to an accesible folder and import it and use it as is shown in the examples.

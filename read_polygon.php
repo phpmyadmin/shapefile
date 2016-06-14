@@ -2,7 +2,7 @@
 require_once('lib/ShapeFile.lib.php');
 
 $shp = new ShapeFile(1); 
-$shp->loadFromFile('data/mexico.shp', 'data/mexico.shx', 'data/mexico.dbf');
+$shp->loadFromFile('data/mexico.*');
 
 $i = 1;
 foreach($shp->records as $record){
@@ -17,4 +17,7 @@ foreach($shp->records as $record){
    echo "</pre>";
    $i++;
 }
+
+echo "The ShapeFile was completely readed.<br />\n";
+echo "Return to the <a href='index.php'>index</a>.";
 ?>

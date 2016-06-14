@@ -34,14 +34,12 @@
   }
 
   class ShapeFile {
-    var $SHPFileName;
+    var $FileName;
+
     var $SHPFile;
-        
-    var $SHXFileName;
     var $SHXFile;
-        
-    var $DBFFileName;
     var $DBFFile;
+
     var $DBFHeader;
         
     var $lastError = "";
@@ -52,19 +50,15 @@
         
     var $records;
         
-    function ShapeFile($shapeType, $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0), $SHPFileName = NULL, $SHXFileName = NULL, $DBFFileName = NULL) {
+    function ShapeFile($shapeType, $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0), $FileName = NULL) {
       $this->shapeType = $shapeType;
       $this->boundingBox = $boundingBox;
-      $this->SHPFileName = $SHPFileName;
-      $this->SHXFileName = $SHXFileName;
-      $this->DBFFileName = $DBFFileName;
+      $this->FileName = $FileName;
       $this->fileLength = 50;
     }
         
-    function loadFromFile($SHPFileName, $SHXFileName, $DBFFileName) {
-      $this->SHPFileName = $SHPFileName;
-      $this->SHXFileName = $SHXFileName;
-      $this->DBFFileName = $DBFFileName;
+    function loadFromFile($FileName) {
+      $this->FileName = $FileName;
             
       if (($this->_openSHPFile()) && ($this->_openDBFFile())) {
         $this->_loadHeaders();
@@ -76,10 +70,8 @@
       }
     }
         
-    function saveToFile($SHPFileName = NULL, $SHXFileName = NULL, $DBFFileName = NULL) {
-      if ($SHPFileName != NULL) $this->SHPFileName = $SHPFileName;
-      if ($SHXFileName != NULL) $this->SHXFileName = $SHXFileName;
-      if ($DBFFileName != NULL) $this->DBFFileName = $DBFFileName;
+    function saveToFile($FileName = NULL) {
+      if ($FileName != NULL) $this->FileName = $FileName;
 
       if (($this->_openSHPFile(TRUE)) && ($this->_openSHXFile(TRUE)) && ($this->_openDBFFile(TRUE))) {
         $this->_saveHeaders();
@@ -139,7 +131,7 @@
     }
 
     function _loadDBFHeader() {
-      $DBFFile = fopen($this->DBFFileName, 'r');
+      $DBFFile = fopen(str_replace('.*', '.dbf', $this->FileName), 'r');
   
       $result = array();
       $buff32 = array();
@@ -234,15 +226,16 @@
     }
 
     function _saveRecords() {
-      if (file_exists($this->DBFFileName)) {
-        @unlink($this->DBFFileName);
+      if (file_exists(str_replace('.*', '.dbf', $this->FileName))) {
+        @unlink(str_replace('.*', '.dbf', $this->FileName));
       }
-      if (!($this->DBFFile = @dbase_create($this->DBFFileName, $this->DBFHeader))) {
-        return $this->setError(sprintf("It wasn't possible to create the DBase file '%s'", $this->DBFFileName));
+      if (!($this->DBFFile = @dbase_create(str_replace('.*', '.dbf', $this->FileName), $this->DBFHeader))) {
+        return $this->setError(sprintf("It wasn't possible to create the DBase file '%s'", str_replace('.*', '.dbf', $this->FileName)));
       }
 
       $offset = 50;
       if (is_array($this->records) && (count($this->records) > 0)) {
+        reset($this->records);
         while (list($index, $record) = each($this->records)) {
           //Save the record to the .shp file
           $record->saveToFile($this->SHPFile, $this->DBFFile, $index + 1);
@@ -257,9 +250,9 @@
     }
     
     function _openSHPFile($toWrite = false) {
-      $this->SHPFile = @fopen($this->SHPFileName, ($toWrite ? "wb+" : "rb"));
+      $this->SHPFile = @fopen(str_replace('.*', '.shp', $this->FileName), ($toWrite ? "wb+" : "rb"));
       if (!$this->SHPFile) {
-        return $this->setError(sprintf("It wasn't possible to open the Shape file '%s'", $this->SHPFileName));
+        return $this->setError(sprintf("It wasn't possible to open the Shape file '%s'", str_replace('.*', '.shp', $this->FileName)));
       }
 
       return TRUE;
@@ -273,9 +266,9 @@
     }
     
     function _openSHXFile($toWrite = false) {
-      $this->SHXFile = @fopen($this->SHXFileName, ($toWrite ? "wb+" : "rb"));
+      $this->SHXFile = @fopen(str_replace('.*', '.shx', $this->FileName), ($toWrite ? "wb+" : "rb"));
       if (!$this->SHXFile) {
-        return $this->setError(sprintf("It wasn't possible to open the Index file '%s'", $this->SHXFileName));
+        return $this->setError(sprintf("It wasn't possible to open the Index file '%s'", str_replace('.*', '.shx', $this->FileName)));
       }
 
       return TRUE;
@@ -290,18 +283,18 @@
         
     function _openDBFFile($toWrite = false) {
       $checkFunction = $toWrite ? "is_writable" : "is_readable";
-      if (($toWrite) && (!file_exists($this->DBFFileName))) {
-        if (!@dbase_create($this->DBFFileName, $this->DBFHeader)) {
-          return $this->setError(sprintf("It wasn't possible to create the DBase file '%s'", $this->DBFFileName));
+      if (($toWrite) && (!file_exists(str_replace('.*', '.dbf', $this->FileName)))) {
+        if (!@dbase_create(str_replace('.*', '.dbf', $this->FileName), $this->DBFHeader)) {
+          return $this->setError(sprintf("It wasn't possible to create the DBase file '%s'", str_replace('.*', '.dbf', $this->FileName)));
         }
       }
-      if ($checkFunction($this->DBFFileName)) {
-        $this->DBFFile = dbase_open($this->DBFFileName, ($toWrite ? 2 : 0));
+      if ($checkFunction(str_replace('.*', '.dbf', $this->FileName))) {
+        $this->DBFFile = dbase_open(str_replace('.*', '.dbf', $this->FileName), ($toWrite ? 2 : 0));
         if (!$this->DBFFile) {
-          return $this->setError(sprintf("It wasn't possible to open the DBase file '%s'", $this->DBFFileName));
+          return $this->setError(sprintf("It wasn't possible to open the DBase file '%s'", str_replace('.*', '.dbf', $this->FileName)));
         }
       } else {
-        return $this->setError(sprintf("It wasn't possible to find the DBase file '%s'", $this->DBFFileName));
+        return $this->setError(sprintf("It wasn't possible to find the DBase file '%s'", str_replace('.*', '.dbf', $this->FileName)));
       }
       return TRUE;
     }
@@ -396,6 +389,7 @@
       $tmp = $this->DBFData; 
       unset($this->DBFData);
       $this->DBFData = array();
+      reset($header);
       while (list($key, $value) = each($header)) {
         $this->DBFData[$value[0]] = (isset($tmp[$value[0]])) ? $tmp[$value[0]] : "";
       }
@@ -483,6 +477,7 @@
       
       $firstIndex = ftell($this->SHPFile);
       $readPoints = 0;
+      reset($this->SHPData["parts"]);
       while (list($partIndex, $partData) = each($this->SHPData["parts"])) {
         if (!isset($this->SHPData["parts"][$partIndex]["points"]) || !is_array($this->SHPData["parts"][$partIndex]["points"])) {
           $this->SHPData["parts"][$partIndex] = array();
@@ -506,7 +501,9 @@
         fwrite($this->SHPFile, pack("V", count($this->SHPData["parts"][$i])));
       }
       
+      reset($this->SHPData["parts"]);
       foreach ($this->SHPData["parts"] as $partData){
+        reset($partData["points"]);
         while (list($pointIndex, $pointData) = each($partData["points"])) {
           $this->_savePoint($pointData);
         }
@@ -648,5 +645,5 @@
       return false;
     }
   }
-  
+
 ?>
