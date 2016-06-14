@@ -23,6 +23,7 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
         if (!is_null($parts)) {
             $this->assertEquals($parts, count($shp->records[0]->SHPData["parts"]));
         }
+        $this->assertEquals('', $shp->lastError);
     }
 
     /**
@@ -36,7 +37,38 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
             array('data/capitals.*', 652, null),
             array('data/mexico.*', 32, 3),
             array('data/Czech_Republic_AL2.*', 1, 1),
-            array('data/data/w001n05f.*', 0, null),
+            array('data/w001n05f.*', 1, 1),
+        );
+    }
+
+    /**
+     * Test error handling in loader
+     *
+     * @param string $filename name to load
+     *
+     * @return void
+     *
+     * @dataProvider provideErrorFiles
+     */
+    public function testLoadError($filename)
+    {
+        $shp = new ShapeFile(1);
+        $shp->loadFromFile($filename);
+        $this->assertNotEquals('', $shp->lastError);
+    }
+
+    /**
+     * Data provider for file loading error tests.
+     *
+     * @return array
+     */
+    public function provideErrorFiles()
+    {
+        return array(
+            array('data/no-dbf.*'),
+            array('data/no-shp.*'),
+            array('data/invalid-dbf.*'),
+            array('data/missing.*'),
         );
     }
 
