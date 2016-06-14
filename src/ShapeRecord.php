@@ -522,7 +522,7 @@ class ShapeRecord {
                 $this->SHPData['numpoints'] = 1 + (isset($this->SHPData['numpoints']) ? $this->SHPData['numpoints'] : 0);
                 break;
             default:
-                $this->setError(sprintf('The Shape Type '%s' is not supported.', $this->shapeType));
+                $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
                 break;
         }
     }
@@ -578,7 +578,7 @@ class ShapeRecord {
                 }
                 break;
             default:
-                $this->setError(sprintf('The Shape Type '%s' is not supported.', $this->shapeType));
+                $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
                 break;
         }
     }
@@ -634,7 +634,7 @@ class ShapeRecord {
                 break;
             default:
                 $result = false;
-                $this->setError(sprintf('The Shape Type '%s' is not supported.', $this->shapeType));
+                $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
                 break;
         }
         return $result;
