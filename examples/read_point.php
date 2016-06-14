@@ -7,7 +7,7 @@ $shp = new ShapeFile(1);
 $shp->loadFromFile('../data/capitals.*');
 
 $i = 1;
-foreach($shp->records as $record){
+foreach ($shp->records as $record){
     echo "<pre>";
     echo "Record No. $i:\n\n\n";
     echo "SHP Data = ";

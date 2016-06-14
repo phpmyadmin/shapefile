@@ -39,8 +39,8 @@ class ShapeRecord {
 
     public $lastError = "";
 
-    private $SHPData = array();
-    private $DBFData = array();
+    public $SHPData = array();
+    public $DBFData = array();
 
     public function __construct($shapeType) {
         $this->shapeType = $shapeType;
