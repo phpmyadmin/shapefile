@@ -2,7 +2,7 @@
     "name": "phpmyadmin/shapefile",
     "description": "ShapeFile library for PHP",
     "license": "GPL-2.0+",
-    "keywords": ["shapefile", "shp", "geo"],
+    "keywords": ["shapefile", "shp", "geo", "geospatial", "dbf", "ESRI", "shape"],
     "homepage": "https://github.com/phpmyadmin/shapefile",
     "authors": [
         {
