@@ -224,14 +224,6 @@ class ShapeRecord {
         fwrite($this->SHPFile, Util::packDouble($data["m"]));
     }
 
-    private function _saveMeasure($data) {
-        fwrite($this->SHPFile, Util::packDouble($data["m"]));
-    }
-
-    private function _saveZCoordinate($data) {
-        fwrite($this->SHPFile, Util::packDouble($data["z"]));
-    }
-
     private function _loadNullRecord() {
         $this->SHPData = array();
     }
