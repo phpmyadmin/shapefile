@@ -1,4 +1,6 @@
 <?php
+use ShapeFile\ShapeFile;
+
 /**
  * Displays content of given file
  *
