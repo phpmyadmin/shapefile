@@ -104,11 +104,11 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
         $record0 = new ShapeRecord(1);
         $record0->addPoint(array("x" => 482131.764567, "y" => 2143634.39608));
 
-        $record1 = new ShapeRecord(1);
-        $record1->addPoint(array("x" => 472131.764567, "y" => 2143634.39608));
+        $record1 = new ShapeRecord(11);
+        $record1->addPoint(array("x" => 472131.764567, "y" => 2143634.39608, 'z' => 220, 'm' => 120));
 
-        $record2 = new ShapeRecord(1);
-        $record2->addPoint(array("x" => 492131.764567, "y" => 2143634.39608));
+        $record2 = new ShapeRecord(21);
+        $record2->addPoint(array("x" => 492131.764567, "y" => 2143634.39608, 'z' => 150, 'm' => 80));
 
         $shp->addRecord($record0);
         $shp->addRecord($record1);
