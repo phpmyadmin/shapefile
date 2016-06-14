@@ -19,10 +19,12 @@ $shp->addRecord($record0);
 $shp->addRecord($record1);
 $shp->addRecord($record2);
 
-$shp->setDBFHeader(array(
-						array('ID', 'N', 8, 0),
-						array('DESC', 'C', 50, 0)
-					));
+$shp->setDBFHeader(
+    array(
+        array('ID', 'N', 8, 0),
+        array('DESC', 'C', 50, 0)
+    )
+);
 
 $shp->records[0]->DBFData['ID'] = '1';
 $shp->records[0]->DBFData['DESC'] = 'AAAAAAAAA';
