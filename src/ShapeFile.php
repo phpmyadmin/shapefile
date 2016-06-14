@@ -52,6 +52,9 @@ class ShapeFile {
 
     public $records;
 
+    /**
+     * @param integer $shapeType
+     */
     public function __construct($shapeType, $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0), $FileName = NULL) {
         $this->shapeType = $shapeType;
         $this->boundingBox = $boundingBox;
@@ -59,6 +62,9 @@ class ShapeFile {
         $this->fileLength = 50; // The value for file length is the total length of the file in 16-bit words (including the fifty 16-bit words that make up the header).
     }
 
+    /**
+     * @param string $FileName
+     */
     public function loadFromFile($FileName) {
         $this->FileName = $FileName;
 
@@ -72,6 +78,9 @@ class ShapeFile {
         }
     }
 
+    /**
+     * @param string $FileName
+     */
     public function saveToFile($FileName = NULL) {
         if ($FileName != NULL) {
             $this->FileName = $FileName;
@@ -88,6 +97,9 @@ class ShapeFile {
         }
     }
 
+    /**
+     * @param ShapeRecord $record
+     */
     public function addRecord($record) {
         if ((isset($this->DBFHeader)) && (is_array($this->DBFHeader))) {
             $record->updateDBFInfo($this->DBFHeader);
@@ -351,6 +363,9 @@ class ShapeFile {
         }
     }
 
+    /**
+     * @param string $error
+     */
     public function setError($error) {
         $this->lastError = $error;
         return false;
