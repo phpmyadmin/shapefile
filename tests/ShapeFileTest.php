@@ -23,6 +23,7 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
         if (!is_null($parts)) {
             $this->assertEquals($parts, count($shp->records[0]->SHPData["parts"]));
         }
+        $this->assertEquals('', $shp->lastError);
     }
 
     /**
