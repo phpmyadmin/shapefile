@@ -1,5 +1,7 @@
 <?php
-require_once('../src/ShapeFile.lib.php');
+use ShapeFile;
+
+require_once '../vendor/autoload.php';
 
 $shp = new ShapeFile(1, array("xmin" => 464079.002268, "ymin" => 2120153.74792, "xmax" => 505213.52849, "ymax" => 2163205.70036));
 

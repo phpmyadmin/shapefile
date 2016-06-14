@@ -1,5 +1,7 @@
 <?php
-require_once('../src/ShapeFile.lib.php');
+use ShapeFile;
+
+require_once '../vendor/autoload.php';
 
 $shp = new ShapeFile(1);
 $shp->loadFromFile('../data/mexico.*');
