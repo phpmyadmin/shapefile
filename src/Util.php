@@ -42,8 +42,7 @@ class Util {
     }
 
     public static function packDouble($value) {
-        $value = (double) $value;
-        $bin = pack("d", $value);
+        $bin = pack("d", (double) $value);
 
         if (is_null(self::$little_endian)) {
             self::$little_endian = (pack('L', 1) == pack('V', 1));
