@@ -1,8 +1,7 @@
 <?php
-use ShapeFile\ShapeFile;
-use ShapeFile\ShapeRecord;
+namespace ShapeFile;
 
-class ShapeMoFilesTest extends PHPUnit_Framework_TestCase
+class ShapeFileTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Tests loading of a file
