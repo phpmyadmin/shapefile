@@ -514,10 +514,10 @@ class ShapeRecord {
                 if (in_array($this->shapeType, array(11)) && !isset($point["z"])) {
                     $point["z"] = 0.0; // no_value
                 }
-                $this->_adjustBBox($point);
 
                 //Substitutes the value of the current point
                 $this->SHPData = $point;
+                $this->_adjustBBox($point);
                 break;
             case 3:
             case 5:
