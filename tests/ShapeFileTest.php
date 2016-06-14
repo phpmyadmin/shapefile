@@ -93,11 +93,11 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests creating file
+     * Creates test data
      *
      * @return void
      */
-    public function testCreate()
+    private function createTestData()
     {
         $shp = new ShapeFile(1);
 
@@ -131,9 +131,38 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
         $shp->records[2]->DBFData['DESC'] = 'CCCCCCCCCCC';
 
         $shp->saveToFile('./data/test_shape.*');
+    }
+
+    /**
+     * Tests creating file
+     *
+     * @return void
+     */
+    public function testCreate()
+    {
+        $this->createTestData();
 
         $shp = new ShapeFile(1);
         $shp->loadFromFile('./data/test_shape.*');
         $this->assertEquals(3, count($shp->records));
+    }
+
+    /**
+     * Tests creating file
+     *
+     * @return void
+     */
+    public function testDelete()
+    {
+        $this->createTestData();
+
+        $shp = new ShapeFile(1);
+        $shp->loadFromFile('./data/test_shape.*');
+        $shp->deleteRecord(0);
+        $this->assertEquals(2, count($shp->records));
+
+        $shp = new ShapeFile(1);
+        $shp->loadFromFile('./data/test_shape.*');
+        $this->assertEquals(2, count($shp->records));
     }
 }
