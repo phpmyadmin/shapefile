@@ -10,7 +10,13 @@ before_install:
   - pip install --user codecov
 
 install:
-  - pecl install dbase
+  - git clone --depth 1 git://github.com/mote0230/dbase-pecl-php7.git php7-dbase
+  - cd php7-dbase/
+  - phpize
+  - ./configure
+  - make
+  - make install
+  - cd ..
   - composer install
 
 script: 
