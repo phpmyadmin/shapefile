@@ -20,7 +20,7 @@
         "ext-dbase": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~5.2 || ~4.8"
+        "phpunit/phpunit": "~5.4"
     },
     "autoload": {
         "psr-4": {
