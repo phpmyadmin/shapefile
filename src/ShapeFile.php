@@ -98,6 +98,18 @@ class ShapeFile {
     }
 
     /**
+     * Generates filename with given extension
+     *
+     * @param string $extension Extension to use (including dot)
+     *
+     * @return string
+     */
+    private function _getFilename($extension)
+    {
+        return str_replace('.*', $extension, $this->FileName);
+    }
+
+    /**
      * @param ShapeRecord $record
      */
     public function addRecord($record) {
@@ -182,7 +194,7 @@ class ShapeFile {
     }
 
     private function _loadDBFHeader() {
-        $DBFFile = fopen(str_replace('.*', '.dbf', $this->FileName), 'r');
+        $DBFFile = fopen($this->_getFilename('.dbf'), 'r');
 
         $result = array();
         $i = 1;
@@ -286,11 +298,12 @@ class ShapeFile {
     }
 
     private function _saveRecords() {
-        if (file_exists(str_replace('.*', '.dbf', $this->FileName))) {
-            @unlink(str_replace('.*', '.dbf', $this->FileName));
+        $dbf_name = $this->_getFilename('.dbf');
+        if (file_exists($dbf_name)) {
+            @unlink($dbf_name);
         }
-        if (!($this->DBFFile = @dbase_create(str_replace('.*', '.dbf', $this->FileName), $this->DBFHeader))) {
-            return $this->setError(sprintf("It wasn't possible to create the DBase file '%s'", str_replace('.*', '.dbf', $this->FileName)));
+        if (!($this->DBFFile = @dbase_create($dbf_name, $this->DBFHeader))) {
+            return $this->setError(sprintf("It wasn't possible to create the DBase file '%s'", $dbf_name));
         }
 
         $offset = 50;
@@ -309,9 +322,10 @@ class ShapeFile {
     }
 
     private function _openSHPFile($toWrite = false) {
-        $this->SHPFile = @fopen(str_replace('.*', '.shp', $this->FileName), ($toWrite ? "wb+" : "rb"));
+        $shp_name = $this->_getFilename('.shp');
+        $this->SHPFile = @fopen($shp_name, ($toWrite ? "wb+" : "rb"));
         if (!$this->SHPFile) {
-            return $this->setError(sprintf("It wasn't possible to open the Shape file '%s'", str_replace('.*', '.shp', $this->FileName)));
+            return $this->setError(sprintf("It wasn't possible to open the Shape file '%s'", $shp_name));
         }
 
         return TRUE;
@@ -325,9 +339,10 @@ class ShapeFile {
     }
 
     private function _openSHXFile($toWrite = false) {
-        $this->SHXFile = @fopen(str_replace('.*', '.shx', $this->FileName), ($toWrite ? "wb+" : "rb"));
+        $shx_name = $this->_getFilename('.shx');
+        $this->SHXFile = @fopen($shx_name, ($toWrite ? "wb+" : "rb"));
         if (!$this->SHXFile) {
-            return $this->setError(sprintf("It wasn't possible to open the Index file '%s'", str_replace('.*', '.shx', $this->FileName)));
+            return $this->setError(sprintf("It wasn't possible to open the Index file '%s'", $shx_name));
         }
 
         return TRUE;
@@ -341,19 +356,20 @@ class ShapeFile {
     }
 
     private function _openDBFFile($toWrite = false) {
+        $dbf_name = $this->_getFilename('.dbf');
         $checkFunction = $toWrite ? "is_writable" : "is_readable";
-        if (($toWrite) && (!file_exists(str_replace('.*', '.dbf', $this->FileName)))) {
-            if (!@dbase_create(str_replace('.*', '.dbf', $this->FileName), $this->DBFHeader)) {
-                return $this->setError(sprintf("It wasn't possible to create the DBase file '%s'", str_replace('.*', '.dbf', $this->FileName)));
+        if (($toWrite) && (!file_exists($dbf_name))) {
+            if (!@dbase_create($dbf_name, $this->DBFHeader)) {
+                return $this->setError(sprintf("It wasn't possible to create the DBase file '%s'", $dbf_name));
             }
         }
-        if ($checkFunction(str_replace('.*', '.dbf', $this->FileName))) {
-            $this->DBFFile = @dbase_open(str_replace('.*', '.dbf', $this->FileName), ($toWrite ? 2 : 0));
+        if ($checkFunction($dbf_name)) {
+            $this->DBFFile = @dbase_open($dbf_name, ($toWrite ? 2 : 0));
             if (!$this->DBFFile) {
-                return $this->setError(sprintf("It wasn't possible to open the DBase file '%s'", str_replace('.*', '.dbf', $this->FileName)));
+                return $this->setError(sprintf("It wasn't possible to open the DBase file '%s'", $dbf_name));
             }
         } else {
-            return $this->setError(sprintf("It wasn't possible to find the DBase file '%s'", str_replace('.*', '.dbf', $this->FileName)));
+            return $this->setError(sprintf("It wasn't possible to find the DBase file '%s'", $dbf_name));
         }
         return TRUE;
     }
