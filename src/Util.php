@@ -22,6 +22,8 @@
 namespace ShapeFile;
 
 class Util {
+    private static $little_endian = null;
+
     public static function loadData($type, $data) {
         if (!$data) {
             return $data;
@@ -43,18 +45,14 @@ class Util {
         $value = (double) $value;
         $bin = pack("d", $value);
 
-        //We test if the conversion of an integer (1) is done as LE or BE by default
-        switch (pack('L', 1)) {
-            case pack('V', 1): //Little Endian
-                $result = $bin;
-                break;
-            case pack('N', 1): //Big Endian
-                $result = self::swap($bin);
-                break;
-            default: //Some other thing, we just return false
-                $result = FALSE;
+        if (is_null(self::$little_endian)) {
+            self::$little_endian = (pack('L', 1) == pack('V', 1));
         }
 
-        return $result;
+        if (self::$little_endian) {
+            return $bin;
+        } else {
+            return self::swap($bin);
+        }
     }
 }
