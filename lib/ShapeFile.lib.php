@@ -1,4 +1,33 @@
-<?php 
+<?php
+/**
+ * BytesFall ShapeFiles library
+ *
+ * The library implements the 2D variants of the ShapeFile format as defined in
+ * http://www.esri.com/library/whitepapers/pdfs/shapefile.pdf.
+ * The library currently supports reading and editing of ShapeFiles and the
+ * Associated information (DBF file).
+ *
+ * @package bfShapeFiles
+ * @version 0.0.2
+ * @link http://bfshapefiles.sourceforge.net/
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2-or-later
+ *
+ * Copyright 2006-2007 Ovidio <ovidio AT users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, you can download one from
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ */
   function loadData($type, $data) {
     if (!$data) return $data;
     $tmp = unpack($type, $data);
@@ -32,7 +61,11 @@
 
     return $result;
   }
-
+/**
+ * ShapeFile class
+ *
+ * @package bfShapeFiles
+ */
   class ShapeFile {
     var $FileName;
 
@@ -41,25 +74,25 @@
     var $DBFFile;
 
     var $DBFHeader;
-        
+
     var $lastError = "";
-        
+
     var $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0);
     var $fileLength = 0;
     var $shapeType = 0;
-        
+
     var $records;
-        
-    function ShapeFile($shapeType, $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0), $FileName = NULL) {
+
+    public function __construct($shapeType, $boundingBox = array("xmin" => 0.0, "ymin" => 0.0, "xmax" => 0.0, "ymax" => 0.0), $FileName = NULL) {
       $this->shapeType = $shapeType;
       $this->boundingBox = $boundingBox;
       $this->FileName = $FileName;
       $this->fileLength = 50;
     }
-        
+
     function loadFromFile($FileName) {
       $this->FileName = $FileName;
-            
+
       if (($this->_openSHPFile()) && ($this->_openDBFFile())) {
         $this->_loadHeaders();
         $this->_loadRecords();
@@ -69,7 +102,7 @@
         return false;
       }
     }
-        
+
     function saveToFile($FileName = NULL) {
       if ($FileName != NULL) $this->FileName = $FileName;
 
@@ -83,7 +116,7 @@
         return false;
       }
     }
-        
+
     function addRecord($record) {
       if ((isset($this->DBFHeader)) && (is_array($this->DBFHeader))) {
         $record->updateDBFInfo($this->DBFHeader);
@@ -95,7 +128,7 @@
 
       return (count($this->records) - 1);
     }
-        
+
     function deleteRecord($index) {
       if (isset($this->records[$index])) {
         $this->fileLength -= ($this->records[$index]->getContentLength() + 4);
@@ -106,11 +139,11 @@
         $this->_deleteRecordFromDBF($index);
       }
     }
-        
+
     function getDBFHeader() {
       return $this->DBFHeader;
     }
-        
+
     function setDBFHeader($header) {
       $this->DBFHeader = $header;
 
@@ -132,12 +165,12 @@
 
     function _loadDBFHeader() {
       $DBFFile = fopen(str_replace('.*', '.dbf', $this->FileName), 'r');
-  
+
       $result = array();
       $buff32 = array();
       $i = 1;
       $inHeader = true;
-  
+
       while ($inHeader) {
         if (!feof($DBFFile)) {
           $buff32 = fread($DBFFile, 32);
@@ -147,12 +180,12 @@
             } else {
               $pos = strpos(substr($buff32, 0, 10), chr(0));
               $pos = ($pos == 0 ? 10 : $pos);
-  
+
               $fieldName = substr($buff32, 0, $pos);
               $fieldType = substr($buff32, 11, 1);
               $fieldLen = ord(substr($buff32, 16, 1));
               $fieldDec = ord(substr($buff32, 17, 1));
-  
+
               array_push($result, array($fieldName, $fieldType, $fieldLen, $fieldDec));
             }
           }
@@ -161,11 +194,11 @@
           $inHeader = false;
         }
       }
-  
+
       fclose($DBFFile);
       return($result);
     }
-        
+
     function _deleteRecordFromDBF($index) {
       if (@dbase_delete_record($this->DBFFile, $index)) {
         @dbase_pack($this->DBFFile);
@@ -175,7 +208,7 @@
     function _loadHeaders() {
       fseek($this->SHPFile, 24, SEEK_SET);
       $this->fileLength = loadData("N", fread($this->SHPFile, 4));
-          
+
       fseek($this->SHPFile, 32, SEEK_SET);
       $this->shapeType = loadData("V", fread($this->SHPFile, 4));
 
@@ -248,7 +281,7 @@
       }
       @dbase_pack($this->DBFFile);
     }
-    
+
     function _openSHPFile($toWrite = false) {
       $this->SHPFile = @fopen(str_replace('.*', '.shp', $this->FileName), ($toWrite ? "wb+" : "rb"));
       if (!$this->SHPFile) {
@@ -257,14 +290,14 @@
 
       return TRUE;
     }
-    
+
     function _closeSHPFile() {
       if ($this->SHPFile) {
         fclose($this->SHPFile);
         $this->SHPFile = NULL;
       }
     }
-    
+
     function _openSHXFile($toWrite = false) {
       $this->SHXFile = @fopen(str_replace('.*', '.shx', $this->FileName), ($toWrite ? "wb+" : "rb"));
       if (!$this->SHXFile) {
@@ -273,14 +306,14 @@
 
       return TRUE;
     }
-    
+
     function _closeSHXFile() {
       if ($this->SHXFile) {
         fclose($this->SHXFile);
         $this->SHXFile = NULL;
       }
     }
-        
+
     function _openDBFFile($toWrite = false) {
       $checkFunction = $toWrite ? "is_writable" : "is_readable";
       if (($toWrite) && (!file_exists(str_replace('.*', '.dbf', $this->FileName)))) {
@@ -298,36 +331,36 @@
       }
       return TRUE;
     }
-        
+
     function _closeDBFFile() {
       if ($this->DBFFile) {
         dbase_close($this->DBFFile);
         $this->DBFFile = NULL;
       }
     }
-        
+
     function setError($error) {
       $this->lastError = $error;
       return false;
     }
   }
-  
+
   class ShapeRecord {
     var $SHPFile = NULL;
     var $DBFFile = NULL;
-        
+
     var $recordNumber = NULL;
     var $shapeType = NULL;
-        
+
     var $lastError = "";
-        
+
     var $SHPData = array();
     var $DBFData = array();
-        
-    function ShapeRecord($shapeType) {
+
+    public function __construct($shapeType) {
       $this->shapeType = $shapeType;
     }
-        
+
     function loadFromFile(&$SHPFile, &$DBFFile) {
       $this->SHPFile = $SHPFile;
       $this->DBFFile = $DBFFile;
@@ -355,7 +388,7 @@
       }
       $this->_loadDBFData();
     }
-        
+
     function saveToFile(&$SHPFile, &$DBFFile, $recordNumber) {
       $this->SHPFile = $SHPFile;
       $this->DBFFile = $DBFFile;
@@ -386,7 +419,7 @@
     }
 
     function updateDBFInfo($header) {
-      $tmp = $this->DBFData; 
+      $tmp = $this->DBFData;
       unset($this->DBFData);
       $this->DBFData = array();
       reset($header);
@@ -400,27 +433,27 @@
       $tmp = loadData("N", fread($this->SHPFile, 4)); //We read the length of the record
       $this->shapeType = loadData("V", fread($this->SHPFile, 4));
     }
-        
+
     function _saveHeaders() {
       fwrite($this->SHPFile, pack("N", $this->recordNumber));
       fwrite($this->SHPFile, pack("N", $this->getContentLength()));
       fwrite($this->SHPFile, pack("V", $this->shapeType));
     }
-    
+
     function _loadPoint() {
       $data = array();
-      
+
       $data["x"] = loadData("d", fread($this->SHPFile, 8));
       $data["y"] = loadData("d", fread($this->SHPFile, 8));
-      
+
       return $data;
     }
-    
+
     function _savePoint($data) {
       fwrite($this->SHPFile, packDouble($data["x"]));
       fwrite($this->SHPFile, packDouble($data["y"]));
     }
-    
+
     function _loadNullRecord() {
       $this->SHPData = array();
     }
@@ -432,11 +465,11 @@
     function _loadPointRecord() {
       $this->SHPData = $this->_loadPoint();
     }
-    
+
     function _savePointRecord() {
       $this->_savePoint($this->SHPData);
     }
-    
+
     function _loadMultiPointRecord() {
       $this->SHPData = array();
       $this->SHPData["xmin"] = loadData("d", fread($this->SHPFile, 8));
@@ -445,22 +478,22 @@
       $this->SHPData["ymax"] = loadData("d", fread($this->SHPFile, 8));
 
       $this->SHPData["numpoints"] = loadData("V", fread($this->SHPFile, 4));
-  
+
       for ($i = 0; $i <= $this->SHPData["numpoints"]; $i++) {
         $this->SHPData["points"][] = $this->_loadPoint();
       }
     }
-    
+
     function _saveMultiPointRecord() {
       fwrite($this->SHPFile, pack("dddd", $this->SHPData["xmin"], $this->SHPData["ymin"], $this->SHPData["xmax"], $this->SHPData["ymax"]));
 
       fwrite($this->SHPFile, pack("V", $this->SHPData["numpoints"]));
-  
+
       for ($i = 0; $i <= $this->SHPData["numpoints"]; $i++) {
         $this->_savePoint($this->SHPData["points"][$i]);
       }
     }
-    
+
     function _loadPolyLineRecord() {
       $this->SHPData = array();
       $this->SHPData["xmin"] = loadData("d", fread($this->SHPFile, 8));
@@ -470,11 +503,11 @@
 
       $this->SHPData["numparts"]  = loadData("V", fread($this->SHPFile, 4));
       $this->SHPData["numpoints"] = loadData("V", fread($this->SHPFile, 4));
-      
+
       for ($i = 0; $i < $this->SHPData["numparts"]; $i++) {
         $this->SHPData["parts"][$i] = loadData("V", fread($this->SHPFile, 4));
       }
-      
+
       $firstIndex = ftell($this->SHPFile);
       $readPoints = 0;
       reset($this->SHPData["parts"]);
@@ -488,20 +521,19 @@
           $readPoints++;
         }
       }
-      
+
       fseek($this->SHPFile, $firstIndex + ($readPoints*16));
     }
-    
+
     function _savePolyLineRecord() {
       fwrite($this->SHPFile, pack("dddd", $this->SHPData["xmin"], $this->SHPData["ymin"], $this->SHPData["xmax"], $this->SHPData["ymax"]));
 
       fwrite($this->SHPFile, pack("VV", $this->SHPData["numparts"], $this->SHPData["numpoints"]));
-      
+
       for ($i = 0; $i < $this->SHPData["numparts"]; $i++) {
         fwrite($this->SHPFile, pack("V", count($this->SHPData["parts"][$i])));
       }
-      
-      reset($this->SHPData["parts"]);
+
       foreach ($this->SHPData["parts"] as $partData){
         reset($partData["points"]);
         while (list($pointIndex, $pointData) = each($partData["points"])) {
@@ -509,15 +541,15 @@
         }
       }
     }
-    
+
     function _loadPolygonRecord() {
       $this->_loadPolyLineRecord();
     }
-    
+
     function _savePolygonRecord() {
       $this->_savePolyLineRecord();
     }
-    
+
     function addPoint($point, $partIndex = 0) {
       switch ($this->shapeType) {
         case 0:
@@ -536,7 +568,7 @@
           if (!isset($this->SHPData["ymax"]) || ($this->SHPData["ymax"] < $point["y"])) $this->SHPData["ymax"] = $point["y"];
 
           $this->SHPData["parts"][$partIndex]["points"][] = $point;
-          
+
           $this->SHPData["numparts"] = count($this->SHPData["parts"]);
           $this->SHPData["numpoints"]++;
         break;
@@ -555,7 +587,7 @@
         break;
       }
     }
-    
+
     function deletePoint($pointIndex = 0, $partIndex = 0) {
       switch ($this->shapeType) {
         case 0:
@@ -574,7 +606,7 @@
               $this->SHPData["parts"][$partIndex]["points"][$i] = $this->SHPData["parts"][$partIndex]["points"][$i + 1];
             }
             unset($this->SHPData["parts"][$partIndex]["points"][count($this->SHPData["parts"][$partIndex]["points"]) - 1]);
-            
+
             $this->SHPData["numparts"] = count($this->SHPData["parts"]);
             $this->SHPData["numpoints"]--;
           }
@@ -586,7 +618,7 @@
               $this->SHPData["points"][$i] = $this->SHPData["points"][$i + 1];
             }
             unset($this->SHPData["points"][count($this->SHPData["points"]) - 1]);
-            
+
             $this->SHPData["numpoints"]--;
           }
         break;
@@ -595,7 +627,7 @@
         break;
       }
     }
-        
+
     function getContentLength() {
       switch ($this->shapeType) {
         case 0:
@@ -621,12 +653,12 @@
       }
       return $result;
     }
-        
+
     function _loadDBFData() {
       $this->DBFData = @dbase_get_record_with_names($this->DBFFile, $this->recordNumber);
       unset($this->DBFData["deleted"]);
     }
-        
+
     function _saveDBFData() {
       unset($this->DBFData["deleted"]);
       if ($this->recordNumber <= dbase_numrecords($this->DBFFile)) {
@@ -646,4 +678,3 @@
     }
   }
 
-?>
