@@ -1,8 +1,8 @@
 <?php
-require_once('src/ShapeFile.lib.php');
+require_once('../src/ShapeFile.lib.php');
 
 $shp = new ShapeFile(1);
-$shp->loadFromFile('data/capitals.*');
+$shp->loadFromFile('../data/capitals.*');
 
 $i = 1;
 foreach($shp->records as $record){

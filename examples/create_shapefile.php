@@ -1,5 +1,5 @@
 <?php
-require_once('src/ShapeFile.lib.php');
+require_once('../src/ShapeFile.lib.php');
 
 $shp = new ShapeFile(1, array("xmin" => 464079.002268, "ymin" => 2120153.74792, "xmax" => 505213.52849, "ymax" => 2163205.70036));
 
@@ -30,7 +30,7 @@ $shp->records[1]->DBFData['DESC'] = 'BBBBBBBBBB';
 $shp->records[2]->DBFData['ID'] = '3';
 $shp->records[2]->DBFData['DESC'] = 'CCCCCCCCCCC';
 
-$shp->saveToFile('data/new_shape.*');
+$shp->saveToFile('../data/new_shape.*');
 
 echo "The ShapeFile was created.<br />\n";
 echo "Return to the <a href='index.php'>index</a>.";
