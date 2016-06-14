@@ -165,7 +165,8 @@ class ShapeRecord {
 
     private function _loadHeaders() {
         $this->recordNumber = Util::loadData("N", fread($this->SHPFile, 4));
-        $tmp = Util::loadData("N", fread($this->SHPFile, 4)); //We read the length of the record
+        // We read the length of the record
+        Util::loadData("N", fread($this->SHPFile, 4));
         $this->shapeType = Util::loadData("V", fread($this->SHPFile, 4));
     }
 
