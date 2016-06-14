@@ -79,7 +79,7 @@ class ShapeFile {
     }
 
     /**
-     * @param string $FileName
+     * @param string|null $FileName Name of file to open
      */
     public function saveToFile($FileName = NULL) {
         if ($FileName != NULL) {
