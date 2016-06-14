@@ -1,6 +1,6 @@
 {
     "name": "phpmyadmin/shapefile",
-    "description": "
+    "description": "ShapeFile library for PHP",
     "license": "GPL-2.0+",
     "keywords": ["shapefile", "shp", "geo"],
     "homepage": "https://github.com/phpmyadmin/shapefile",
