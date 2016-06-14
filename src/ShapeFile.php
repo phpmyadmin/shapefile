@@ -294,7 +294,7 @@ class ShapeFile {
             @unlink($dbf_name);
         }
         if (!($this->DBFFile = @dbase_create($dbf_name, $this->DBFHeader))) {
-            return $this->setError(sprintf('It wasn\'t possible to create the DBase file '%s'', $dbf_name));
+            return $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
         }
 
         $offset = 50;
@@ -316,7 +316,7 @@ class ShapeFile {
         $shp_name = $this->_getFilename('.shp');
         $this->SHPFile = @fopen($shp_name, ($toWrite ? 'wb+' : 'rb'));
         if (!$this->SHPFile) {
-            return $this->setError(sprintf('It wasn\'t possible to open the Shape file '%s'', $shp_name));
+            return $this->setError(sprintf('It wasn\'t possible to open the Shape file "%s"', $shp_name));
         }
 
         return true;
@@ -333,7 +333,7 @@ class ShapeFile {
         $shx_name = $this->_getFilename('.shx');
         $this->SHXFile = @fopen($shx_name, ($toWrite ? 'wb+' : 'rb'));
         if (!$this->SHXFile) {
-            return $this->setError(sprintf('It wasn\'t possible to open the Index file '%s'', $shx_name));
+            return $this->setError(sprintf('It wasn\'t possible to open the Index file "%s"', $shx_name));
         }
 
         return true;
@@ -351,16 +351,16 @@ class ShapeFile {
         $checkFunction = $toWrite ? 'is_writable' : 'is_readable';
         if (($toWrite) && (!file_exists($dbf_name))) {
             if (!@dbase_create($dbf_name, $this->DBFHeader)) {
-                return $this->setError(sprintf('It wasn\'t possible to create the DBase file '%s'', $dbf_name));
+                return $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
             }
         }
         if ($checkFunction($dbf_name)) {
             $this->DBFFile = @dbase_open($dbf_name, ($toWrite ? 2 : 0));
             if (!$this->DBFFile) {
-                return $this->setError(sprintf('It wasn\'t possible to open the DBase file '%s'', $dbf_name));
+                return $this->setError(sprintf('It wasn\'t possible to open the DBase file "%s"', $dbf_name));
             }
         } else {
-            return $this->setError(sprintf('It wasn\'t possible to find the DBase file '%s'', $dbf_name));
+            return $this->setError(sprintf('It wasn\'t possible to find the DBase file "%s"', $dbf_name));
         }
         return true;
     }
