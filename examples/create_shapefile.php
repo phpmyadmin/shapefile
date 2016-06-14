@@ -1,5 +1,6 @@
 <?php
-use ShapeFile;
+use ShapeFile\ShapeFile;
+use ShapeFile\ShapeRecord;
 
 require_once '../vendor/autoload.php';
 

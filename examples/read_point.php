@@ -1,5 +1,5 @@
 <?php
-use ShapeFile;
+use ShapeFile\ShapeFile;
 
 require_once '../vendor/autoload.php';
 
