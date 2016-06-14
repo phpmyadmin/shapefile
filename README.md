@@ -25,8 +25,8 @@ composer require phpmyadmin/shapefile
 
 ## History
 
-This library is based on BytesFall ShapeFiles library written by Ovidio <ovidio
-AT users.sourceforge.net>. The library has been embedded in phpMyAdmin for
+This library is based on BytesFall ShapeFiles library written by Ovidio (ovidio
+AT users.sourceforge.net). The library has been embedded in phpMyAdmin for
 years and slowly developed there. At one point people started to use our
 version rather than the original library and that was the point we decided to
 make it separate package.
