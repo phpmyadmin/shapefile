@@ -348,7 +348,7 @@ class ShapeFile {
             }
         }
         if ($checkFunction(str_replace('.*', '.dbf', $this->FileName))) {
-            $this->DBFFile = dbase_open(str_replace('.*', '.dbf', $this->FileName), ($toWrite ? 2 : 0));
+            $this->DBFFile = @dbase_open(str_replace('.*', '.dbf', $this->FileName), ($toWrite ? 2 : 0));
             if (!$this->DBFFile) {
                 return $this->setError(sprintf("It wasn't possible to open the DBase file '%s'", str_replace('.*', '.dbf', $this->FileName)));
             }
