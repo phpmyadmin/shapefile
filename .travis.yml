@@ -15,9 +15,11 @@ install:
 
 script: 
   - phpunit --configuration phpunit.xml
-  - php examples/create_shapefile.php
-  - php examples/read_point.php
-  - php examples/read_polygon.php
+  - cd examples
+  - php create_shapefile.php
+  - php read_point.php
+  - php read_polygon.php
+  - cd ..
 
 after_success:
   - codecov
