@@ -100,6 +100,12 @@ class ShapeRecord {
                 break;
         }
 
+        /* We need to skip rest of the record */
+        while ($this->read < $this->size) {
+            $this->_loadData('V', 4);
+        }
+
+        /* Check if we didn't read too much */
         if ($this->read != $this->size) {
             $this->setError(sprintf('Failed to parse record, read=%d, size=%d', $this->read, $this->size));
         }
