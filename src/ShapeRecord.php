@@ -357,8 +357,7 @@ class ShapeRecord {
         $readPoints = 0;
         foreach ($this->SHPData['parts'] as $partIndex => $partData) {
             if (!isset($this->SHPData['parts'][$partIndex]['points']) || !is_array($this->SHPData['parts'][$partIndex]['points'])) {
-                $this->SHPData['parts'][$partIndex] = array();
-                $this->SHPData['parts'][$partIndex]['points'] = array();
+                $this->SHPData['parts'][$partIndex] = array('points' => array());
             }
             while (!in_array($readPoints, $this->SHPData['parts']) && ($readPoints < ($this->SHPData['numpoints'])) && !feof($this->SHPFile)) {
                 $this->SHPData['parts'][$partIndex]['points'][] = $this->_loadPoint();
