@@ -29,9 +29,9 @@ namespace ShapeFile;
 class ShapeFile {
     private $FileName;
 
-    private $SHPFile;
-    private $SHXFile;
-    private $DBFFile;
+    private $SHPFile = null;
+    private $SHXFile = null;
+    private $DBFFile = null;
 
     private $DBFHeader;
 
@@ -42,6 +42,16 @@ class ShapeFile {
     private $shapeType = 0;
 
     public $records;
+
+    /**
+     * Checks whether dbase manipuations are supported.
+     *
+     * @return bool
+     */
+    public static function supports_dbase()
+    {
+        return extension_loaded('dbase');
+    }
 
     /**
      * @param integer $shapeType
@@ -242,7 +252,9 @@ class ShapeFile {
         $this->boundingBox['mmin'] = Util::loadData('d', fread($this->SHPFile, 8));
         $this->boundingBox['mmax'] = Util::loadData('d', fread($this->SHPFile, 8));
 
-        $this->DBFHeader = $this->_loadDBFHeader();
+        if (ShapeFile::supports_dbase()) {
+            $this->DBFHeader = $this->_loadDBFHeader();
+        }
     }
 
     private function _saveHeaders() {
@@ -289,6 +301,9 @@ class ShapeFile {
     }
 
     private function _saveRecords() {
+        if (! ShapeFile::supports_dbase()) {
+            return;
+        }
         $dbf_name = $this->_getFilename('.dbf');
         if (file_exists($dbf_name)) {
             @unlink($dbf_name);
@@ -346,7 +361,15 @@ class ShapeFile {
         }
     }
 
+    /**
+     * Loads DBF file if supported
+     *
+     * @return bool
+     */
     private function _openDBFFile($toWrite = false) {
+        if (! ShapeFile::supports_dbase()) {
+            return true;
+        }
         $dbf_name = $this->_getFilename('.dbf');
         $checkFunction = $toWrite ? 'is_writable' : 'is_readable';
         if (($toWrite) && (!file_exists($dbf_name))) {
@@ -373,7 +396,11 @@ class ShapeFile {
     }
 
     /**
+     * Sets error message
+     *
      * @param string $error
+     *
+     * @return bool
      */
     public function setError($error) {
         $this->lastError = $error;

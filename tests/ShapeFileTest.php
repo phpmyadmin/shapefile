@@ -84,12 +84,17 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
      */
     public function provideErrorFiles()
     {
-        return array(
-            array('data/no-dbf.*'),
+        $result = array(
             array('data/no-shp.*'),
-            array('data/invalid-dbf.*'),
             array('data/missing.*'),
         );
+
+        if (ShapeFile::supports_dbase()) {
+            $result[] = array('data/no-dbf.*');
+            $result[] = array('data/invalid-dbf.*');
+        }
+
+        return $result;
     }
 
     /**
@@ -140,6 +145,9 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testCreate()
     {
+        if (! ShapeFile::supports_dbase()) {
+            $this->markTestSkipped('dbase extension missing');
+        }
         $this->createTestData();
 
         $shp = new ShapeFile(1);
@@ -154,6 +162,9 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testDelete()
     {
+        if (! ShapeFile::supports_dbase()) {
+            $this->markTestSkipped('dbase extension missing');
+        }
         $this->createTestData();
 
         $shp = new ShapeFile(1);
@@ -174,6 +185,9 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testAdd()
     {
+        if (! ShapeFile::supports_dbase()) {
+            $this->markTestSkipped('dbase extension missing');
+        }
         $this->createTestData();
 
         $shp = new ShapeFile(1);
