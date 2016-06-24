@@ -43,7 +43,7 @@ class ShapeFile {
 
     public $records;
 
-    static $shape_names = array(
+    private static $shape_names = array(
         0 => 'Null Shape',
         1 => 'Point',
         3 => 'PolyLine',
