@@ -189,6 +189,9 @@ class ShapeFile {
         return (count($this->records) - 1);
     }
 
+    /**
+     * @param integer $index
+     */
     public function deleteRecord($index) {
         if (isset($this->records[$index])) {
             $this->fileLength -= ($this->records[$index]->getContentLength() + 4);
@@ -455,7 +458,8 @@ class ShapeFile {
     /**
      * Reads given number of bytes from SHP file
      *
-     * @return string|false
+     * @param integer $bytes
+     * @return string
      */
     public function readSHP($bytes)
     {
@@ -482,6 +486,9 @@ class ShapeFile {
         return ShapeFile::nameShape($this->shapeType);
     }
 
+    /**
+     * @param integer $type
+     */
     public static function nameShape($type)
     {
         if (isset(self::$shape_names[$type])) {

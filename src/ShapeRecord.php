@@ -302,7 +302,7 @@ class ShapeRecord {
      */
     private function _saveMultiPointMZRecord($type) {
 
-        fwrite($this->SHPFile, pack('dd', $this->SHPData[$type . 'min'], $this->SHPData[$type . 'max']));
+        fwrite($this->SHPFile, pack('dd', $this->SHPData[$type.'min'], $this->SHPData[$type.'max']));
 
         for ($i = 0; $i <= $this->SHPData['numpoints']; $i++) {
             fwrite($this->SHPFile, Util::packDouble($this->SHPData['points'][$type]));
@@ -461,8 +461,8 @@ class ShapeRecord {
             if (!isset($point[$direction])) {
                 continue;
             }
-            $min = $direction . 'min';
-            $max = $direction . 'max';
+            $min = $direction.'min';
+            $max = $direction.'max';
             if (!isset($this->SHPData[$min]) || ($this->SHPData[$min] > $point[$direction])) {
                 $this->SHPData[$min] = $point[$direction];
             }
