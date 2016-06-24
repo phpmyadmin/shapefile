@@ -37,7 +37,7 @@ class ShapeFile {
 
     public $lastError = '';
 
-    private $boundingBox = array('xmin' => 0.0, 'ymin' => 0.0, 'xmax' => 0.0, 'ymax' => 0.0);
+    public $boundingBox = array('xmin' => 0.0, 'ymin' => 0.0, 'xmax' => 0.0, 'ymax' => 0.0);
     private $fileLength = 0;
     private $shapeType = 0;
 
