@@ -511,5 +511,18 @@ class ShapeFile {
         }
         return sprintf('Shape %d', $type);
     }
+
+    /**
+     * Check whether file contains measure data.
+     *
+     * For some reason this is distinguished by zero bouding box in the
+     * specification.
+     *
+     * @return bool
+     */
+    public function hasMeasure()
+    {
+         return $this->boundingBox['mmin'] != 0 || $this->boundingBox['mmax'] != 0;
+    }
 }
 

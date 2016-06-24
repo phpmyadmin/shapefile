@@ -358,7 +358,7 @@ class ShapeRecord {
      */
     private function _loadPolyLineMZRecord($type) {
         /* The m dimension is optional, depends on bounding box data */
-        if ($type == 'm' && $this->ShapeFile->boundingBox['mmin'] == 0 && $this->ShapeFile->boundingBox['mmax'] == 0) {
+        if ($type == 'm' && ! $this->ShapeFile->hasMeasure()) {
             return;
         }
 
