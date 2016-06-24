@@ -39,11 +39,11 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
     {
         $shp = new ShapeFile(1);
         $shp->loadFromFile($filename);
+        $this->assertEquals('', $shp->lastError);
         $this->assertEquals($records, count($shp->records));
         if (!is_null($parts)) {
             $this->assertEquals($parts, count($shp->records[0]->SHPData["parts"]));
         }
-        $this->assertEquals('', $shp->lastError);
     }
 
     /**
