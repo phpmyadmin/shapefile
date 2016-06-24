@@ -375,13 +375,21 @@ class ShapeFile {
         dbase_pack($this->DBFFile);
     }
 
-    private function _openSHPFile($toWrite = false) {
-        $shp_name = $this->_getFilename('.shp');
-        $this->SHPFile = @fopen($shp_name, ($toWrite ? 'wb+' : 'rb'));
-        if (!$this->SHPFile) {
-            return $this->setError(sprintf('It wasn\'t possible to open the Shape file "%s"', $shp_name));
+    private function _openFile($toWrite, $extension, $name) {
+        $shp_name = $this->_getFilename($extension);
+        $result = @fopen($shp_name, ($toWrite ? 'wb+' : 'rb'));
+        if (!$result) {
+            return $this->setError(sprintf('It wasn\'t possible to open the %s file "%s"', $name, $shp_name));
         }
 
+        return $result;
+    }
+
+    private function _openSHPFile($toWrite = false) {
+        $this->SHPFile = $this->_openFile($toWrite, '.shp', 'Shape');
+        if (!$this->SHPFile) {
+            return false;
+        }
         return true;
     }
 
@@ -393,12 +401,10 @@ class ShapeFile {
     }
 
     private function _openSHXFile($toWrite = false) {
-        $shx_name = $this->_getFilename('.shx');
-        $this->SHXFile = @fopen($shx_name, ($toWrite ? 'wb+' : 'rb'));
+        $this->SHXFile = $this->_openFile($toWrite, '.shx', 'Index');
         if (!$this->SHXFile) {
-            return $this->setError(sprintf('It wasn\'t possible to open the Index file "%s"', $shx_name));
+            return false;
         }
-
         return true;
     }
 
