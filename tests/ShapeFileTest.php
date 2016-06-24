@@ -145,7 +145,7 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testCreate()
     {
-        if (! ShapeFile::supports_dbase()) {
+        if (!ShapeFile::supports_dbase()) {
             $this->markTestSkipped('dbase extension missing');
         }
         $this->createTestData();
@@ -162,7 +162,7 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testDelete()
     {
-        if (! ShapeFile::supports_dbase()) {
+        if (!ShapeFile::supports_dbase()) {
             $this->markTestSkipped('dbase extension missing');
         }
         $this->createTestData();
@@ -185,7 +185,7 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testAdd()
     {
-        if (! ShapeFile::supports_dbase()) {
+        if (!ShapeFile::supports_dbase()) {
             $this->markTestSkipped('dbase extension missing');
         }
         $this->createTestData();
