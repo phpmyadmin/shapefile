@@ -266,7 +266,7 @@ class ShapeFile {
 
     private function _deleteRecordFromDBF($index) {
         if (@dbase_delete_record($this->DBFFile, $index)) {
-            @dbase_pack($this->DBFFile);
+            dbase_pack($this->DBFFile);
         }
     }
 
@@ -354,7 +354,7 @@ class ShapeFile {
         }
         $dbf_name = $this->_getFilename('.dbf');
         if (file_exists($dbf_name)) {
-            @unlink($dbf_name);
+            unlink($dbf_name);
         }
         if (!($this->DBFFile = @dbase_create($dbf_name, $this->DBFHeader))) {
             return $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
@@ -372,7 +372,7 @@ class ShapeFile {
                 $offset += (4 + $record->getContentLength());
             }
         }
-        @dbase_pack($this->DBFFile);
+        dbase_pack($this->DBFFile);
     }
 
     private function _openSHPFile($toWrite = false) {
