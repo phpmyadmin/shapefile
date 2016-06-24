@@ -43,6 +43,23 @@ class ShapeFile {
 
     public $records;
 
+    static $shape_names = array(
+        0 => 'Null Shape',
+        1 => 'Point',
+        3 => 'PolyLine',
+        5 => 'Polygon',
+        8 => 'MultiPoint',
+        11 => 'PointZ',
+        13 => 'PolyLineZ',
+        15 => 'PolygonZ',
+        18 => 'MultiPointZ',
+        21 => 'PointM',
+        23 => 'PolyLineM',
+        25 => 'PolygonM',
+        28 => 'MultiPointM',
+        31 => 'MultiPatch',
+    );
+
     /**
      * Checks whether dbase manipuations are supported.
      *
@@ -453,6 +470,24 @@ class ShapeFile {
     public function eofSHP()
     {
         return feof($this->SHPFile);
+    }
+
+    /**
+     * Returns shape name
+     *
+     * @return string
+     */
+    public function getShapeName()
+    {
+        return ShapeFile::nameShape($this->shapeType);
+    }
+
+    public static function nameShape($type)
+    {
+        if (isset(self::$shape_names[$type])) {
+            return self::$shape_names[$type];
+        }
+        return sprintf('Shape %d', $type);
     }
 }
 

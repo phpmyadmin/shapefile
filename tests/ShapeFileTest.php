@@ -217,6 +217,8 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
     {
         $obj = new ShapeRecord(1);
         $this->assertEquals('Point', $obj->getShapeName());
+        $obj = new Shapefile(1);
+        $this->assertEquals('Point', $obj->getShapeName());
         $obj = new ShapeRecord(-1);
         $this->assertEquals('Shape -1', $obj->getShapeName());
     }
