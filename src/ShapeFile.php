@@ -306,14 +306,14 @@ class ShapeFile {
 
     private function _loadRecords() {
         /* Need to start at offset 100 */
-        while (!feof($this->SHPFile)) {
+        while (!$this->eofSHP()) {
             $record = new ShapeRecord(-1);
             $record->loadFromFile($this, $this->SHPFile, $this->DBFFile);
             if ($record->lastError != '') {
                 $this->setError($record->lastError);
                 return false;
             }
-            if ($record->shapeType === '' && feof($this->SHPFile)) {
+            if ($record->shapeType === '' && $this->eofSHP()) {
                 break;
             }
 
@@ -437,6 +437,16 @@ class ShapeFile {
     public function readSHP($bytes)
     {
         return fread($this->SHPFile, $bytes);
+    }
+
+    /**
+     * Checks whether file is at EOF
+     *
+     * @return bool
+     */
+    public function eofSHP()
+    {
+        return feof($this->SHPFile);
     }
 }
 
