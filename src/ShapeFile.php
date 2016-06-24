@@ -27,7 +27,7 @@ namespace ShapeFile;
  * @package ShapeFile
  */
 class ShapeFile {
-    private $FileName;
+    public $FileName;
 
     private $SHPFile = null;
     private $SHXFile = null;
@@ -39,7 +39,7 @@ class ShapeFile {
 
     public $boundingBox = array('xmin' => 0.0, 'ymin' => 0.0, 'xmax' => 0.0, 'ymax' => 0.0);
     private $fileLength = 0;
-    private $shapeType = 0;
+    public $shapeType = 0;
 
     public $records;
 
@@ -67,9 +67,15 @@ class ShapeFile {
      * @param string $FileName
      */
     public function loadFromFile($FileName) {
-        $this->FileName = $FileName;
+        if (!empty($FileName)) {
+            $this->FileName = $FileName;
+            $result = $this->_openSHPFile();
+        } else {
+            /* We operate on buffer emulated by readSHP / eofSHP */
+            $result = true;
+        }
 
-        if (($this->_openSHPFile()) && ($this->_openDBFFile())) {
+        if ($result && ($this->_openDBFFile())) {
             if (!$this->_loadHeaders()) {
                 $this->_closeSHPFile();
                 $this->_closeDBFFile();
