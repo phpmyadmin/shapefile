@@ -353,7 +353,6 @@ class ShapeRecord {
             $this->SHPData['parts'][$i] = Util::loadData('V', $this->ShapeFile->readSHP(4));
         }
 
-        $firstIndex = ftell($this->SHPFile);
         $readPoints = 0;
         foreach ($this->SHPData['parts'] as $partIndex => $partData) {
             if (!isset($this->SHPData['parts'][$partIndex]['points']) || !is_array($this->SHPData['parts'][$partIndex]['points'])) {
@@ -364,8 +363,6 @@ class ShapeRecord {
                 $readPoints++;
             }
         }
-
-        fseek($this->SHPFile, $firstIndex + ($readPoints * 16));
     }
 
     /**
@@ -376,7 +373,6 @@ class ShapeRecord {
         $this->SHPData[$type.'min'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
         $this->SHPData[$type.'max'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
 
-        $firstIndex = ftell($this->SHPFile);
         $readPoints = 0;
         foreach ($this->SHPData['parts'] as $partIndex => $partData) {
             while (!in_array($readPoints, $this->SHPData['parts']) && ($readPoints < ($this->SHPData['numpoints'])) && !feof($this->SHPFile)) {
@@ -384,8 +380,6 @@ class ShapeRecord {
                 $readPoints++;
             }
         }
-
-        fseek($this->SHPFile, $firstIndex + ($readPoints * 24));
     }
 
     private function _loadPolyLineMRecord() {
