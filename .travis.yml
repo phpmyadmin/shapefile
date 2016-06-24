@@ -1,14 +1,19 @@
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
+  - "5.4"
+  - "5.5"
+  - "5.6"
+  - "7.0"
+  - "hhvm"
 env:
   matrix:
     - DBASE=yes
     - DBASE=no
+matrix:
+  exclude:
+    - php: "hhvm"
+      env: DBASE=yes
 
 before_install:
   - pip install --user codecov

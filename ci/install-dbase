@@ -12,6 +12,6 @@ if [ "$TRAVIS_PHP_VERSION" = "7.0" ] ; then
     make install
     cd ..
     echo 'extension = dbase.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-else
+elif [ "$TRAVIS_PHP_VERSION" != "hhmv" ] ; then
     pecl install dbase
 fi
