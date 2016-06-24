@@ -237,20 +237,20 @@ class ShapeFile {
 
     private function _loadHeaders() {
         fseek($this->SHPFile, 24, SEEK_SET);
-        $this->fileLength = Util::loadData('N', fread($this->SHPFile, 4));
+        $this->fileLength = Util::loadData('N', $this->readSHP(4));
 
         fseek($this->SHPFile, 32, SEEK_SET);
-        $this->shapeType = Util::loadData('V', fread($this->SHPFile, 4));
+        $this->shapeType = Util::loadData('V', $this->readSHP(4));
 
         $this->boundingBox = array();
-        $this->boundingBox['xmin'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->boundingBox['ymin'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->boundingBox['xmax'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->boundingBox['ymax'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->boundingBox['zmin'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->boundingBox['zmax'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->boundingBox['mmin'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->boundingBox['mmax'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->boundingBox['xmin'] = Util::loadData('d', $this->readSHP(8));
+        $this->boundingBox['ymin'] = Util::loadData('d', $this->readSHP(8));
+        $this->boundingBox['xmax'] = Util::loadData('d', $this->readSHP(8));
+        $this->boundingBox['ymax'] = Util::loadData('d', $this->readSHP(8));
+        $this->boundingBox['zmin'] = Util::loadData('d', $this->readSHP(8));
+        $this->boundingBox['zmax'] = Util::loadData('d', $this->readSHP(8));
+        $this->boundingBox['mmin'] = Util::loadData('d', $this->readSHP(8));
+        $this->boundingBox['mmax'] = Util::loadData('d', $this->readSHP(8));
 
         if (ShapeFile::supports_dbase()) {
             $this->DBFHeader = $this->_loadDBFHeader();
@@ -290,7 +290,7 @@ class ShapeFile {
         while (!feof($this->SHPFile)) {
             $bByte = ftell($this->SHPFile);
             $record = new ShapeRecord(-1);
-            $record->loadFromFile($this->SHPFile, $this->DBFFile);
+            $record->loadFromFile($this, $this->SHPFile, $this->DBFFile);
             $eByte = ftell($this->SHPFile);
             if (($eByte <= $bByte) || ($record->lastError != '')) {
                 return false;
@@ -405,6 +405,16 @@ class ShapeFile {
     public function setError($error) {
         $this->lastError = $error;
         return false;
+    }
+
+    /**
+     * Reads given number of bytes from SHP file
+     *
+     * @return string|false
+     */
+    public function readSHP($bytes)
+    {
+        return fread($this->SHPFile, $bytes);
     }
 }
 

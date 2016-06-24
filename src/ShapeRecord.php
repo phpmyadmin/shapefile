@@ -24,6 +24,7 @@ namespace ShapeFile;
 class ShapeRecord {
     private $SHPFile = null;
     private $DBFFile = null;
+    private $ShapeFile = null;
 
     public $recordNumber = null;
     private $shapeType = null;
@@ -40,7 +41,8 @@ class ShapeRecord {
         $this->shapeType = $shapeType;
     }
 
-    public function loadFromFile(&$SHPFile, &$DBFFile) {
+    public function loadFromFile(&$ShapeFile, &$SHPFile, &$DBFFile) {
+        $this->ShapeFile = $ShapeFile;
         $this->SHPFile = $SHPFile;
         $this->DBFFile = $DBFFile;
         $this->_loadHeaders();
@@ -157,10 +159,10 @@ class ShapeRecord {
     }
 
     private function _loadHeaders() {
-        $this->recordNumber = Util::loadData('N', fread($this->SHPFile, 4));
+        $this->recordNumber = Util::loadData('N', $this->ShapeFile->readSHP(4));
         // We read the length of the record
-        Util::loadData('N', fread($this->SHPFile, 4));
-        $this->shapeType = Util::loadData('V', fread($this->SHPFile, 4));
+        Util::loadData('N', $this->ShapeFile->readSHP(4));
+        $this->shapeType = Util::loadData('V', $this->ShapeFile->readSHP(4));
     }
 
     private function _saveHeaders() {
@@ -172,8 +174,8 @@ class ShapeRecord {
     private function _loadPoint() {
         $data = array();
 
-        $data['x'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $data['y'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $data['x'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $data['y'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
 
         return $data;
     }
@@ -181,9 +183,9 @@ class ShapeRecord {
     private function _loadPointM() {
         $data = array();
 
-        $data['x'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $data['y'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $data['m'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $data['x'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $data['y'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $data['m'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
 
         return $data;
     }
@@ -191,10 +193,10 @@ class ShapeRecord {
     private function _loadPointZ() {
         $data = array();
 
-        $data['x'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $data['y'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $data['z'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $data['m'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $data['x'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $data['y'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $data['z'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $data['m'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
 
         return $data;
     }
@@ -247,12 +249,12 @@ class ShapeRecord {
 
     private function _loadMultiPointRecord() {
         $this->SHPData = array();
-        $this->SHPData['xmin'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->SHPData['ymin'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->SHPData['xmax'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->SHPData['ymax'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->SHPData['xmin'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $this->SHPData['ymin'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $this->SHPData['xmax'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $this->SHPData['ymax'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
 
-        $this->SHPData['numpoints'] = Util::loadData('V', fread($this->SHPFile, 4));
+        $this->SHPData['numpoints'] = Util::loadData('V', $this->ShapeFile->readSHP(4));
 
         for ($i = 0; $i <= $this->SHPData['numpoints']; $i++) {
             $this->SHPData['points'][] = $this->_loadPoint();
@@ -264,11 +266,11 @@ class ShapeRecord {
      */
     private function _loadMultiPointMZRecord($type) {
 
-        $this->SHPData[$type.'min'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->SHPData[$type.'max'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->SHPData[$type.'min'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $this->SHPData[$type.'max'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
 
         for ($i = 0; $i <= $this->SHPData['numpoints']; $i++) {
-            $this->SHPData['points'][$i][$type] = Util::loadData('d', fread($this->SHPFile, 8));
+            $this->SHPData['points'][$i][$type] = Util::loadData('d', $this->ShapeFile->readSHP(8));
         }
     }
 
@@ -322,16 +324,16 @@ class ShapeRecord {
 
     private function _loadPolyLineRecord() {
         $this->SHPData = array();
-        $this->SHPData['xmin'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->SHPData['ymin'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->SHPData['xmax'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->SHPData['ymax'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->SHPData['xmin'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $this->SHPData['ymin'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $this->SHPData['xmax'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $this->SHPData['ymax'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
 
-        $this->SHPData['numparts']  = Util::loadData('V', fread($this->SHPFile, 4));
-        $this->SHPData['numpoints'] = Util::loadData('V', fread($this->SHPFile, 4));
+        $this->SHPData['numparts']  = Util::loadData('V', $this->ShapeFile->readSHP(4));
+        $this->SHPData['numpoints'] = Util::loadData('V', $this->ShapeFile->readSHP(4));
 
         for ($i = 0; $i < $this->SHPData['numparts']; $i++) {
-            $this->SHPData['parts'][$i] = Util::loadData('V', fread($this->SHPFile, 4));
+            $this->SHPData['parts'][$i] = Util::loadData('V', $this->ShapeFile->readSHP(4));
         }
 
         $firstIndex = ftell($this->SHPFile);
@@ -355,14 +357,14 @@ class ShapeRecord {
      */
     private function _loadPolyLineMZRecord($type) {
 
-        $this->SHPData[$type.'min'] = Util::loadData('d', fread($this->SHPFile, 8));
-        $this->SHPData[$type.'max'] = Util::loadData('d', fread($this->SHPFile, 8));
+        $this->SHPData[$type.'min'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
+        $this->SHPData[$type.'max'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
 
         $firstIndex = ftell($this->SHPFile);
         $readPoints = 0;
         foreach ($this->SHPData['parts'] as $partIndex => $partData) {
             while (!in_array($readPoints, $this->SHPData['parts']) && ($readPoints < ($this->SHPData['numpoints'])) && !feof($this->SHPFile)) {
-                $this->SHPData['parts'][$partIndex]['points'][$readPoints][$type] = Util::loadData('d', fread($this->SHPFile, 8));
+                $this->SHPData['parts'][$partIndex]['points'][$readPoints][$type] = Util::loadData('d', $this->ShapeFile->readSHP(8));
                 $readPoints++;
             }
         }
