@@ -27,7 +27,7 @@ class ShapeRecord {
     private $ShapeFile = null;
 
     public $recordNumber = null;
-    private $shapeType = null;
+    public $shapeType = null;
 
     public $lastError = '';
 

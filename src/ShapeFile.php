@@ -75,7 +75,11 @@ class ShapeFile {
                 $this->_closeDBFFile();
                 return false;
             }
-            $this->_loadRecords();
+            if (! $this->_loadRecords()) {
+                $this->_closeSHPFile();
+                $this->_closeDBFFile();
+                return false;
+            }
             $this->_closeSHPFile();
             $this->_closeDBFFile();
             return true;
@@ -303,16 +307,19 @@ class ShapeFile {
     private function _loadRecords() {
         /* Need to start at offset 100 */
         while (!feof($this->SHPFile)) {
-            $bByte = ftell($this->SHPFile);
             $record = new ShapeRecord(-1);
             $record->loadFromFile($this, $this->SHPFile, $this->DBFFile);
-            $eByte = ftell($this->SHPFile);
-            if (($eByte <= $bByte) || ($record->lastError != '')) {
+            if ($record->lastError != '') {
+                $this->setError($record->lastError);
                 return false;
+            }
+            if ($record->shapeType === '' && feof($this->SHPFile)) {
+                break;
             }
 
             $this->records[] = $record;
         }
+        return true;
     }
 
     private function _saveRecords() {
