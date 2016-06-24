@@ -59,4 +59,3 @@ $shp->saveToFile('../data/new_shape.*');
 
 echo "The ShapeFile was created.<br />\n";
 echo "Return to the <a href='index.php'>index</a>.";
-?>
