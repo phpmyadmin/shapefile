@@ -26,6 +26,15 @@ composer require phpmyadmin/shapefile
 To be able to read and write the associated DBF file, you need ``dbase``
 extension.
 
+## Usage
+
+To read shape file:
+
+```php
+$shp = new ShapeFile\ShapeFile(0);
+$shp->loadFromFile('path/file.*');
+```
+
 ## History
 
 This library is based on BytesFall ShapeFiles library written by Ovidio (ovidio
