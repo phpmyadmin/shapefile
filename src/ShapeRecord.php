@@ -211,20 +211,16 @@ class ShapeRecord {
     }
 
     private function _loadPointM() {
-        $data = array();
+        $data = $this->loadPoint();
 
-        $data['x'] = $this->_loadData('d', 8);
-        $data['y'] = $this->_loadData('d', 8);
         $data['m'] = $this->_loadData('d', 8);
 
         return $data;
     }
 
     private function _loadPointZ() {
-        $data = array();
+        $data = $this->loadPoint();
 
-        $data['x'] = $this->_loadData('d', 8);
-        $data['y'] = $this->_loadData('d', 8);
         $data['z'] = $this->_loadData('d', 8);
         $data['m'] = $this->_loadData('d', 8);
 
