@@ -357,7 +357,8 @@ class ShapeFile {
             unlink($dbf_name);
         }
         if (!($this->DBFFile = @dbase_create($dbf_name, $this->DBFHeader))) {
-            return $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
+            $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
+            return false;
         }
 
         $offset = 50;
@@ -379,7 +380,8 @@ class ShapeFile {
         $shp_name = $this->_getFilename($extension);
         $result = @fopen($shp_name, ($toWrite ? 'wb+' : 'rb'));
         if (!$result) {
-            return $this->setError(sprintf('It wasn\'t possible to open the %s file "%s"', $name, $shp_name));
+            $this->setError(sprintf('It wasn\'t possible to open the %s file "%s"', $name, $shp_name));
+            return false;
         }
 
         return $result;
@@ -428,16 +430,19 @@ class ShapeFile {
         $checkFunction = $toWrite ? 'is_writable' : 'is_readable';
         if (($toWrite) && (!file_exists($dbf_name))) {
             if (!@dbase_create($dbf_name, $this->DBFHeader)) {
-                return $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
+                $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
+                return false;
             }
         }
         if ($checkFunction($dbf_name)) {
             $this->DBFFile = @dbase_open($dbf_name, ($toWrite ? 2 : 0));
             if (!$this->DBFFile) {
-                return $this->setError(sprintf('It wasn\'t possible to open the DBase file "%s"', $dbf_name));
+                $this->setError(sprintf('It wasn\'t possible to open the DBase file "%s"', $dbf_name));
+                return false;
             }
         } else {
-            return $this->setError(sprintf('It wasn\'t possible to find the DBase file "%s"', $dbf_name));
+            $this->setError(sprintf('It wasn\'t possible to find the DBase file "%s"', $dbf_name));
+            return false;
         }
         return true;
     }
@@ -454,11 +459,10 @@ class ShapeFile {
      *
      * @param string $error
      *
-     * @return bool
+     * @return void
      */
     public function setError($error) {
         $this->lastError = $error;
-        return false;
     }
 
     /**

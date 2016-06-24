@@ -666,11 +666,14 @@ class ShapeRecord {
     }
 
     /**
+     * Sets error message
+     *
      * @param string $error
+     *
+     * @return void
      */
     public function setError($error) {
         $this->lastError = $error;
-        return false;
     }
 
     /**
