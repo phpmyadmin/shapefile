@@ -349,19 +349,22 @@ class ShapeRecord {
         $this->SHPData['numparts']  = Util::loadData('V', $this->ShapeFile->readSHP(4));
         $this->SHPData['numpoints'] = Util::loadData('V', $this->ShapeFile->readSHP(4));
 
-        for ($i = 0; $i < $this->SHPData['numparts']; $i++) {
+        $numparts = $this->SHPData['numparts'];
+        $numpoints = $this->SHPData['numpoints'];
+
+        for ($i = 0; $i < $numparts; $i++) {
             $this->SHPData['parts'][$i] = Util::loadData('V', $this->ShapeFile->readSHP(4));
         }
 
-        $readPoints = 0;
-        foreach ($this->SHPData['parts'] as $partIndex => $partData) {
-            if (!isset($this->SHPData['parts'][$partIndex]['points']) || !is_array($this->SHPData['parts'][$partIndex]['points'])) {
-                $this->SHPData['parts'][$partIndex] = array('points' => array());
+        $part = 0;
+        for ($i = 0; $i < $numpoints; $i++) {
+            if ($part + 1 < $numparts && $this->SHPData['parts'][$part + 1] == $i) {
+                $part++;
             }
-            while (!in_array($readPoints, $this->SHPData['parts']) && ($readPoints < ($this->SHPData['numpoints'])) && !$this->ShapeFile->eofSHP()) {
-                $this->SHPData['parts'][$partIndex]['points'][] = $this->_loadPoint();
-                $readPoints++;
+            if (!isset($this->SHPData['parts'][$part]['points']) || !is_array($this->SHPData['parts'][$part]['points'])) {
+                $this->SHPData['parts'][$part] = array('points' => array());
             }
+            $this->SHPData['parts'][$part]['points'][] = $this->_loadPoint();
         }
     }
 
@@ -377,12 +380,15 @@ class ShapeRecord {
         $this->SHPData[$type.'min'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
         $this->SHPData[$type.'max'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
 
-        $readPoints = 0;
-        foreach ($this->SHPData['parts'] as $partIndex => $partData) {
-            while (!in_array($readPoints, $this->SHPData['parts']) && ($readPoints < ($this->SHPData['numpoints'])) && !$this->ShapeFile->eofSHP()) {
-                $this->SHPData['parts'][$partIndex]['points'][$readPoints][$type] = Util::loadData('d', $this->ShapeFile->readSHP(8));
-                $readPoints++;
+        $numparts = $this->SHPData['numparts'];
+        $numpoints = $this->SHPData['numpoints'];
+
+        $part = 0;
+        for ($i = 0; $i < $numpoints; $i++) {
+            if ($part + 1 < $numparts && $this->SHPData['parts'][$part + 1] == $i) {
+                $part++;
             }
+            $this->SHPData['parts'][$part]['points'][$i][$type] = Util::loadData('d', $this->ShapeFile->readSHP(8));
         }
     }
 
