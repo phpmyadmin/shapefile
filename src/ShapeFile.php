@@ -70,12 +70,12 @@ class ShapeFile {
         $this->FileName = $FileName;
 
         if (($this->_openSHPFile()) && ($this->_openDBFFile())) {
-            if (! $this->_loadHeaders()) {
+            if (!$this->_loadHeaders()) {
                 $this->_closeSHPFile();
                 $this->_closeDBFFile();
                 return false;
             }
-            if (! $this->_loadRecords()) {
+            if (!$this->_loadRecords()) {
                 $this->_closeSHPFile();
                 $this->_closeDBFFile();
                 return false;
@@ -92,7 +92,7 @@ class ShapeFile {
      * @param string|null $FileName Name of file to open
      */
     public function saveToFile($FileName = null) {
-        if (! is_null($FileName)) {
+        if (!is_null($FileName)) {
             $this->FileName = $FileName;
         }
 
@@ -323,7 +323,7 @@ class ShapeFile {
     }
 
     private function _saveRecords() {
-        if (! ShapeFile::supports_dbase()) {
+        if (!ShapeFile::supports_dbase()) {
             return;
         }
         $dbf_name = $this->_getFilename('.dbf');
@@ -389,7 +389,7 @@ class ShapeFile {
      * @return bool
      */
     private function _openDBFFile($toWrite = false) {
-        if (! ShapeFile::supports_dbase()) {
+        if (!ShapeFile::supports_dbase()) {
             return true;
         }
         $dbf_name = $this->_getFilename('.dbf');
