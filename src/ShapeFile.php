@@ -33,7 +33,7 @@ class ShapeFile {
     private $SHXFile = null;
     private $DBFFile = null;
 
-    private $DBFHeader;
+    public $DBFHeader;
 
     public $lastError = '';
 
