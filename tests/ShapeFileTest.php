@@ -19,10 +19,12 @@
  * along with this program; if not, you can download one from
  * http://www.gnu.org/copyleft/gpl.html.
  */
+namespace ShapeFileTest;
+
 use ShapeFile\ShapeFile;
 use ShapeFile\ShapeRecord;
 
-class ShapeFileTest extends PHPUnit_Framework_TestCase
+class ShapeFileTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests loading of a file
