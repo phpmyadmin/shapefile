@@ -469,6 +469,7 @@ class ShapeFile {
      * Reads given number of bytes from SHP file
      *
      * @param integer $bytes
+     *
      * @return string
      */
     public function readSHP($bytes)
@@ -497,7 +498,11 @@ class ShapeFile {
     }
 
     /**
+     * Returns shape name
+     *
      * @param integer $type
+     *
+     * @return string
      */
     public static function nameShape($type)
     {
