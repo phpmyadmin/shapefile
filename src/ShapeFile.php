@@ -143,6 +143,27 @@ class ShapeFile {
     }
 
     /**
+     * Updates bounding box based on SHPData
+     *
+     * @param string $type Type of box
+     * @param array  $data ShapeRecord SHPData
+     *
+     * @return void
+     */
+    private function updateBBox($type, $data)
+    {
+        $min = $type.'min';
+        $max = $type.'max';
+
+        if (!isset($this->boundingBox[$min]) || $this->boundingBox[$min] == 0.0 || ($this->boundingBox[$min] > $data[$min])) {
+            $this->boundingBox[$min] = $data[$min];
+        }
+        if (!isset($this->boundingBox[$max]) || $this->boundingBox[$max] == 0.0 || ($this->boundingBox[$max] < $data[$max])) {
+            $this->boundingBox[$max] = $data[$max];
+        }
+    }
+
+    /**
      * @param ShapeRecord $record
      */
     public function addRecord($record) {
@@ -154,36 +175,15 @@ class ShapeFile {
         $this->records[] = $record;
         $this->records[count($this->records) - 1]->recordNumber = count($this->records);
 
-        if ($this->boundingBox['xmin'] == 0.0 || ($this->boundingBox['xmin'] > $record->SHPData['xmin'])) {
-            $this->boundingBox['xmin'] = $record->SHPData['xmin'];
-        }
-        if ($this->boundingBox['xmax'] == 0.0 || ($this->boundingBox['xmax'] < $record->SHPData['xmax'])) {
-            $this->boundingBox['xmax'] = $record->SHPData['xmax'];
-        }
-
-        if ($this->boundingBox['ymin'] == 0.0 || ($this->boundingBox['ymin'] > $record->SHPData['ymin'])) {
-            $this->boundingBox['ymin'] = $record->SHPData['ymin'];
-        }
-        if ($this->boundingBox['ymax'] == 0.0 || ($this->boundingBox['ymax'] < $record->SHPData['ymax'])) {
-            $this->boundingBox['ymax'] = $record->SHPData['ymax'];
-        }
+        $this->updateBBox('x', $record->SHPData);
+        $this->updateBBox('y', $record->SHPData);
 
         if (in_array($this->shapeType, array(11, 13, 15, 18, 21, 23, 25, 28))) {
-            if (!isset($this->boundingBox['mmin']) || $this->boundingBox['mmin'] == 0.0 || ($this->boundingBox['mmin'] > $record->SHPData['mmin'])) {
-                $this->boundingBox['mmin'] = $record->SHPData['mmin'];
-            }
-            if (!isset($this->boundingBox['mmax']) || $this->boundingBox['mmax'] == 0.0 || ($this->boundingBox['mmax'] < $record->SHPData['mmax'])) {
-                $this->boundingBox['mmax'] = $record->SHPData['mmax'];
-            }
+            $this->updateBBox('m', $record->SHPData);
         }
 
         if (in_array($this->shapeType, array(11, 13, 15, 18))) {
-            if (!isset($this->boundingBox['zmin']) || $this->boundingBox['zmin'] == 0.0 || ($this->boundingBox['zmin'] > $record->SHPData['zmin'])) {
-                $this->boundingBox['zmin'] = $record->SHPData['zmin'];
-            }
-            if (!isset($this->boundingBox['zmax']) || $this->boundingBox['zmax'] == 0.0 || ($this->boundingBox['zmax'] < $record->SHPData['zmax'])) {
-                $this->boundingBox['zmax'] = $record->SHPData['zmax'];
-            }
+            $this->updateBBox('z', $record->SHPData);
         }
 
         return (count($this->records) - 1);
