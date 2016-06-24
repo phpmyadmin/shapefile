@@ -293,7 +293,7 @@ class ShapeRecord {
 
         $this->SHPData['numpoints'] = $this->_loadData('V', 4);
 
-        for ($i = 0; $i <= $this->SHPData['numpoints']; $i++) {
+        for ($i = 0; $i < $this->SHPData['numpoints']; $i++) {
             $this->SHPData['points'][] = $this->_loadPoint();
         }
     }
@@ -311,7 +311,7 @@ class ShapeRecord {
         $this->SHPData[$type.'min'] = $this->_loadData('d', 8);
         $this->SHPData[$type.'max'] = $this->_loadData('d', 8);
 
-        for ($i = 0; $i <= $this->SHPData['numpoints']; $i++) {
+        for ($i = 0; $i < $this->SHPData['numpoints']; $i++) {
             $this->SHPData['points'][$i][$type] = $this->_loadData('d', 8);
         }
     }
