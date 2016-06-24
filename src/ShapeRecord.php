@@ -34,6 +34,23 @@ class ShapeRecord {
     public $SHPData = array();
     public $DBFData = array();
 
+    static $shape_names = array(
+        0 => 'Null Shape',
+        1 => 'Point',
+        3 => 'PolyLine',
+        5 => 'Polygon',
+        8 => 'MultiPoint',
+        11 => 'PointZ',
+        13 => 'PolyLineZ',
+        15 => 'PolygonZ',
+        18 => 'MultiPointZ',
+        21 => 'PointM',
+        23 => 'PolyLineM',
+        25 => 'PolygonM',
+        28 => 'MultiPointM',
+        31 => 'MultiPatch',
+    );
+
     /**
      * @param integer $shapeType
      */
@@ -668,5 +685,18 @@ class ShapeRecord {
     public function setError($error) {
         $this->lastError = $error;
         return false;
+    }
+
+    /**
+     * Returns shape name
+     *
+     * @return string
+     */
+    public function getShapeName()
+    {
+        if (isset(ShapeRecord::$shape_names[$this->shapeType])) {
+            return ShapeRecord::$shape_names[$this->shapeType];
+        }
+        return sprintf('Shape %d', $this->shapeType);
     }
 }

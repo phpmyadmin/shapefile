@@ -207,4 +207,17 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
         $shp->loadFromFile('./data/test_shape.*');
         $this->assertEquals(4, count($shp->records));
     }
+
+    /**
+     * Test shape naming.
+     *
+     * @return void
+     */
+    public function testShapeName()
+    {
+        $obj = new ShapeRecord(1);
+        $this->assertEquals('Point', $obj->getShapeName());
+        $obj = new ShapeRecord(-1);
+        $this->assertEquals('Shape -1', $obj->getShapeName());
+    }
 }
