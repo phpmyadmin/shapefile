@@ -369,6 +369,10 @@ class ShapeRecord {
      * @param string $type
      */
     private function _loadPolyLineMZRecord($type) {
+        /* The m dimension is optional, depends on bounding box data */
+        if ($type == 'm' && $this->ShapeFile->boundingBox['mmin'] == 0 && $this->ShapeFile->boundingBox['mmax'] == 0) {
+            return;
+        }
 
         $this->SHPData[$type.'min'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
         $this->SHPData[$type.'max'] = Util::loadData('d', $this->ShapeFile->readSHP(8));
