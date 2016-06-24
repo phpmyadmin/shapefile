@@ -70,10 +70,15 @@ class ShapeFile {
         $this->FileName = $FileName;
 
         if (($this->_openSHPFile()) && ($this->_openDBFFile())) {
-            $this->_loadHeaders();
+            if (! $this->_loadHeaders()) {
+                $this->_closeSHPFile();
+                $this->_closeDBFFile();
+                return false;
+            }
             $this->_loadRecords();
             $this->_closeSHPFile();
             $this->_closeDBFFile();
+            return true;
         } else {
             return false;
         }
@@ -236,10 +241,19 @@ class ShapeFile {
     }
 
     private function _loadHeaders() {
-        fseek($this->SHPFile, 24, SEEK_SET);
+        if (Util::loadData('N', $this->readSHP(4)) != 9994) {
+            $this->setError('Not a SHP file (file code mismatch)');
+            return false;
+        }
+
+        /* Skip 20 unused bytes */
+        $this->readSHP(20);
+
         $this->fileLength = Util::loadData('N', $this->readSHP(4));
 
-        fseek($this->SHPFile, 32, SEEK_SET);
+        /* We currently ignore version */
+        $this->readSHP(4);
+
         $this->shapeType = Util::loadData('V', $this->readSHP(4));
 
         $this->boundingBox = array();
@@ -255,6 +269,7 @@ class ShapeFile {
         if (ShapeFile::supports_dbase()) {
             $this->DBFHeader = $this->_loadDBFHeader();
         }
+        return true;
     }
 
     private function _saveHeaders() {
@@ -286,7 +301,7 @@ class ShapeFile {
     }
 
     private function _loadRecords() {
-        fseek($this->SHPFile, 100);
+        /* Need to start at offset 100 */
         while (!feof($this->SHPFile)) {
             $bByte = ftell($this->SHPFile);
             $record = new ShapeRecord(-1);
