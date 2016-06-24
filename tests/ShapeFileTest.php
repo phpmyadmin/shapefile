@@ -57,7 +57,7 @@ class ShapeFileTest extends PHPUnit_Framework_TestCase
             array('data/capitals.*', 652, null),
             array('data/mexico.*', 32, 3),
             array('data/Czech_Republic_AL2.*', 1, 1),
-            array('data/w001n05f.*', 1, 1),
+            array('data/w001n05f.*', 16, 1),
         );
     }
 
