@@ -336,7 +336,7 @@ class ShapeFile {
                 $this->setError($record->lastError);
                 return false;
             }
-            if ($record->shapeType === '' && $this->eofSHP()) {
+            if ((($record->shapeType === false || $record->shapeType === '') && $this->eofSHP()) {
                 break;
             }
 
