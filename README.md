@@ -9,7 +9,7 @@ ShapeFile library for PHP
 ## Features
 
 Currently the 2D and 3D variants except MultiPatch of the ShapeFile format as
-defined in http://www.esri.com/library/whitepapers/pdfs/shapefile.pdf. The
+defined in https://www.esri.com/library/whitepapers/pdfs/shapefile.pdf. The
 library currently supports reading and editing of ShapeFiles and the Associated
 information (DBF file). There are a lot of things that can be improved in the
 code, if you are interested in developing, helping with the documentation,
