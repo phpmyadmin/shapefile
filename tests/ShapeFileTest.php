@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, you can download one from
- * http://www.gnu.org/copyleft/gpl.html.
+ * https://www.gnu.org/copyleft/gpl.html.
  */
 namespace ShapeFileTest;
 
