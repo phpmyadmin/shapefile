@@ -426,7 +426,7 @@ class ShapeFile {
     {
         $dbf_name = $this->_getFilename('.dbf');
         $result = @dbase_create($dbf_name, $this->DBFHeader);
-        if ($result === false ) {
+        if ($result === false) {
             $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
             return false;
         }
@@ -538,7 +538,7 @@ class ShapeFile {
      */
     public function hasMeasure()
     {
-         return $this->boundingBox['mmin'] != 0 || $this->boundingBox['mmax'] != 0;
+            return $this->boundingBox['mmin'] != 0 || $this->boundingBox['mmax'] != 0;
     }
 }
 

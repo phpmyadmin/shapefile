@@ -44,6 +44,9 @@ class ShapeRecord {
         $this->shapeType = $shapeType;
     }
 
+    /**
+     * @param ShapeFile $ShapeFile
+     */
     public function loadFromFile(&$ShapeFile, &$SHPFile, &$DBFFile) {
         $this->ShapeFile = $ShapeFile;
         $this->SHPFile = $SHPFile;
@@ -304,7 +307,7 @@ class ShapeRecord {
     private function _loadMultiPointMZRecord($type)
     {
         /* The m dimension is optional, depends on bounding box data */
-        if ($type == 'm' && ! $this->ShapeFile->hasMeasure()) {
+        if ($type == 'm' && !$this->ShapeFile->hasMeasure()) {
             return;
         }
 
@@ -395,7 +398,7 @@ class ShapeRecord {
      */
     private function _loadPolyLineMZRecord($type) {
         /* The m dimension is optional, depends on bounding box data */
-        if ($type == 'm' && ! $this->ShapeFile->hasMeasure()) {
+        if ($type == 'm' && !$this->ShapeFile->hasMeasure()) {
             return;
         }
 
