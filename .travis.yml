@@ -15,9 +15,6 @@ matrix:
     - php: "hhvm"
       env: DBASE=yes
 
-before_install:
-  - pip install --user codecov
-
 install:
   - if [ "$DBASE" = "yes" ] ; then ./ci/install-dbase ; fi
   - composer install
@@ -31,7 +28,7 @@ script:
   - cd ..
 
 after_success:
-  - codecov
+  - bash <(curl -s https://codecov.io/bash)
 
 cache:
   directories:
