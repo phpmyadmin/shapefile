@@ -24,6 +24,14 @@ namespace ShapeFile;
 class Util {
     private static $little_endian = null;
 
+    /**
+     * Reads data
+     *
+     * @param string $type type for unpack()
+     * @param string $data Data to process
+     *
+     * @return mixed
+     */
     public static function loadData($type, $data) {
         if (!$data) {
             return $data;
@@ -32,6 +40,13 @@ class Util {
         return current($tmp);
     }
 
+    /**
+     * Changes endianity
+     *
+     * @param string $value Binary value
+     *
+     * @return string
+     */
     public static function swap($binValue) {
         $result = $binValue{strlen($binValue) - 1};
         for ($i = strlen($binValue) - 2; $i >= 0; $i--) {
@@ -41,6 +56,13 @@ class Util {
         return $result;
     }
 
+    /**
+     * Encodes double value to correct endianity
+     *
+     * @param double $value Value to pack
+     *
+     * @return string
+     */
     public static function packDouble($value) {
         $bin = pack("d", (double) $value);
 
