@@ -43,7 +43,7 @@ class Util {
     /**
      * Changes endianity
      *
-     * @param string $value Binary value
+     * @param string $binValue Binary value
      *
      * @return string
      */
