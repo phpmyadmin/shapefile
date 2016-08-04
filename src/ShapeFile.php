@@ -356,8 +356,8 @@ class ShapeFile {
         if (file_exists($dbf_name)) {
             unlink($dbf_name);
         }
-        if (!($this->DBFFile = @dbase_create($dbf_name, $this->DBFHeader))) {
-            $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
+        $this->DBFFile = $this->_createDBFFile();
+        if ($this->DBFFile === false) {
             return false;
         }
 
@@ -418,6 +418,23 @@ class ShapeFile {
     }
 
     /**
+     * Creates DBF file
+     *
+     * @return int|false
+     */
+    private function _createDBFFile()
+    {
+        $dbf_name = $this->_getFilename('.dbf');
+        $result = @dbase_create($dbf_name, $this->DBFHeader);
+        if ($result === false ) {
+            $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
+            return false;
+        }
+        return $result;
+
+    }
+
+    /**
      * Loads DBF file if supported
      *
      * @return bool
@@ -429,8 +446,7 @@ class ShapeFile {
         $dbf_name = $this->_getFilename('.dbf');
         $checkFunction = $toWrite ? 'is_writable' : 'is_readable';
         if (($toWrite) && (!file_exists($dbf_name))) {
-            if (!@dbase_create($dbf_name, $this->DBFHeader)) {
-                $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
+            if ($this->_createDBFFile() === false) {
                 return false;
             }
         }
