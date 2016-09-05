@@ -199,6 +199,7 @@ class ShapeRecord {
     }
 
     private function _loadHeaders() {
+        $this->shapeType = false;
         $this->recordNumber = $this->_loadData('N', 4);
         if ($this->recordNumber === false) {
             return;
