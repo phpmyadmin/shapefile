@@ -199,8 +199,15 @@ class ShapeRecord {
 
     private function _loadHeaders() {
         $this->recordNumber = $this->_loadData('N', 4);
+        if ($this->recordNumber === false) {
+            return;
+        }
         // We read the length of the record
-        $this->size = $this->_loadData('N', 4) * 2 + 8;
+        $this->size = $this->_loadData('N', 4);
+        if ($this->size === false) {
+            return;
+        }
+        $this->size = $this->size * 2 + 8;
         $this->shapeType = $this->_loadData('V', 4);
     }
 
