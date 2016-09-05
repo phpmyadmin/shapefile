@@ -33,7 +33,7 @@ class Util {
      * @return mixed
      */
     public static function loadData($type, $data) {
-        if (!$data) {
+        if ($data === false) {
             return $data;
         }
         $tmp = unpack($type, $data);
