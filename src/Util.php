@@ -34,7 +34,7 @@ class Util {
      */
     public static function loadData($type, $data) {
         if ($data === false || strlen($data) == 0) {
-            return $data;
+            return false;
         }
         $tmp = unpack($type, $data);
         return current($tmp);
