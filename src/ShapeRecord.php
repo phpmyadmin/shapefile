@@ -191,9 +191,10 @@ class ShapeRecord {
     private function _loadData($type, $count)
     {
         $data = $this->ShapeFile->readSHP($count);
-        if ($data !== false) {
-            $this->read += strlen($data);
+        if ($data === false) {
+            return false;
         }
+        $this->read += strlen($data);
         return Util::loadData($type, $data);
     }
 
