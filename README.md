@@ -26,6 +26,11 @@ composer require phpmyadmin/shapefile
 To be able to read and write the associated DBF file, you need ``dbase``
 extension.
 
+## Documentation
+
+The API documentation is available at 
+<https://develdocs.phpmyadmin.net/shapefile/>.
+
 ## Usage
 
 To read shape file:
