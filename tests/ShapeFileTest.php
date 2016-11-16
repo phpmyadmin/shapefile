@@ -236,4 +236,126 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
         $obj = new ShapeRecord(-1);
         $this->assertEquals('Shape -1', $obj->getShapeName());
     }
+
+    /**
+     * Test shapes save/load round robin
+     *
+     * @param int   $type   Shape type
+     * @param array $points Points
+     *
+     * @return void
+     *
+     * @dataProvider shapes
+     */
+    public function testShapeSaveLoad($type, $points)
+    {
+        $filename = "./data/test_shape-$type.*";
+        $shp = new ShapeFile($type);
+
+        $record0 = new ShapeRecord($type);
+
+        foreach ($points as $point) {
+            $record0->addPoint($point[0], $point[1]);
+        }
+
+        $shp->addRecord($record0);
+
+        $shp->saveToFile($filename);
+
+        $shp2 = new ShapeFile($type);
+        $shp2->loadFromFile($filename);
+
+        $this->assertEquals(
+            count($shp->records),
+            count($shp2->records)
+        );
+
+        $record = $shp->records[0];
+        $record2 = $shp2->records[0];
+
+        $items = array('numparts', 'numpoints');
+        foreach ($items as $item) {
+            if (isset($record->SHPData[$item])) {
+                $this->assertEquals(
+                    $record->SHPData[$item],
+                    $record2->SHPData[$item]
+                );
+            }
+        }
+    }
+
+    /**
+     * Test shapes save/load round robin with z coordinate
+     *
+     * @param int   $type   Shape type
+     * @param array $points Points
+     *
+     * @return void
+     *
+     * @dataProvider shapes
+     */
+    public function testZetShapeSaveLoad($type, $points)
+    {
+        $this->testShapeSaveLoad($type + 10, $points);
+    }
+
+    /**
+     * Test shapes save/load round robin with measure
+     *
+     * @param int   $type   Shape type
+     * @param array $points Points
+     *
+     * @return void
+     *
+     * @dataProvider shapes
+     */
+    public function testMeasureShapeSaveLoad($type, $points)
+    {
+        $this->testShapeSaveLoad($type + 20, $points);
+    }
+
+    /**
+     * Data provider for save/load testing
+     *
+     * @return array
+     */
+    public function shapes()
+    {
+        return array(
+            array(
+                1,
+                array(
+                    array(array('x' => 10, 'y' => 20), 0),
+                )
+            ),
+            array(
+                3,
+                array(
+                    array(array('x' => 10, 'y' => 20), 0),
+                    array(array('x' => 20, 'y' => 20), 0),
+                    array(array('x' => 20, 'y' => 20), 1),
+                    array(array('x' => 20, 'y' => 10), 1),
+                )
+            ),
+            array(
+                5,
+                array(
+                    array(array('x' => 10, 'y' => 20), 0),
+                    array(array('x' => 20, 'y' => 20), 0),
+                    array(array('x' => 20, 'y' => 20), 1),
+                    array(array('x' => 20, 'y' => 10), 1),
+                    array(array('x' => 20, 'y' => 10), 2),
+                    array(array('x' => 10, 'y' => 20), 2),
+                )
+            ),
+            array(
+                8,
+                array(
+                    array(array('x' => 10, 'y' => 20), 0),
+                    array(array('x' => 20, 'y' => 20), 0),
+                    array(array('x' => 20, 'y' => 10), 0),
+                )
+            ),
+        );
+    }
 }
