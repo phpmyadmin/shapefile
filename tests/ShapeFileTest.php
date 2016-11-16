@@ -282,6 +282,9 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
                 );
             }
         }
+
+        /* Test deletion works */
+        $record->deletePoint();
     }
 
     /**
