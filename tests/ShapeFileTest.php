@@ -119,9 +119,16 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
         $record2 = new ShapeRecord(21);
         $record2->addPoint(array("x" => 492131.764567, "y" => 2143634.39608, 'z' => 150, 'm' => 80));
 
+        $record3 = new ShapeRecord(3);
+        $record3->addPoint(array("x" => 482131.764567, "y" => 2143634.39608), 0);
+        $record3->addPoint(array("x" => 482132.764567, "y" => 2143635.39608), 0);
+        $record3->addPoint(array("x" => 482131.764567, "y" => 2143635.39608), 1);
+        $record3->addPoint(array("x" => 482132.764567, "y" => 2143636.39608), 1);
+
         $shp->addRecord($record0);
         $shp->addRecord($record1);
         $shp->addRecord($record2);
+        $shp->addRecord($record3);
 
         $shp->setDBFHeader(
             array(
@@ -138,6 +145,9 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
 
         $shp->records[2]->DBFData['ID'] = '3';
         $shp->records[2]->DBFData['DESC'] = 'CCCCCCCCCCC';
+
+        $shp->records[3]->DBFData['ID'] = '4';
+        $shp->records[3]->DBFData['DESC'] = 'CCCCCCCCCCC';
 
         $shp->saveToFile('./data/test_shape.*');
     }
@@ -156,7 +166,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
 
         $shp = new ShapeFile(1);
         $shp->loadFromFile('./data/test_shape.*');
-        $this->assertEquals(3, count($shp->records));
+        $this->assertEquals(4, count($shp->records));
     }
 
     /**
@@ -175,11 +185,11 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
         $shp->loadFromFile('./data/test_shape.*');
         $shp->deleteRecord(1);
         $shp->saveToFile();
-        $this->assertEquals(2, count($shp->records));
+        $this->assertEquals(3, count($shp->records));
 
         $shp = new ShapeFile(1);
         $shp->loadFromFile('./data/test_shape.*');
-        $this->assertEquals(2, count($shp->records));
+        $this->assertEquals(3, count($shp->records));
     }
 
     /**
@@ -201,15 +211,15 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
         $record0->addPoint(array("x" => 482131.764567, "y" => 2143634.39608));
 
         $shp->addRecord($record0);
-        $shp->records[3]->DBFData['ID'] = '4';
-        $shp->records[3]->DBFData['DESC'] = 'CCCCCCCCCCC';
+        $shp->records[4]->DBFData['ID'] = '4';
+        $shp->records[4]->DBFData['DESC'] = 'CCCCCCCCCCC';
 
         $shp->saveToFile();
-        $this->assertEquals(4, count($shp->records));
+        $this->assertEquals(5, count($shp->records));
 
         $shp = new ShapeFile(1);
         $shp->loadFromFile('./data/test_shape.*');
-        $this->assertEquals(4, count($shp->records));
+        $this->assertEquals(5, count($shp->records));
     }
 
     /**
