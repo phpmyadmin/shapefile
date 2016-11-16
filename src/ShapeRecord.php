@@ -168,7 +168,9 @@ class ShapeRecord {
                 $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
                 break;
         }
-        $this->_saveDBFData();
+        if (ShapeFile::supports_dbase() && isset($this->DBFFile)) {
+            $this->_saveDBFData();
+        }
     }
 
     public function updateDBFInfo($header) {

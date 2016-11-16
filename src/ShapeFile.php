@@ -349,16 +349,17 @@ class ShapeFile {
     }
 
     private function _saveRecords() {
-        if (!ShapeFile::supports_dbase()) {
-            return;
-        }
-        $dbf_name = $this->_getFilename('.dbf');
-        if (file_exists($dbf_name)) {
-            unlink($dbf_name);
-        }
-        $this->DBFFile = $this->_createDBFFile();
-        if ($this->DBFFile === false) {
-            return false;
+        $do_dbase = ShapeFile::supports_dbase();
+
+        if ($do_dbase) {
+            $dbf_name = $this->_getFilename('.dbf');
+            if (file_exists($dbf_name)) {
+                unlink($dbf_name);
+            }
+            $this->DBFFile = $this->_createDBFFile();
+            if ($this->DBFFile === false) {
+                return false;
+            }
         }
 
         $offset = 50;
@@ -373,7 +374,9 @@ class ShapeFile {
                 $offset += (4 + $record->getContentLength());
             }
         }
-        dbase_pack($this->DBFFile);
+        if ($do_dbase) {
+            dbase_pack($this->DBFFile);
+        }
     }
 
     private function _openFile($toWrite, $extension, $name) {
