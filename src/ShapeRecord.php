@@ -527,7 +527,30 @@ class ShapeRecord {
         }
     }
 
+    /**
+     * Sets dimension to 0 if not set
+     *
+     * @param array  $point     Point to check
+     * @param string $dimension Dimension to check
+     *
+     * @return array
+     */
+    public function fixPoint($point, $dimension)
+    {
+        if (!isset($point[$dimension])) {
+            $point[$dimension] = 0.0; // no_value
+        }
+        return $point;
+    }
+
     public function addPoint($point, $partIndex = 0) {
+        $type = $this->shapeType / 10;
+        if ($type >= 2) {
+            $point = $this->fixPoint($point, 'm');
+        } elseif ($type >= 1) {
+            $point = $this->fixPoint($point, 'z');
+            $point = $this->fixPoint($point, 'm');
+        }
         switch ($this->shapeType) {
             case 0:
                 //Don't add anything
@@ -535,13 +558,6 @@ class ShapeRecord {
             case 1:
             case 11:
             case 21:
-                if (in_array($this->shapeType, array(11, 21)) && !isset($point['m'])) {
-                    $point['m'] = 0.0; // no_value
-                }
-                if (in_array($this->shapeType, array(11)) && !isset($point['z'])) {
-                    $point['z'] = 0.0; // no_value
-                }
-
                 //Substitutes the value of the current point
                 $this->SHPData = $point;
                 $this->_adjustBBox($point);
@@ -552,13 +568,6 @@ class ShapeRecord {
             case 15:
             case 23:
             case 25:
-                if (in_array($this->shapeType, array(13, 15, 23, 25)) && !isset($point['m'])) {
-                    $point['m'] = 0.0; // no_value
-                }
-                if (in_array($this->shapeType, array(13, 15)) && !isset($point['z'])) {
-                    $point['z'] = 0.0; // no_value
-                }
-
                 $this->_adjustBBox($point);
 
                 //Adds a new point to the selected part
@@ -570,12 +579,6 @@ class ShapeRecord {
             case 8:
             case 18:
             case 28:
-                if (in_array($this->shapeType, array(18, 28)) && !isset($point['m'])) {
-                    $point['m'] = 0.0; // no_value
-                }
-                if (in_array($this->shapeType, array(18)) && !isset($point['z'])) {
-                    $point['z'] = 0.0; // no_value
-                }
 
                 $this->_adjustBBox($point);
 
