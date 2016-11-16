@@ -251,6 +251,10 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     {
         $filename = "./data/test_shape-$type.*";
         $shp = new ShapeFile($type);
+        $shp->setDBFHeader(array(
+            array('ID', 'N', 19, 0),
+            array('DESC', 'C', 14, 0),
+        ));
 
         $record0 = new ShapeRecord($type);
 
