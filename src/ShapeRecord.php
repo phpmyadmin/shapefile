@@ -444,8 +444,10 @@ class ShapeRecord {
 
         fwrite($this->SHPFile, pack('VV', $this->SHPData['numparts'], $this->SHPData['numpoints']));
 
+        $part_index = 0;
         for ($i = 0; $i < $this->SHPData['numparts']; $i++) {
-            fwrite($this->SHPFile, pack('V', count($this->SHPData['parts'][$i]) - 1));
+            fwrite($this->SHPFile, pack('V', $part_index));
+            $part_index += count($this->SHPData['parts'][$i]['points']);
         }
 
         foreach ($this->SHPData['parts'] as $partData) {
