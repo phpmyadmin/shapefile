@@ -33,10 +33,7 @@ class ShapeFile {
     private $SHXFile = null;
     private $DBFFile = null;
 
-    public $DBFHeader = array(
-        array('ID', 'N', 19, 0),
-        array('DESC', 'C', 14, 0),
-    );
+    public $DBFHeader;
 
     public $lastError = '';
 
@@ -430,6 +427,9 @@ class ShapeFile {
      */
     private function _createDBFFile()
     {
+        if (count($this->DBFHeader) == 0) {
+            return null;
+        }
         $dbf_name = $this->_getFilename('.dbf');
         $result = @dbase_create($dbf_name, $this->DBFHeader);
         if ($result === false) {
