@@ -554,13 +554,12 @@ class ShapeRecord {
         switch ($this->shapeType) {
             case 0:
                 //Don't add anything
-                break;
+                return;
             case 1:
             case 11:
             case 21:
                 //Substitutes the value of the current point
                 $this->SHPData = $point;
-                $this->_adjustBBox($point);
                 break;
             case 3:
             case 5:
@@ -568,28 +567,23 @@ class ShapeRecord {
             case 15:
             case 23:
             case 25:
-                $this->_adjustBBox($point);
-
                 //Adds a new point to the selected part
                 $this->SHPData['parts'][$partIndex]['points'][] = $point;
-
                 $this->SHPData['numparts'] = count($this->SHPData['parts']);
                 $this->SHPData['numpoints'] = 1 + (isset($this->SHPData['numpoints']) ? $this->SHPData['numpoints'] : 0);
                 break;
             case 8:
             case 18:
             case 28:
-
-                $this->_adjustBBox($point);
-
                 //Adds a new point
                 $this->SHPData['points'][] = $point;
                 $this->SHPData['numpoints'] = 1 + (isset($this->SHPData['numpoints']) ? $this->SHPData['numpoints'] : 0);
                 break;
             default:
                 $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
-                break;
+                return;
         }
+        $this->_adjustBBox($point);
     }
 
     public function deletePoint($pointIndex = 0, $partIndex = 0) {
