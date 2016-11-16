@@ -361,7 +361,7 @@ class ShapeRecord {
         fwrite($this->SHPFile, pack('dd', $this->SHPData[$type.'min'], $this->SHPData[$type.'max']));
 
         for ($i = 0; $i < $this->SHPData['numpoints']; $i++) {
-            fwrite($this->SHPFile, Util::packDouble($this->SHPData['points'][$type]));
+            fwrite($this->SHPFile, Util::packDouble($this->SHPData['points'][$i][$type]));
         }
     }
 
