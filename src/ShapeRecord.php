@@ -708,6 +708,9 @@ class ShapeRecord {
     }
 
     private function _saveDBFData() {
+        if (count($this->DBFData) == 0) {
+            return;
+        }
         unset($this->DBFData['deleted']);
         if ($this->recordNumber <= dbase_numrecords($this->DBFFile)) {
             if (!dbase_replace_record($this->DBFFile, array_values($this->DBFData), $this->recordNumber)) {
