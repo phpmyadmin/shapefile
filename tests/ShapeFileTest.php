@@ -224,6 +224,18 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests saving without DBF
+     *
+     * @return void
+     */
+    public function testSaveNoDBF()
+    {
+        $shp = new ShapeFile(1);
+        $shp->saveToFile('./data/test_shape.*');
+        $this->assertFileNotExists('./data/test_shape.dbf');
+    }
+
+    /**
      * Test shape naming.
      *
      * @return void
