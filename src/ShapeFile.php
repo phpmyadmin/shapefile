@@ -227,7 +227,9 @@ class ShapeFile {
      */
     public function getIndexFromDBFData($field, $value) {
         foreach ($this->records as $index => $record) {
-            if (isset($record->DBFData[$field]) && (strtoupper($record->DBFData[$field]) == strtoupper($value))) {
+            if (isset($record->DBFData[$field]) &&
+                (trim(strtoupper($record->DBFData[$field])) == strtoupper($value))
+            ) {
                 return $index;
             }
         }
