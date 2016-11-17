@@ -279,7 +279,7 @@ class ShapeFile {
     }
 
     private function _loadHeaders() {
-        if (Util::loadData('N', $this->readSHP(4)) != 9994) {
+        if (Util::loadData('N', $this->readSHP(4)) != 0x270a) {
             $this->setError('Not a SHP file (file code mismatch)');
             return false;
         }

@@ -91,6 +91,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
         $result = array(
             array('data/no-shp.*'),
             array('data/missing.*'),
+            array('data/invalid-shp.*'),
         );
 
         if (ShapeFile::supports_dbase()) {
