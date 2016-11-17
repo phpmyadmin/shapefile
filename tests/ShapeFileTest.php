@@ -378,4 +378,21 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
             ),
         );
     }
+
+    public function testSearch()
+    {
+        $shp = new ShapeFile(0);
+        $shp->loadFromFile('data/capitals.*');
+        /* Nonexisting entry or no dbase support */
+        $this->assertEquals(
+            -1,
+            $shp->getIndexFromDBFData('CNTRY_NAME', 'nonexisting')
+        );
+        if (ShapeFile::supports_dbase()) {
+            $this->assertEquals(
+                218,
+                $shp->getIndexFromDBFData('CNTRY_NAME', 'Czech Republic')
+            );
+        }
+    }
 }
