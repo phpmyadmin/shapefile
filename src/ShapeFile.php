@@ -217,6 +217,14 @@ class ShapeFile {
         }
     }
 
+    /**
+     * Lookups value in the DBF file and returs index
+     *
+     * @param string $field Field to match
+     * @param mixed  $value Value to match
+     *
+     * @return integer
+     */
     public function getIndexFromDBFData($field, $value) {
         $result = -1;
         $count = count($this->records) - 1;
