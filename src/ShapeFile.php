@@ -382,7 +382,7 @@ class ShapeFile {
                 $offset += (4 + $record->getContentLength());
             }
         }
-        if ($do_dbase) {
+        if ($do_dbase && !is_null($this->DBFFile)) {
             dbase_pack($this->DBFFile);
         }
     }
