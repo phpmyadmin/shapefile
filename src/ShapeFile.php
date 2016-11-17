@@ -226,15 +226,15 @@ class ShapeFile {
      * @return integer
      */
     public function getIndexFromDBFData($field, $value) {
-        $result = -1;
-        $count = count($this->records) - 1;
-        for ($i = 0; $i < $count; $i++) {
-            if (isset($this->records[$i]->DBFData[$field]) && (strtoupper($this->records[$i]->DBFData[$field]) == strtoupper($value))) {
-                $result = $i;
+        foreach ($this->records as $index => $record) {
+            if (isset($record->DBFData[$field]) &&
+                (trim(strtoupper($record->DBFData[$field])) == strtoupper($value))
+            ) {
+                return $index;
             }
         }
 
-        return $result;
+        return -1;
     }
 
     private function _loadDBFHeader() {
