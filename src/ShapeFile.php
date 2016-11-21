@@ -27,6 +27,8 @@ namespace ShapeFile;
  * @package ShapeFile
  */
 class ShapeFile {
+    const MAGIC = 0x270a;
+
     public $FileName;
 
     private $SHPFile = null;
@@ -276,7 +278,7 @@ class ShapeFile {
     }
 
     private function _loadHeaders() {
-        if (Util::loadData('N', $this->readSHP(4)) != 0x270a) {
+        if (Util::loadData('N', $this->readSHP(4)) != ShapeFile::MAGIC) {
             $this->setError('Not a SHP file (file code mismatch)');
             return false;
         }
@@ -325,13 +327,13 @@ class ShapeFile {
     }
 
     private function _saveHeaders() {
-        fwrite($this->SHPFile, pack('NNNNNN', 9994, 0, 0, 0, 0, 0));
+        fwrite($this->SHPFile, pack('NNNNNN', ShapeFile::MAGIC, 0, 0, 0, 0, 0));
         fwrite($this->SHPFile, pack('N', $this->fileLength));
         fwrite($this->SHPFile, pack('V', 1000));
         fwrite($this->SHPFile, pack('V', $this->shapeType));
         $this->_saveBBox($this->SHPFile);
 
-        fwrite($this->SHXFile, pack('NNNNNN', 9994, 0, 0, 0, 0, 0));
+        fwrite($this->SHXFile, pack('NNNNNN', ShapeFile::MAGIC, 0, 0, 0, 0, 0));
         fwrite($this->SHXFile, pack('N', 50 + 4 * count($this->records)));
         fwrite($this->SHXFile, pack('V', 1000));
         fwrite($this->SHXFile, pack('V', $this->shapeType));
