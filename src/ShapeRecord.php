@@ -596,7 +596,6 @@ class ShapeRecord {
             $point = $this->_fixPoint($point, 'z');
             $point = $this->_fixPoint($point, 'm');
         }
-        $this->_adjustBBox($point);
         return $point;
     }
 
@@ -642,6 +641,7 @@ class ShapeRecord {
                 $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
                 return;
         }
+        $this->_adjustBBox($point);
     }
 
     /**
