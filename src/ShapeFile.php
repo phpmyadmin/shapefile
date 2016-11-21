@@ -104,7 +104,7 @@ class ShapeFile {
             $this->FileName = $FileName;
         }
 
-        if (($this->_openSHPFile(true)) && ($this->_openSHXFile(true)) && ($this->_openDBFFile(true))) {
+        if (($this->_openSHPFile(true)) && ($this->_openSHXFile(true)) && ($this->_createDBFFile())) {
             $this->_saveHeaders();
             $this->_saveRecords();
             $this->_closeSHPFile();
@@ -359,23 +359,6 @@ class ShapeFile {
     }
 
     private function _saveRecords() {
-        $do_dbase = ShapeFile::supports_dbase();
-
-        if ($do_dbase) {
-            $dbf_name = $this->_getFilename('.dbf');
-            if (file_exists($dbf_name)) {
-                unlink($dbf_name);
-            }
-            $this->DBFFile = $this->_createDBFFile();
-            if ($this->DBFFile === false) {
-                return false;
-            }
-            /* No dbase data to save */
-            if (is_null($this->DBFFile)) {
-                $do_dbase = false;
-            }
-        }
-
         $offset = 50;
         if (is_array($this->records) && (count($this->records) > 0)) {
             foreach ($this->records as $index => $record) {
@@ -387,9 +370,6 @@ class ShapeFile {
                 fwrite($this->SHXFile, pack('N', $record->getContentLength()));
                 $offset += (4 + $record->getContentLength());
             }
-        }
-        if ($do_dbase) {
-            dbase_pack($this->DBFFile);
         }
     }
 
@@ -441,16 +421,24 @@ class ShapeFile {
      */
     private function _createDBFFile()
     {
-        if (count($this->DBFHeader) == 0) {
-            return null;
+        if (!ShapeFile::supports_dbase() || count($this->DBFHeader) == 0) {
+            $this->DBFFile = null;
+            return true;
         }
         $dbf_name = $this->_getFilename('.dbf');
-        $result = @dbase_create($dbf_name, $this->DBFHeader);
-        if ($result === false) {
+
+        /* Unlink existing file */
+        if (file_exists($dbf_name)) {
+            unlink($dbf_name);
+        }
+
+        /* Create new file */
+        $this->DBFFile = @dbase_create($dbf_name, $this->DBFHeader);
+        if ($this->DBFFile === false) {
             $this->setError(sprintf('It wasn\'t possible to create the DBase file "%s"', $dbf_name));
             return false;
         }
-        return $result;
+        return true;
 
     }
 
@@ -459,19 +447,14 @@ class ShapeFile {
      *
      * @return bool
      */
-    private function _openDBFFile($toWrite = false) {
+    private function _openDBFFile() {
         if (!ShapeFile::supports_dbase()) {
+            $this->DBFFile = null;
             return true;
         }
         $dbf_name = $this->_getFilename('.dbf');
-        $checkFunction = $toWrite ? 'is_writable' : 'is_readable';
-        if (($toWrite) && (!file_exists($dbf_name))) {
-            if ($this->_createDBFFile() === false) {
-                return false;
-            }
-        }
-        if ($checkFunction($dbf_name)) {
-            $this->DBFFile = @dbase_open($dbf_name, ($toWrite ? 2 : 0));
+        if (is_readable($dbf_name)) {
+            $this->DBFFile = @dbase_open($dbf_name, 0);
             if (!$this->DBFFile) {
                 $this->setError(sprintf('It wasn\'t possible to open the DBase file "%s"', $dbf_name));
                 return false;
