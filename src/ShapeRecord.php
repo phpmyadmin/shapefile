@@ -21,6 +21,11 @@
  */
 namespace ShapeFile;
 
+/**
+ * ShapeFile record class
+ *
+ * @package ShapeFile
+ */
 class ShapeRecord {
     private $SHPFile = null;
     private $DBFFile = null;
@@ -45,7 +50,13 @@ class ShapeRecord {
     }
 
     /**
+     * Loads record from files
+     *
      * @param ShapeFile $ShapeFile
+     * @param file      &$SHPFile Opened SHP file
+     * @param file      &$DBFFile Opened DBF file
+     *
+     * @return void
      */
     public function loadFromFile(&$ShapeFile, &$SHPFile, &$DBFFile) {
         $this->ShapeFile = $ShapeFile;
@@ -118,6 +129,15 @@ class ShapeRecord {
         }
     }
 
+    /**
+     * Saves record to files
+     *
+     * @param file    &$SHPFile     Opened SHP file
+     * @param file    &$DBFFile     Opened DBF file
+     * @param integer $recordNumber Record number
+     *
+     * @return void
+     */
     public function saveToFile(&$SHPFile, &$DBFFile, $recordNumber) {
         $this->SHPFile = $SHPFile;
         $this->DBFFile = $DBFFile;
@@ -173,6 +193,13 @@ class ShapeRecord {
         }
     }
 
+    /**
+     * Updates DBF data to match header
+     *
+     * @param array $header DBF structure header
+     *
+     * @return void
+     */
     public function updateDBFInfo($header) {
         $tmp = $this->DBFData;
         unset($this->DBFData);
@@ -200,6 +227,11 @@ class ShapeRecord {
         return Util::loadData($type, $data);
     }
 
+    /**
+     * Loads metadata header from a file
+     *
+     * @return void
+     */
     private function _loadHeaders() {
         $this->shapeType = false;
         $this->recordNumber = $this->_loadData('N', 4);
@@ -215,6 +247,11 @@ class ShapeRecord {
         $this->shapeType = $this->_loadData('V', 4);
     }
 
+    /**
+     * Saves metadata header to a file
+     *
+     * @return void
+     */
     private function _saveHeaders() {
         fwrite($this->SHPFile, pack('N', $this->recordNumber));
         fwrite($this->SHPFile, pack('N', $this->getContentLength()));
@@ -562,6 +599,14 @@ class ShapeRecord {
         $this->_adjustBBox($point);
     }
 
+    /**
+     * Adds point to a record
+     *
+     * @param array   $point     Point data
+     * @param integer $partIndex Part index
+     *
+     * @return void
+     */
     public function addPoint($point, $partIndex = 0) {
         $point = $this->_adjustPoint($point);
         switch ($this->shapeType) {
@@ -598,6 +643,14 @@ class ShapeRecord {
         }
     }
 
+    /**
+     * Deletes point from a record
+     *
+     * @param integer $pointIndex Point index
+     * @param integer $partIndex  Part index
+     *
+     * @return void
+     */
     public function deletePoint($pointIndex = 0, $partIndex = 0) {
         switch ($this->shapeType) {
             case 0:
@@ -654,6 +707,11 @@ class ShapeRecord {
         }
     }
 
+    /**
+     * Returns length of content
+     *
+     * @return integer
+     */
     public function getContentLength() {
         // The content length for a record is the length of the record contents section measured in 16-bit words.
         // one coordinate makes 4 16-bit words (64 bit double)
