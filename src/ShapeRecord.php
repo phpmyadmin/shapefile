@@ -535,7 +535,7 @@ class ShapeRecord {
      *
      * @return array
      */
-    public function fixPoint($point, $dimension)
+    private function _fixPoint($point, $dimension)
     {
         if (!isset($point[$dimension])) {
             $point[$dimension] = 0.0; // no_value
@@ -543,14 +543,27 @@ class ShapeRecord {
         return $point;
     }
 
-    public function addPoint($point, $partIndex = 0) {
+    /**
+     * Adjust point and bounding box when adding point
+     *
+     * @param array $point Point data
+     *
+     * @return array Fixed point data
+     */
+    private function _adjustPoint($point)
+    {
         $type = $this->shapeType / 10;
         if ($type >= 2) {
-            $point = $this->fixPoint($point, 'm');
+            $point = $this->_fixPoint($point, 'm');
         } elseif ($type >= 1) {
-            $point = $this->fixPoint($point, 'z');
-            $point = $this->fixPoint($point, 'm');
+            $point = $this->_fixPoint($point, 'z');
+            $point = $this->_fixPoint($point, 'm');
         }
+        $this->_adjustBBox($point);
+    }
+
+    public function addPoint($point, $partIndex = 0) {
+        $point = $this->_adjustPoint($point);
         switch ($this->shapeType) {
             case 0:
                 //Don't add anything
@@ -583,7 +596,6 @@ class ShapeRecord {
                 $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
                 return;
         }
-        $this->_adjustBBox($point);
     }
 
     public function deletePoint($pointIndex = 0, $partIndex = 0) {
