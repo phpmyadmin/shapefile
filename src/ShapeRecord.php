@@ -738,6 +738,6 @@ class ShapeRecord {
      */
     public function getShapeName()
     {
-        return ShapeFile::nameShape($this->shapeType);
+        return Util::nameShape($this->shapeType);
     }
 }
