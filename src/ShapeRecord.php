@@ -212,8 +212,8 @@ class ShapeRecord {
     /**
      * Reads data
      *
-     * @param string $type type for unpack()
-     * @param int    $count number of bytes
+     * @param string  $type type for unpack()
+     * @param integer $count number of bytes
      *
      * @return mixed
      */

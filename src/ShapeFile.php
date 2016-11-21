@@ -48,7 +48,7 @@ class ShapeFile {
     /**
      * Checks whether dbase manipuations are supported.
      *
-     * @return bool
+     * @return boolean
      */
     public static function supports_dbase()
     {
@@ -157,7 +157,7 @@ class ShapeFile {
      *
      * @param ShapeRecord $record
      *
-     * @return int Number of added record
+     * @return integer Number of added record
      */
     public function addRecord($record) {
         if ((isset($this->DBFHeader)) && (is_array($this->DBFHeader))) {
@@ -392,7 +392,7 @@ class ShapeFile {
     /**
      * Loads records from SHP file (and DBF)
      *
-     * @return void
+     * @return boolean
      */
     private function _loadRecords() {
         /* Need to start at offset 100 */
@@ -435,11 +435,11 @@ class ShapeFile {
     /**
      * Generic interface to open files
      *
-     * @param bool   $toWrite   Whether file should be opened for writing
-     * @param string $extension File extension
+     * @param boolean $toWrite   Whether file should be opened for writing
+     * @param string  $extension File extension
      * @param string $name      Verbose file name to report errors
      *
-     * @return file File handle
+     * @return file|false File handle
      */
     private function _openFile($toWrite, $extension, $name) {
         $shp_name = $this->_getFilename($extension);
@@ -455,9 +455,9 @@ class ShapeFile {
     /**
      * Opens SHP file
      *
-     * @param bool $toWrite Whether file should be opened for writing
+     * @param boolean $toWrite Whether file should be opened for writing
      *
-     * @return bool
+     * @return boolean
      */
     private function _openSHPFile($toWrite = false) {
         $this->SHPFile = $this->_openFile($toWrite, '.shp', 'Shape');
@@ -482,9 +482,9 @@ class ShapeFile {
     /**
      * Opens SHX file
      *
-     * @param bool $toWrite Whether file should be opened for writing
+     * @param boolean $toWrite Whether file should be opened for writing
      *
-     * @return bool
+     * @return boolean
      */
     private function _openSHXFile($toWrite = false) {
         $this->SHXFile = $this->_openFile($toWrite, '.shx', 'Index');
@@ -509,7 +509,7 @@ class ShapeFile {
     /**
      * Creates DBF file
      *
-     * @return bool
+     * @return boolean
      */
     private function _createDBFFile()
     {
@@ -537,7 +537,7 @@ class ShapeFile {
     /**
      * Loads DBF file if supported
      *
-     * @return bool
+     * @return boolean
      */
     private function _openDBFFile() {
         if (!ShapeFile::supports_dbase()) {
@@ -596,7 +596,7 @@ class ShapeFile {
     /**
      * Checks whether file is at EOF
      *
-     * @return bool
+     * @return boolean
      */
     public function eofSHP()
     {
@@ -619,7 +619,7 @@ class ShapeFile {
      * For some reason this is distinguished by zero bouding box in the
      * specification.
      *
-     * @return bool
+     * @return boolean
      */
     public function hasMeasure()
     {
