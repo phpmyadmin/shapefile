@@ -1,5 +1,7 @@
 # Change Log
 
+## [Unreleased]
+
 ## [1.1] - 2016-11-21
 
 * Fixed adjusting of record bouding box
