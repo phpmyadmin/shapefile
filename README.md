@@ -24,7 +24,12 @@ composer require phpmyadmin/shapefile
 ``` 
 
 To be able to read and write the associated DBF file, you need ``dbase``
-extension.
+extension:
+
+```
+pecl install dbase
+echo "extension=dbase.so" > /etc/php5/conf.d/dbase.ini
+```
 
 ## Documentation
 
