@@ -597,6 +597,7 @@ class ShapeRecord {
             $point = $this->_fixPoint($point, 'm');
         }
         $this->_adjustBBox($point);
+        return $point;
     }
 
     /**
