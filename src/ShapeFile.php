@@ -307,32 +307,35 @@ class ShapeFile {
         return true;
     }
 
+    private function _saveBBoxRecord($file, $type) {
+        fwrite($file, Util::packDouble(
+            isset($this->boundingBox[$type]) ? $this->boundingBox[$type] : 0)
+        );
+    }
+
+    private function _saveBBox($file) {
+        $this->_saveBBoxRecord($file, 'xmin');
+        $this->_saveBBoxRecord($file, 'ymin');
+        $this->_saveBBoxRecord($file, 'xmax');
+        $this->_saveBBoxRecord($file, 'ymax');
+        $this->_saveBBoxRecord($file, 'zmin');
+        $this->_saveBBoxRecord($file, 'zmax');
+        $this->_saveBBoxRecord($file, 'mmin');
+        $this->_saveBBoxRecord($file, 'mmax');
+    }
+
     private function _saveHeaders() {
         fwrite($this->SHPFile, pack('NNNNNN', 9994, 0, 0, 0, 0, 0));
         fwrite($this->SHPFile, pack('N', $this->fileLength));
         fwrite($this->SHPFile, pack('V', 1000));
         fwrite($this->SHPFile, pack('V', $this->shapeType));
-        fwrite($this->SHPFile, Util::packDouble($this->boundingBox['xmin']));
-        fwrite($this->SHPFile, Util::packDouble($this->boundingBox['ymin']));
-        fwrite($this->SHPFile, Util::packDouble($this->boundingBox['xmax']));
-        fwrite($this->SHPFile, Util::packDouble($this->boundingBox['ymax']));
-        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['zmin']) ? $this->boundingBox['zmin'] : 0));
-        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['zmax']) ? $this->boundingBox['zmax'] : 0));
-        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['mmin']) ? $this->boundingBox['mmin'] : 0));
-        fwrite($this->SHPFile, Util::packDouble(isset($this->boundingBox['mmax']) ? $this->boundingBox['mmax'] : 0));
+        $this->_saveBBox($this->SHPFile);
 
         fwrite($this->SHXFile, pack('NNNNNN', 9994, 0, 0, 0, 0, 0));
         fwrite($this->SHXFile, pack('N', 50 + 4 * count($this->records)));
         fwrite($this->SHXFile, pack('V', 1000));
         fwrite($this->SHXFile, pack('V', $this->shapeType));
-        fwrite($this->SHXFile, Util::packDouble($this->boundingBox['xmin']));
-        fwrite($this->SHXFile, Util::packDouble($this->boundingBox['ymin']));
-        fwrite($this->SHXFile, Util::packDouble($this->boundingBox['xmax']));
-        fwrite($this->SHXFile, Util::packDouble($this->boundingBox['ymax']));
-        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['zmin']) ? $this->boundingBox['zmin'] : 0));
-        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['zmax']) ? $this->boundingBox['zmax'] : 0));
-        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['mmin']) ? $this->boundingBox['mmin'] : 0));
-        fwrite($this->SHXFile, Util::packDouble(isset($this->boundingBox['mmax']) ? $this->boundingBox['mmax'] : 0));
+        $this->_saveBBox($this->SHXFile);
     }
 
     private function _loadRecords() {
