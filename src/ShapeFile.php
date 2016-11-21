@@ -33,7 +33,7 @@ class ShapeFile {
     private $SHXFile = null;
     private $DBFFile = null;
 
-    public $DBFHeader;
+    private $DBFHeader;
 
     public $lastError = '';
 
@@ -187,10 +187,24 @@ class ShapeFile {
         }
     }
 
+    /**
+     * Returns array defining fields in DBF file
+     *
+     * @return array See setDBFHeader for more information.
+     */
     public function getDBFHeader() {
         return $this->DBFHeader;
     }
 
+    /**
+     * Changes array defining fields in DBF file, used in dbase_create call
+     *
+     * @param array $header An array of arrays, each array describing the
+     *                      format of one field of the database. Each
+     *                      field consists of a name, a character indicating
+     *                      the field type, and optionally, a length,
+     *                      a precision and a nullable flag.
+     */
     public function setDBFHeader($header) {
         $this->DBFHeader = $header;
 
