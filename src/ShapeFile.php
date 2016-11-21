@@ -370,6 +370,10 @@ class ShapeFile {
             if ($this->DBFFile === false) {
                 return false;
             }
+            /* No dbase data to save */
+            if (is_null($this->DBFFile)) {
+                $do_dbase = false;
+            }
         }
 
         $offset = 50;
@@ -384,7 +388,7 @@ class ShapeFile {
                 $offset += (4 + $record->getContentLength());
             }
         }
-        if ($do_dbase && !is_null($this->DBFFile)) {
+        if ($do_dbase) {
             dbase_pack($this->DBFFile);
         }
     }
