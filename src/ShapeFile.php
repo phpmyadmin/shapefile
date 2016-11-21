@@ -417,7 +417,7 @@ class ShapeFile {
     /**
      * Creates DBF file
      *
-     * @return int|false
+     * @return bool
      */
     private function _createDBFFile()
     {
