@@ -1,7 +1,7 @@
 <?php
 /**
  * phpMyAdmin ShapeFile library
- * <https://github.com/phpmyadmin/shapefile/>
+ * <https://github.com/phpmyadmin/shapefile/>.
  *
  * Copyright 2006-2007 Ovidio <ovidio AT users.sourceforge.net>
  * Copyright 2016 Michal Čihař <michal@cihar.com>

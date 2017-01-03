@@ -1,7 +1,7 @@
 <?php
 /**
  * phpMyAdmin ShapeFile library
- * <https://github.com/phpmyadmin/shapefile/>
+ * <https://github.com/phpmyadmin/shapefile/>.
  *
  * Copyright 2006-2007 Ovidio <ovidio AT users.sourceforge.net>
  * Copyright 2016 Michal Čihař <michal@cihar.com>
@@ -19,9 +19,11 @@
  * along with this program; if not, you can download one from
  * https://www.gnu.org/copyleft/gpl.html.
  */
+
 namespace ShapeFile;
 
-class Util {
+class Util
+{
     private static $little_endian = null;
 
     private static $shape_names = array(
@@ -42,46 +44,50 @@ class Util {
     );
 
     /**
-     * Reads data
+     * Reads data.
      *
      * @param string $type type for unpack()
      * @param string $data Data to process
      *
      * @return mixed
      */
-    public static function loadData($type, $data) {
+    public static function loadData($type, $data)
+    {
         if ($data === false || strlen($data) == 0) {
             return false;
         }
         $tmp = unpack($type, $data);
+
         return current($tmp);
     }
 
     /**
-     * Changes endianity
+     * Changes endianity.
      *
      * @param string $binValue Binary value
      *
      * @return string
      */
-    public static function swap($binValue) {
-        $result = $binValue{strlen($binValue) - 1};
-        for ($i = strlen($binValue) - 2; $i >= 0; $i--) {
-            $result .= $binValue{$i};
+    public static function swap($binValue)
+    {
+        $result = $binValue[strlen($binValue) - 1];
+        for ($i = strlen($binValue) - 2; $i >= 0; --$i) {
+            $result .= $binValue[$i];
         }
 
         return $result;
     }
 
     /**
-     * Encodes double value to correct endianity
+     * Encodes double value to correct endianity.
      *
-     * @param double $value Value to pack
+     * @param float $value Value to pack
      *
      * @return string
      */
-    public static function packDouble($value) {
-        $bin = pack("d", (double) $value);
+    public static function packDouble($value)
+    {
+        $bin = pack('d', (float) $value);
 
         if (is_null(self::$little_endian)) {
             self::$little_endian = (pack('L', 1) == pack('V', 1));
@@ -95,9 +101,9 @@ class Util {
     }
 
     /**
-     * Returns shape name
+     * Returns shape name.
      *
-     * @param integer $type
+     * @param int $type
      *
      * @return string
      */
@@ -106,6 +112,7 @@ class Util {
         if (isset(self::$shape_names[$type])) {
             return self::$shape_names[$type];
         }
+
         return sprintf('Shape %d', $type);
     }
 }

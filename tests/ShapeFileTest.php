@@ -1,7 +1,7 @@
 <?php
 /**
  * phpMyAdmin ShapeFile library
- * <https://github.com/phpmyadmin/shapefile/>
+ * <https://github.com/phpmyadmin/shapefile/>.
  *
  * Copyright 2006-2007 Ovidio <ovidio AT users.sourceforge.net>
  * Copyright 2016 Michal Čihař <michal@cihar.com>
@@ -19,6 +19,7 @@
  * along with this program; if not, you can download one from
  * https://www.gnu.org/copyleft/gpl.html.
  */
+
 namespace ShapeFileTest;
 
 use ShapeFile\ShapeFile;
@@ -27,13 +28,12 @@ use ShapeFile\ShapeRecord;
 class ShapeFileTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Tests loading of a file
+     * Tests loading of a file.
      *
-     * @param string  $filename Name of file
-     * @param integer $records  Expected number of records
-     * @param integer $parts    Expected number of parts in first record
+     * @param string $filename Name of file
+     * @param int    $records  Expected number of records
+     * @param int    $parts    Expected number of parts in first record
      *
-     * @return void
      *
      * @dataProvider provideFiles
      */
@@ -44,7 +44,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $shp->lastError);
         $this->assertEquals($records, count($shp->records));
         if (!is_null($parts)) {
-            $this->assertEquals($parts, count($shp->records[0]->SHPData["parts"]));
+            $this->assertEquals($parts, count($shp->records[0]->SHPData['parts']));
         }
     }
 
@@ -66,11 +66,10 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test error handling in loader
+     * Test error handling in loader.
      *
      * @param string $filename name to load
      *
-     * @return void
      *
      * @dataProvider provideErrorFiles
      */
@@ -103,28 +102,26 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Creates test data
-     *
-     * @return void
+     * Creates test data.
      */
     private function createTestData()
     {
         $shp = new ShapeFile(1);
 
         $record0 = new ShapeRecord(1);
-        $record0->addPoint(array("x" => 482131.764567, "y" => 2143634.39608));
+        $record0->addPoint(array('x' => 482131.764567, 'y' => 2143634.39608));
 
         $record1 = new ShapeRecord(11);
-        $record1->addPoint(array("x" => 472131.764567, "y" => 2143634.39608, 'z' => 220, 'm' => 120));
+        $record1->addPoint(array('x' => 472131.764567, 'y' => 2143634.39608, 'z' => 220, 'm' => 120));
 
         $record2 = new ShapeRecord(21);
-        $record2->addPoint(array("x" => 492131.764567, "y" => 2143634.39608, 'z' => 150, 'm' => 80));
+        $record2->addPoint(array('x' => 492131.764567, 'y' => 2143634.39608, 'z' => 150, 'm' => 80));
 
         $record3 = new ShapeRecord(3);
-        $record3->addPoint(array("x" => 482131.764567, "y" => 2143634.39608), 0);
-        $record3->addPoint(array("x" => 482132.764567, "y" => 2143635.39608), 0);
-        $record3->addPoint(array("x" => 482131.764567, "y" => 2143635.39608), 1);
-        $record3->addPoint(array("x" => 482132.764567, "y" => 2143636.39608), 1);
+        $record3->addPoint(array('x' => 482131.764567, 'y' => 2143634.39608), 0);
+        $record3->addPoint(array('x' => 482132.764567, 'y' => 2143635.39608), 0);
+        $record3->addPoint(array('x' => 482131.764567, 'y' => 2143635.39608), 1);
+        $record3->addPoint(array('x' => 482132.764567, 'y' => 2143636.39608), 1);
 
         $shp->addRecord($record0);
         $shp->addRecord($record1);
@@ -134,7 +131,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
         $shp->setDBFHeader(
             array(
                 array('ID', 'N', 8, 0),
-                array('DESC', 'C', 50, 0)
+                array('DESC', 'C', 50, 0),
             )
         );
 
@@ -154,9 +151,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests creating file
-     *
-     * @return void
+     * Tests creating file.
      */
     public function testCreate()
     {
@@ -171,9 +166,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests removing record from a file
-     *
-     * @return void
+     * Tests removing record from a file.
      */
     public function testDelete()
     {
@@ -194,9 +187,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test adding record to a file
-     *
-     * @return void
+     * Test adding record to a file.
      */
     public function testAdd()
     {
@@ -209,7 +200,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
         $shp->loadFromFile('./data/test_shape.*');
 
         $record0 = new ShapeRecord(1);
-        $record0->addPoint(array("x" => 482131.764567, "y" => 2143634.39608));
+        $record0->addPoint(array('x' => 482131.764567, 'y' => 2143634.39608));
 
         $shp->addRecord($record0);
         $shp->records[4]->DBFData['ID'] = '4';
@@ -224,9 +215,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests saving without DBF
-     *
-     * @return void
+     * Tests saving without DBF.
      */
     public function testSaveNoDBF()
     {
@@ -237,8 +226,6 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test shape naming.
-     *
-     * @return void
      */
     public function testShapeName()
     {
@@ -251,12 +238,11 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test shapes save/load round robin
+     * Test shapes save/load round robin.
      *
      * @param int   $type   Shape type
      * @param array $points Points
      *
-     * @return void
      *
      * @dataProvider shapes
      */
@@ -305,12 +291,11 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test shapes save/load round robin with z coordinate
+     * Test shapes save/load round robin with z coordinate.
      *
      * @param int   $type   Shape type
      * @param array $points Points
      *
-     * @return void
      *
      * @dataProvider shapes
      */
@@ -320,12 +305,11 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test shapes save/load round robin with measure
+     * Test shapes save/load round robin with measure.
      *
      * @param int   $type   Shape type
      * @param array $points Points
      *
-     * @return void
      *
      * @dataProvider shapes
      */
@@ -335,7 +319,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data provider for save/load testing
+     * Data provider for save/load testing.
      *
      * @return array
      */
@@ -346,7 +330,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
                 1,
                 array(
                     array(array('x' => 10, 'y' => 20), 0),
-                )
+                ),
             ),
             array(
                 3,
@@ -355,7 +339,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
                     array(array('x' => 20, 'y' => 20), 0),
                     array(array('x' => 20, 'y' => 20), 1),
                     array(array('x' => 20, 'y' => 10), 1),
-                )
+                ),
             ),
             array(
                 5,
@@ -366,7 +350,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
                     array(array('x' => 20, 'y' => 10), 1),
                     array(array('x' => 20, 'y' => 10), 2),
                     array(array('x' => 10, 'y' => 20), 2),
-                )
+                ),
             ),
             array(
                 8,
@@ -374,7 +358,7 @@ class ShapeFileTest extends \PHPUnit_Framework_TestCase
                     array(array('x' => 10, 'y' => 20), 0),
                     array(array('x' => 20, 'y' => 20), 0),
                     array(array('x' => 20, 'y' => 10), 0),
-                )
+                ),
             ),
         );
     }

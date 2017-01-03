@@ -1,7 +1,7 @@
 <?php
 /**
  * phpMyAdmin ShapeFile library
- * <https://github.com/phpmyadmin/shapefile/>
+ * <https://github.com/phpmyadmin/shapefile/>.
  *
  * Copyright 2016 Michal Čihař <michal@cihar.com>
  *
@@ -18,6 +18,7 @@
  * along with this program; if not, you can download one from
  * https://www.gnu.org/copyleft/gpl.html.
  */
+
 namespace UtilTest;
 
 use ShapeFile\Util;
@@ -25,13 +26,12 @@ use ShapeFile\Util;
 class UtilTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test data loading
+     * Test data loading.
      *
      * @param string $type     Data type
      * @param mixed  $data     Data to parse
      * @param mixed  $expected Expected result
      *
-     * @return void
      *
      * @dataProvider data
      */
@@ -44,7 +44,7 @@ class UtilTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data provider for loadData tests
+     * Data provider for loadData tests.
      *
      * @return array
      */
@@ -58,9 +58,7 @@ class UtilTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test for byte order changes
-     *
-     * @return void
+     * Test for byte order changes.
      */
     public function testSwap()
     {
@@ -70,4 +68,3 @@ class UtilTest extends \PHPUnit_Framework_TestCase
         );
     }
 }
-

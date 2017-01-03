@@ -1,7 +1,7 @@
 <?php
 /**
  * phpMyAdmin ShapeFile library
- * <https://github.com/phpmyadmin/shapefile/>
+ * <https://github.com/phpmyadmin/shapefile/>.
  *
  * Copyright 2006-2007 Ovidio <ovidio AT users.sourceforge.net>
  * Copyright 2016 Michal Čihař <michal@cihar.com>
@@ -22,7 +22,7 @@
 use ShapeFile\ShapeFile;
 
 /**
- * Displays content of given file
+ * Displays content of given file.
  *
  * @param string $filename File to open
  */
@@ -33,17 +33,17 @@ function display_file($filename)
 
     $i = 1;
     foreach ($shp->records as $i => $record) {
-        echo "<pre>";
+        echo '<pre>';
         echo "Record No. $i:\n\n\n";
         // All the data related to the record
-        echo "SHP Data = ";
+        echo 'SHP Data = ';
         print_r($record->SHPData);
         print_r("\n\n\n");
         // All the information related to each record
-        echo "DBF Data = ";
+        echo 'DBF Data = ';
         print_r($record->DBFData);
         print_r("\n\n\n");
-        echo "</pre>";
+        echo '</pre>';
     }
 
     echo "The ShapeFile was completely readed.<br />\n";
