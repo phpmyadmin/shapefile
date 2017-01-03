@@ -3,7 +3,7 @@
 // see https://github.com/FriendsOfPHP/PHP-CS-Fixer
 
 $finder = PhpCsFixer\Finder::create()
-    ->in(array(__DIR__.'/src', __DIR__.'/tests', __DIR__.'/examples'))
+    ->in(array(__DIR__ . '/src', __DIR__ . '/tests', __DIR__ . '/examples'))
 ;
 
 return PhpCsFixer\Config::create()
