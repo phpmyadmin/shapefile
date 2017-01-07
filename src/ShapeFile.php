@@ -525,7 +525,7 @@ class ShapeFile
      */
     private function _createDBFFile()
     {
-        if (!self::supports_dbase() || count($this->DBFHeader) == 0) {
+        if (!self::supports_dbase() || !is_array($this->DBFHeader) || count($this->DBFHeader) == 0) {
             $this->DBFFile = null;
 
             return true;
