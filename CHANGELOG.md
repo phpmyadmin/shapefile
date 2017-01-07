@@ -1,8 +1,10 @@
 # Change Log
 
-## [Unreleased]
+## [1.2] - 2017-01-07
 
 * Coding style cleanup.
+* PHP 7.2 support.
+* Avoid installing tests and test data using composer.
 
 ## [1.1] - 2016-11-21
 
