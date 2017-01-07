@@ -1,5 +1,7 @@
 # Change Log
 
+## [Unreleased]
+
 ## [1.2] - 2017-01-07
 
 * Coding style cleanup.
