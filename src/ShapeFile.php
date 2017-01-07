@@ -43,7 +43,7 @@ class ShapeFile
     private $fileLength = 0;
     public $shapeType = 0;
 
-    public $records;
+    public $records = array();
 
     /**
      * Checks whether dbase manipuations are supported.
