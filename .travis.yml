@@ -7,14 +7,20 @@ php:
   - "7.0"
   - "7.1"
   - "hhvm"
+  - "nightly"
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: "nightly"
+  exclude:
+    - php: "hhvm"
+      env: DBASE=yes
+
 env:
   matrix:
     - DBASE=yes
     - DBASE=no
-matrix:
-  exclude:
-    - php: "hhvm"
-      env: DBASE=yes
 
 install:
   - if [ "$DBASE" = "yes" ] ; then ./ci/install-dbase ; fi
