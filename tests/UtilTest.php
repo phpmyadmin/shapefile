@@ -21,7 +21,7 @@
 
 namespace UtilTest;
 
-use ShapeFile\Util;
+use PhpMyAdmin\ShapeFile\Util;
 
 class UtilTest extends \PHPUnit_Framework_TestCase
 {

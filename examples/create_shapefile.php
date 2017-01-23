@@ -19,8 +19,8 @@
  * along with this program; if not, you can download one from
  * https://www.gnu.org/copyleft/gpl.html.
  */
-use ShapeFile\ShapeFile;
-use ShapeFile\ShapeRecord;
+use PhpMyAdmin\ShapeFile\ShapeFile;
+use PhpMyAdmin\ShapeFile\ShapeRecord;
 
 require_once '../vendor/autoload.php';
 

@@ -20,7 +20,7 @@
  * https://www.gnu.org/copyleft/gpl.html.
  */
 
-namespace ShapeFile;
+namespace PhpMyAdmin\ShapeFile;
 
 class Util
 {

@@ -22,8 +22,8 @@
 
 namespace ShapeFileTest;
 
-use ShapeFile\ShapeFile;
-use ShapeFile\ShapeRecord;
+use PhpMyAdmin\ShapeFile\ShapeFile;
+use PhpMyAdmin\ShapeFile\ShapeRecord;
 
 class ShapeFileTest extends \PHPUnit_Framework_TestCase
 {
