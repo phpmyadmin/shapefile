@@ -4,7 +4,7 @@
  * <https://github.com/phpmyadmin/shapefile/>.
  *
  * Copyright 2006-2007 Ovidio <ovidio AT users.sourceforge.net>
- * Copyright 2016 Michal Čihař <michal@cihar.com>
+ * Copyright 2016 - 2017 Michal Čihař <michal@cihar.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
