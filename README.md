@@ -41,7 +41,7 @@ The API documentation is available at
 To read shape file:
 
 ```php
-$shp = new ShapeFile\ShapeFile(0);
+$shp = new \PhpMyAdmin\ShapeFile\ShapeFile(0);
 $shp->loadFromFile('path/file.*');
 ```
 
