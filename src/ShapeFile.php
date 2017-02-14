@@ -635,7 +635,7 @@ class ShapeFile
     /**
      * Check whether file contains measure data.
      *
-     * For some reason this is distinguished by zero bouding box in the
+     * For some reason this is distinguished by zero bounding box in the
      * specification.
      *
      * @return bool
