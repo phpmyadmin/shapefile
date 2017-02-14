@@ -56,7 +56,9 @@ class ShapeFile
     }
 
     /**
-     * @param int $shapeType
+     * @param int        $shapeType
+     * @param mixed      $boundingBox
+     * @param null|mixed $FileName
      */
     public function __construct($shapeType, $boundingBox = array('xmin' => 0.0, 'ymin' => 0.0, 'xmax' => 0.0, 'ymax' => 0.0), $FileName = null)
     {
@@ -98,9 +100,9 @@ class ShapeFile
             $this->_closeDBFFile();
 
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**

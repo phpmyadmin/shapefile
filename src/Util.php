@@ -95,9 +95,9 @@ class Util
 
         if (self::$little_endian) {
             return $bin;
-        } else {
-            return self::swap($bin);
         }
+
+        return self::swap($bin);
     }
 
     /**
