@@ -57,7 +57,7 @@ class ShapeFile
 
     /**
      * @param int        $shapeType   File shape type, should be same as all records
-     * @param mixed      $boundingBox File bounding box
+     * @param array      $boundingBox File bounding box
      * @param null|mixed $FileName    File name
      */
     public function __construct($shapeType, $boundingBox = array('xmin' => 0.0, 'ymin' => 0.0, 'xmax' => 0.0, 'ymax' => 0.0), $FileName = null)
