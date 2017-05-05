@@ -22,7 +22,8 @@
         "ext-dbase": "For dbf files parsing"
     },
     "require-dev": {
-        "phpunit/phpunit": "~5.2 || ~4.8"
+        "phpunit/php-code-coverage": "*",
+        "phpunit/phpunit": "~4.8 || ~5.7"
     },
     "autoload": {
         "psr-4": {
