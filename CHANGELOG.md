@@ -1,5 +1,7 @@
 # Change Log
 
+## [Unreleased]
+
 ## [2.1] - 2017-05-15
 
 * Documentation improvements.
