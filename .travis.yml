@@ -24,14 +24,13 @@ matrix:
       env: DBASE=yes
     - php: "7.1"
       env: DBASE=yes
-
-env:
-  matrix:
-    - DBASE=no
+    - php: "7.1"
+      env: DOCS=yes
 
 install:
   - if [ "$DBASE" = "yes" ] ; then ./ci/install-dbase ; fi
   - composer install
+  - if [ "$DOCS" = "yes" ] ; then composer require "apigen/apigen dev-master#e381f7c" "roave/better-reflection dev-master#c87d856" ; fi
 
 script: 
   - ./vendor/bin/phpunit --configuration phpunit.xml
@@ -40,6 +39,7 @@ script:
   - php read_point.php > /dev/null
   - php read_polygon.php > /dev/null
   - cd ..
+  - if [ "$DOCS" = "yes" ] ; then ./vendor/bin/apigen generate --destination doc src/ ; fi
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
