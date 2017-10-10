@@ -448,7 +448,7 @@ class ShapeRecord
 
         $part = 0;
         for ($i = 0; $i < $numpoints; ++$i) {
-            if ($part + 1 < $numparts && $this->SHPData['parts'][$part + 1] == $i) {
+            if ($part + 1 < $numparts && $i == $this->SHPData['parts'][$part + 1]) {
                 ++$part;
             }
             if (!isset($this->SHPData['parts'][$part]['points']) || !is_array($this->SHPData['parts'][$part]['points'])) {
@@ -476,7 +476,7 @@ class ShapeRecord
 
         $part = 0;
         for ($i = 0; $i < $numpoints; ++$i) {
-            if ($part + 1 < $numparts && $this->SHPData['parts'][$part + 1] == $i) {
+            if ($part + 1 < $numparts && $i == $this->SHPData['parts'][$part + 1]) {
                 ++$part;
             }
             $this->SHPData['parts'][$part]['points'][$i][$type] = $this->_loadData('d', 8);
