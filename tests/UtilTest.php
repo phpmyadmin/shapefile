@@ -22,8 +22,9 @@
 namespace UtilTest;
 
 use PhpMyAdmin\ShapeFile\Util;
+use PHPUnit\Framework\TestCase;
 
-class UtilTest extends \PHPUnit_Framework_TestCase
+class UtilTest extends TestCase
 {
     /**
      * Test data loading.

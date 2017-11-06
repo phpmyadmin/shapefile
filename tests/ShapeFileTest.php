@@ -24,8 +24,9 @@ namespace ShapeFileTest;
 
 use PhpMyAdmin\ShapeFile\ShapeFile;
 use PhpMyAdmin\ShapeFile\ShapeRecord;
+use PHPUnit\Framework\TestCase;
 
-class ShapeFileTest extends \PHPUnit_Framework_TestCase
+class ShapeFileTest extends TestCase
 {
     /**
      * Tests loading of a file.
