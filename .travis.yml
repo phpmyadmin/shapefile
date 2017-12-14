@@ -30,7 +30,7 @@ matrix:
       env: DOCS=yes
 
 install:
-  - if [ "$DBASE" = "yes" ] ; then pecl install dbase ; fi
+  - if [ "$DBASE" = "yes" ] ; then pecl install dbase-beta ; fi
   - composer install
 
 script: 
