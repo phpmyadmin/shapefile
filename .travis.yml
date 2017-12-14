@@ -30,7 +30,7 @@ matrix:
       env: DOCS=yes
 
 install:
-  - if [ "$DBASE" = "yes" ] ; then pecl install dbase-beta ; fi
+  - if [ "$DBASE" = "yes" ] ; then pecl channel-update pecl.php.net ; pecl install dbase-beta ; fi
   - composer install
 
 script: 
