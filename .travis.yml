@@ -39,7 +39,7 @@ script:
   - php read_point.php > /dev/null
   - php read_polygon.php > /dev/null
   - cd ..
-  - if [ "$DOCS" = "yes" ] ; then ./vendor/bin/apigen generate --destination doc src/ ; fi
+  - if [ "$DOCS" = "yes" ] ; then ./vendor/bin/apigen generate --destination doc --source src/ ; fi
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
