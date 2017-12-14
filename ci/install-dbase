@@ -3,15 +3,13 @@
 set -x
 set -e
 
-if [ "$TRAVIS_PHP_VERSION" = "7.0" -o "$TRAVIS_PHP_VERSION" = "7.1" -o "$TRAVIS_PHP_VERSION" = "nightly" ] ; then
-    git clone --depth 1 https://github.com/mote0230/dbase-pecl-php7.git php7-dbase
-    cd php7-dbase/
-    phpize
-    ./configure
-    make
-    make install
-    cd ..
-    echo 'extension = dbase.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-elif [ "$TRAVIS_PHP_VERSION" != "hhmv" ] ; then
-    pecl install dbase
-fi
+pecl channel-update pecl.php.net
+
+case "$TRAVIS_PHP_VERSION" in
+    5.*)
+        pecl install dbase
+        ;;
+    *)
+        pecl install dbase-7.0.0beta1
+        ;;
+esac
