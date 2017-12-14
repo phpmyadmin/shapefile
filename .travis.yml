@@ -24,11 +24,13 @@ matrix:
       env: DBASE=yes
     - php: "7.1"
       env: DBASE=yes
+    - php: "7.2"
+      env: DBASE=yes
     - php: "7.1"
       env: DOCS=yes
 
 install:
-  - if [ "$DBASE" = "yes" ] ; then ./ci/install-dbase ; fi
+  - if [ "$DBASE" = "yes" ] ; then pecl install dbase ; fi
   - composer install
 
 script: 
