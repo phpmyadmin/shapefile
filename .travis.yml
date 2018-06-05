@@ -32,6 +32,7 @@ matrix:
 
 install:
   - if [ "$DBASE" = "yes" ] ; then ./ci/install-dbase ; fi
+  - if [ $(php -r "echo PHP_MAJOR_VERSION;") -lt 7 ] ; then sed -i '/sami/D' composer.json ; fi
   - composer install
 
 script: 
@@ -41,7 +42,7 @@ script:
   - php read_point.php > /dev/null
   - php read_polygon.php > /dev/null
   - cd ..
-  - if [ "$DOCS" = "yes" ] ; then ./vendor/bin/apigen generate --destination doc --source src/ ; fi
+  - if [ "$DOCS" = "yes" ] ; then ./vendor/bin/sami.php --no-interaction update ./ci/sami-config.php ; fi
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
