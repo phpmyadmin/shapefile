@@ -4,12 +4,4 @@ set -x
 set -e
 
 pecl channel-update pecl.php.net
-
-case "$TRAVIS_PHP_VERSION" in
-    5.*)
-        pecl install dbase
-        ;;
-    *)
-        pecl install dbase-7.0.0beta1
-        ;;
-esac
+pecl install dbase-7.0.0beta1
