@@ -38,7 +38,7 @@ install:
   - composer install
 
 script:
-  - ./vendor/bin/phpunit --configuration phpunit.xml
+  - ./vendor/bin/phpunit --configuration phpunit.xml.dist
   - cd examples
   - php create_shapefile.php
   - php read_point.php > /dev/null

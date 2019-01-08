@@ -3,3 +3,5 @@ composer.lock
 /vendor/
 /doc/
 .php_cs.cache
+phpunit.xml
+coverage.xml
