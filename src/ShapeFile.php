@@ -39,18 +39,23 @@ class ShapeFile
 
     public $lastError = '';
 
-    public $boundingBox = array('xmin' => 0.0, 'ymin' => 0.0, 'xmax' => 0.0, 'ymax' => 0.0);
+    public $boundingBox = [
+        'xmin' => 0.0,
+        'ymin' => 0.0,
+        'xmax' => 0.0,
+        'ymax' => 0.0,
+    ];
     private $fileLength = 0;
     public $shapeType = 0;
 
-    public $records = array();
+    public $records = [];
 
     /**
      * Checks whether dbase manipuations are supported.
      *
      * @return bool
      */
-    public static function supports_dbase()
+    public static function supportsDbase()
     {
         return extension_loaded('dbase');
     }
@@ -60,8 +65,16 @@ class ShapeFile
      * @param array      $boundingBox File bounding box
      * @param null|mixed $FileName    File name
      */
-    public function __construct($shapeType, $boundingBox = array('xmin' => 0.0, 'ymin' => 0.0, 'xmax' => 0.0, 'ymax' => 0.0), $FileName = null)
-    {
+    public function __construct(
+        $shapeType,
+        $boundingBox = [
+            'xmin' => 0.0,
+            'ymin' => 0.0,
+            'xmax' => 0.0,
+            'ymax' => 0.0,
+        ],
+        $FileName = null
+    ) {
         $this->shapeType = $shapeType;
         $this->boundingBox = $boundingBox;
         $this->FileName = $FileName;
@@ -75,7 +88,7 @@ class ShapeFile
      */
     public function loadFromFile($FileName)
     {
-        if (!empty($FileName)) {
+        if (! empty($FileName)) {
             $this->FileName = $FileName;
             $result = $this->_openSHPFile();
         } else {
@@ -84,13 +97,13 @@ class ShapeFile
         }
 
         if ($result && ($this->_openDBFFile())) {
-            if (!$this->_loadHeaders()) {
+            if (! $this->_loadHeaders()) {
                 $this->_closeSHPFile();
                 $this->_closeDBFFile();
 
                 return false;
             }
-            if (!$this->_loadRecords()) {
+            if (! $this->_loadRecords()) {
                 $this->_closeSHPFile();
                 $this->_closeDBFFile();
 
@@ -112,7 +125,7 @@ class ShapeFile
      */
     public function saveToFile($FileName = null)
     {
-        if (!is_null($FileName)) {
+        if (! is_null($FileName)) {
             $this->FileName = $FileName;
         }
 
@@ -150,10 +163,10 @@ class ShapeFile
         $min = $type . 'min';
         $max = $type . 'max';
 
-        if (!isset($this->boundingBox[$min]) || $this->boundingBox[$min] == 0.0 || ($this->boundingBox[$min] > $data[$min])) {
+        if (! isset($this->boundingBox[$min]) || $this->boundingBox[$min] == 0.0 || ($this->boundingBox[$min] > $data[$min])) {
             $this->boundingBox[$min] = $data[$min];
         }
-        if (!isset($this->boundingBox[$max]) || $this->boundingBox[$max] == 0.0 || ($this->boundingBox[$max] < $data[$max])) {
+        if (! isset($this->boundingBox[$max]) || $this->boundingBox[$max] == 0.0 || ($this->boundingBox[$max] < $data[$max])) {
             $this->boundingBox[$max] = $data[$max];
         }
     }
@@ -178,11 +191,11 @@ class ShapeFile
         $this->updateBBox('x', $record->SHPData);
         $this->updateBBox('y', $record->SHPData);
 
-        if (in_array($this->shapeType, array(11, 13, 15, 18, 21, 23, 25, 28))) {
+        if (in_array($this->shapeType, [11, 13, 15, 18, 21, 23, 25, 28])) {
             $this->updateBBox('m', $record->SHPData);
         }
 
-        if (in_array($this->shapeType, array(11, 13, 15, 18))) {
+        if (in_array($this->shapeType, [11, 13, 15, 18])) {
             $this->updateBBox('z', $record->SHPData);
         }
 
@@ -264,12 +277,12 @@ class ShapeFile
     {
         $DBFFile = fopen($this->_getFilename('.dbf'), 'r');
 
-        $result = array();
+        $result = [];
         $i = 1;
         $inHeader = true;
 
         while ($inHeader) {
-            if (!feof($DBFFile)) {
+            if (! feof($DBFFile)) {
                 $buff32 = fread($DBFFile, 32);
                 if ($i > 1) {
                     if (substr($buff32, 0, 1) == chr(13)) {
@@ -283,7 +296,7 @@ class ShapeFile
                         $fieldLen = ord(substr($buff32, 16, 1));
                         $fieldDec = ord(substr($buff32, 17, 1));
 
-                        array_push($result, array($fieldName, $fieldType, $fieldLen, $fieldDec));
+                        array_push($result, [$fieldName, $fieldType, $fieldLen, $fieldDec]);
                     }
                 }
                 ++$i;
@@ -332,7 +345,7 @@ class ShapeFile
 
         $this->shapeType = Util::loadData('V', $this->readSHP(4));
 
-        $this->boundingBox = array();
+        $this->boundingBox = [];
         $this->boundingBox['xmin'] = Util::loadData('d', $this->readSHP(8));
         $this->boundingBox['ymin'] = Util::loadData('d', $this->readSHP(8));
         $this->boundingBox['xmax'] = Util::loadData('d', $this->readSHP(8));
@@ -342,7 +355,7 @@ class ShapeFile
         $this->boundingBox['mmin'] = Util::loadData('d', $this->readSHP(8));
         $this->boundingBox['mmax'] = Util::loadData('d', $this->readSHP(8));
 
-        if (self::supports_dbase()) {
+        if (self::supportsDbase()) {
             $this->DBFHeader = $this->_loadDBFHeader();
         }
 
@@ -358,8 +371,8 @@ class ShapeFile
     private function _saveBBoxRecord($file, $type)
     {
         fwrite($file, Util::packDouble(
-            isset($this->boundingBox[$type]) ? $this->boundingBox[$type] : 0)
-        );
+            isset($this->boundingBox[$type]) ? $this->boundingBox[$type] : 0
+        ));
     }
 
     /**
@@ -405,7 +418,7 @@ class ShapeFile
     private function _loadRecords()
     {
         /* Need to start at offset 100 */
-        while (!$this->eofSHP()) {
+        while (! $this->eofSHP()) {
             $record = new ShapeRecord(-1);
             $record->loadFromFile($this, $this->SHPFile, $this->DBFFile);
             if ($record->lastError != '') {
@@ -455,7 +468,7 @@ class ShapeFile
     {
         $shp_name = $this->_getFilename($extension);
         $result = @fopen($shp_name, ($toWrite ? 'wb+' : 'rb'));
-        if (!$result) {
+        if (! $result) {
             $this->setError(sprintf('It wasn\'t possible to open the %s file "%s"', $name, $shp_name));
 
             return false;
@@ -474,7 +487,7 @@ class ShapeFile
     private function _openSHPFile($toWrite = false)
     {
         $this->SHPFile = $this->_openFile($toWrite, '.shp', 'Shape');
-        if (!$this->SHPFile) {
+        if (! $this->SHPFile) {
             return false;
         }
 
@@ -502,7 +515,7 @@ class ShapeFile
     private function _openSHXFile($toWrite = false)
     {
         $this->SHXFile = $this->_openFile($toWrite, '.shx', 'Index');
-        if (!$this->SHXFile) {
+        if (! $this->SHXFile) {
             return false;
         }
 
@@ -527,7 +540,7 @@ class ShapeFile
      */
     private function _createDBFFile()
     {
-        if (!self::supports_dbase() || !is_array($this->DBFHeader) || count($this->DBFHeader) == 0) {
+        if (! self::supportsDbase() || ! is_array($this->DBFHeader) || count($this->DBFHeader) == 0) {
             $this->DBFFile = null;
 
             return true;
@@ -557,7 +570,7 @@ class ShapeFile
      */
     private function _openDBFFile()
     {
-        if (!self::supports_dbase()) {
+        if (! self::supportsDbase()) {
             $this->DBFFile = null;
 
             return true;
@@ -565,7 +578,7 @@ class ShapeFile
         $dbf_name = $this->_getFilename('.dbf');
         if (is_readable($dbf_name)) {
             $this->DBFFile = @dbase_open($dbf_name, 0);
-            if (!$this->DBFFile) {
+            if (! $this->DBFFile) {
                 $this->setError(sprintf('It wasn\'t possible to open the DBase file "%s"', $dbf_name));
 
                 return false;

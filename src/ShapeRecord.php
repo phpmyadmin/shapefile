@@ -39,8 +39,8 @@ class ShapeRecord
 
     public $lastError = '';
 
-    public $SHPData = array();
-    public $DBFData = array();
+    public $SHPData = [];
+    public $DBFData = [];
 
     /**
      * @param int $shapeType
@@ -124,7 +124,7 @@ class ShapeRecord
             $this->setError(sprintf('Failed to parse record, read=%d, size=%d', $this->read, $this->size));
         }
 
-        if (ShapeFile::supports_dbase() && isset($this->DBFFile)) {
+        if (ShapeFile::supportsDbase() && isset($this->DBFFile)) {
             $this->_loadDBFData();
         }
     }
@@ -187,7 +187,7 @@ class ShapeRecord
                 $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
                 break;
         }
-        if (ShapeFile::supports_dbase() && !is_null($this->DBFFile)) {
+        if (ShapeFile::supportsDbase() && ! is_null($this->DBFFile)) {
             $this->_saveDBFData();
         }
     }
@@ -201,7 +201,7 @@ class ShapeRecord
     {
         $tmp = $this->DBFData;
         unset($this->DBFData);
-        $this->DBFData = array();
+        $this->DBFData = [];
         foreach ($header as $value) {
             $this->DBFData[$value[0]] = (isset($tmp[$value[0]])) ? $tmp[$value[0]] : '';
         }
@@ -257,7 +257,7 @@ class ShapeRecord
 
     private function _loadPoint()
     {
-        $data = array();
+        $data = [];
 
         $data['x'] = $this->_loadData('d', 8);
         $data['y'] = $this->_loadData('d', 8);
@@ -307,7 +307,7 @@ class ShapeRecord
 
     private function _loadNullRecord()
     {
-        $this->SHPData = array();
+        $this->SHPData = [];
     }
 
     private function _loadPointRecord()
@@ -350,7 +350,7 @@ class ShapeRecord
 
     private function _loadMultiPointRecord()
     {
-        $this->SHPData = array();
+        $this->SHPData = [];
         $this->_loadBBox();
 
         $this->SHPData['numpoints'] = $this->_loadData('V', 4);
@@ -366,7 +366,7 @@ class ShapeRecord
     private function _loadMultiPointMZRecord($type)
     {
         /* The m dimension is optional, depends on bounding box data */
-        if ($type == 'm' && !$this->ShapeFile->hasMeasure()) {
+        if ($type == 'm' && ! $this->ShapeFile->hasMeasure()) {
             return;
         }
 
@@ -433,7 +433,7 @@ class ShapeRecord
 
     private function _loadPolyLineRecord()
     {
-        $this->SHPData = array();
+        $this->SHPData = [];
         $this->_loadBBox();
 
         $this->SHPData['numparts'] = $this->_loadData('V', 4);
@@ -451,8 +451,8 @@ class ShapeRecord
             if ($part + 1 < $numparts && $i == $this->SHPData['parts'][$part + 1]) {
                 ++$part;
             }
-            if (!isset($this->SHPData['parts'][$part]['points']) || !is_array($this->SHPData['parts'][$part]['points'])) {
-                $this->SHPData['parts'][$part] = array('points' => array());
+            if (! isset($this->SHPData['parts'][$part]['points']) || ! is_array($this->SHPData['parts'][$part]['points'])) {
+                $this->SHPData['parts'][$part] = ['points' => []];
             }
             $this->SHPData['parts'][$part]['points'][] = $this->_loadPoint();
         }
@@ -464,7 +464,7 @@ class ShapeRecord
     private function _loadPolyLineMZRecord($type)
     {
         /* The m dimension is optional, depends on bounding box data */
-        if ($type == 'm' && !$this->ShapeFile->hasMeasure()) {
+        if ($type == 'm' && ! $this->ShapeFile->hasMeasure()) {
             return;
         }
 
@@ -579,17 +579,22 @@ class ShapeRecord
     private function _adjustBBox($point)
     {
         // Adjusts bounding box based on point
-        $directions = array('x', 'y', 'z', 'm');
+        $directions = [
+            'x',
+            'y',
+            'z',
+            'm',
+        ];
         foreach ($directions as $direction) {
-            if (!isset($point[$direction])) {
+            if (! isset($point[$direction])) {
                 continue;
             }
             $min = $direction . 'min';
             $max = $direction . 'max';
-            if (!isset($this->SHPData[$min]) || ($this->SHPData[$min] > $point[$direction])) {
+            if (! isset($this->SHPData[$min]) || ($this->SHPData[$min] > $point[$direction])) {
                 $this->SHPData[$min] = $point[$direction];
             }
-            if (!isset($this->SHPData[$max]) || ($this->SHPData[$max] < $point[$direction])) {
+            if (! isset($this->SHPData[$max]) || ($this->SHPData[$max] < $point[$direction])) {
                 $this->SHPData[$max] = $point[$direction];
             }
         }
@@ -605,7 +610,7 @@ class ShapeRecord
      */
     private function _fixPoint($point, $dimension)
     {
-        if (!isset($point[$dimension])) {
+        if (! isset($point[$dimension])) {
             $point[$dimension] = 0.0; // no_value
         }
 
@@ -695,10 +700,10 @@ class ShapeRecord
                 //Sets the value of the point to zero
                 $this->SHPData['x'] = 0.0;
                 $this->SHPData['y'] = 0.0;
-                if (in_array($this->shapeType, array(11, 21))) {
+                if (in_array($this->shapeType, [11, 21])) {
                     $this->SHPData['m'] = 0.0;
                 }
-                if (in_array($this->shapeType, array(11))) {
+                if (in_array($this->shapeType, [11])) {
                     $this->SHPData['z'] = 0.0;
                 }
                 break;
@@ -817,11 +822,11 @@ class ShapeRecord
         }
         unset($this->DBFData['deleted']);
         if ($this->recordNumber <= dbase_numrecords($this->DBFFile)) {
-            if (!dbase_replace_record($this->DBFFile, array_values($this->DBFData), $this->recordNumber)) {
+            if (! dbase_replace_record($this->DBFFile, array_values($this->DBFData), $this->recordNumber)) {
                 $this->setError('I wasn\'t possible to update the information in the DBF file.');
             }
         } else {
-            if (!dbase_add_record($this->DBFFile, array_values($this->DBFData))) {
+            if (! dbase_add_record($this->DBFFile, array_values($this->DBFData))) {
                 $this->setError('I wasn\'t possible to add the information to the DBF file.');
             }
         }

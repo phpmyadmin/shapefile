@@ -44,7 +44,7 @@ class ShapeFileTest extends TestCase
         $shp->loadFromFile($filename);
         $this->assertEquals('', $shp->lastError);
         $this->assertEquals($records, count($shp->records));
-        if (!is_null($parts)) {
+        if (! is_null($parts)) {
             $this->assertEquals($parts, count($shp->records[0]->SHPData['parts']));
         }
     }
@@ -56,14 +56,38 @@ class ShapeFileTest extends TestCase
      */
     public function provideFiles()
     {
-        return array(
-            array('data/capitals.*', 652, null),
-            array('data/mexico.*', 32, 3),
-            array('data/Czech_Republic_AL2.*', 1, 1),
-            array('data/w001n05f.*', 16, 1),
-            array('data/bc_hospitals.*', 44, null),
-            array('data/multipoint.*', 312, null),
-        );
+        return [
+            [
+                'data/capitals.*',
+                652,
+                null,
+            ],
+            [
+                'data/mexico.*',
+                32,
+                3,
+            ],
+            [
+                'data/Czech_Republic_AL2.*',
+                1,
+                1,
+            ],
+            [
+                'data/w001n05f.*',
+                16,
+                1,
+            ],
+            [
+                'data/bc_hospitals.*',
+                44,
+                null,
+            ],
+            [
+                'data/multipoint.*',
+                312,
+                null,
+            ],
+        ];
     }
 
     /**
@@ -88,15 +112,15 @@ class ShapeFileTest extends TestCase
      */
     public function provideErrorFiles()
     {
-        $result = array(
-            array('data/no-shp.*'),
-            array('data/missing.*'),
-            array('data/invalid-shp.*'),
-        );
+        $result = [
+            ['data/no-shp.*'],
+            ['data/missing.*'],
+            ['data/invalid-shp.*'],
+        ];
 
-        if (ShapeFile::supports_dbase()) {
-            $result[] = array('data/no-dbf.*');
-            $result[] = array('data/invalid-dbf.*');
+        if (ShapeFile::supportsDbase()) {
+            $result[] = ['data/no-dbf.*'];
+            $result[] = ['data/invalid-dbf.*'];
         }
 
         return $result;
@@ -110,19 +134,19 @@ class ShapeFileTest extends TestCase
         $shp = new ShapeFile(1);
 
         $record0 = new ShapeRecord(1);
-        $record0->addPoint(array('x' => 482131.764567, 'y' => 2143634.39608));
+        $record0->addPoint(['x' => 482131.764567, 'y' => 2143634.39608]);
 
         $record1 = new ShapeRecord(11);
-        $record1->addPoint(array('x' => 472131.764567, 'y' => 2143634.39608, 'z' => 220, 'm' => 120));
+        $record1->addPoint(['x' => 472131.764567, 'y' => 2143634.39608, 'z' => 220, 'm' => 120]);
 
         $record2 = new ShapeRecord(21);
-        $record2->addPoint(array('x' => 492131.764567, 'y' => 2143634.39608, 'z' => 150, 'm' => 80));
+        $record2->addPoint(['x' => 492131.764567, 'y' => 2143634.39608, 'z' => 150, 'm' => 80]);
 
         $record3 = new ShapeRecord(3);
-        $record3->addPoint(array('x' => 482131.764567, 'y' => 2143634.39608), 0);
-        $record3->addPoint(array('x' => 482132.764567, 'y' => 2143635.39608), 0);
-        $record3->addPoint(array('x' => 482131.764567, 'y' => 2143635.39608), 1);
-        $record3->addPoint(array('x' => 482132.764567, 'y' => 2143636.39608), 1);
+        $record3->addPoint(['x' => 482131.764567, 'y' => 2143634.39608], 0);
+        $record3->addPoint(['x' => 482132.764567, 'y' => 2143635.39608], 0);
+        $record3->addPoint(['x' => 482131.764567, 'y' => 2143635.39608], 1);
+        $record3->addPoint(['x' => 482132.764567, 'y' => 2143636.39608], 1);
 
         $shp->addRecord($record0);
         $shp->addRecord($record1);
@@ -130,10 +154,20 @@ class ShapeFileTest extends TestCase
         $shp->addRecord($record3);
 
         $shp->setDBFHeader(
-            array(
-                array('ID', 'N', 8, 0),
-                array('DESC', 'C', 50, 0),
-            )
+            [
+                [
+                    'ID',
+                    'N',
+                    8,
+                    0,
+                ],
+                [
+                    'DESC',
+                    'C',
+                    50,
+                    0,
+                ],
+            ]
         );
 
         $shp->records[0]->DBFData['ID'] = '1';
@@ -156,7 +190,7 @@ class ShapeFileTest extends TestCase
      */
     public function testCreate()
     {
-        if (!ShapeFile::supports_dbase()) {
+        if (! ShapeFile::supportsDbase()) {
             $this->markTestSkipped('dbase extension missing');
         }
         $this->createTestData();
@@ -171,7 +205,7 @@ class ShapeFileTest extends TestCase
      */
     public function testDelete()
     {
-        if (!ShapeFile::supports_dbase()) {
+        if (! ShapeFile::supportsDbase()) {
             $this->markTestSkipped('dbase extension missing');
         }
         $this->createTestData();
@@ -192,7 +226,7 @@ class ShapeFileTest extends TestCase
      */
     public function testAdd()
     {
-        if (!ShapeFile::supports_dbase()) {
+        if (! ShapeFile::supportsDbase()) {
             $this->markTestSkipped('dbase extension missing');
         }
         $this->createTestData();
@@ -201,7 +235,7 @@ class ShapeFileTest extends TestCase
         $shp->loadFromFile('./data/test_shape.*');
 
         $record0 = new ShapeRecord(1);
-        $record0->addPoint(array('x' => 482131.764567, 'y' => 2143634.39608));
+        $record0->addPoint(['x' => 482131.764567, 'y' => 2143634.39608]);
 
         $shp->addRecord($record0);
         $shp->records[4]->DBFData['ID'] = '4';
@@ -251,10 +285,20 @@ class ShapeFileTest extends TestCase
     {
         $filename = "./data/test_shape-$type.*";
         $shp = new ShapeFile($type);
-        $shp->setDBFHeader(array(
-            array('ID', 'N', 19, 0),
-            array('DESC', 'C', 14, 0),
-        ));
+        $shp->setDBFHeader([
+            [
+                'ID',
+                'N',
+                19,
+                0,
+            ],
+            [
+                'DESC',
+                'C',
+                14,
+                0,
+            ],
+        ]);
 
         $record0 = new ShapeRecord($type);
 
@@ -277,7 +321,10 @@ class ShapeFileTest extends TestCase
         $record = $shp->records[0];
         $record2 = $shp2->records[0];
 
-        $items = array('numparts', 'numpoints');
+        $items = [
+            'numparts',
+            'numpoints',
+        ];
         foreach ($items as $item) {
             if (isset($record->SHPData[$item])) {
                 $this->assertEquals(
@@ -326,42 +373,112 @@ class ShapeFileTest extends TestCase
      */
     public function shapes()
     {
-        return array(
-            array(
+        return [
+            [
                 1,
-                array(
-                    array(array('x' => 10, 'y' => 20), 0),
-                ),
-            ),
-            array(
+                [
+                    [
+                        [
+                            'x' => 10,
+                            'y' => 20,
+                        ], 0,
+                    ],
+                ],
+            ],
+            [
                 3,
-                array(
-                    array(array('x' => 10, 'y' => 20), 0),
-                    array(array('x' => 20, 'y' => 20), 0),
-                    array(array('x' => 20, 'y' => 20), 1),
-                    array(array('x' => 20, 'y' => 10), 1),
-                ),
-            ),
-            array(
+                [
+                    [
+                        [
+                            'x' => 10,
+                            'y' => 20,
+                        ], 0,
+                    ],
+                    [
+                        [
+                            'x' => 20,
+                            'y' => 20,
+                        ], 0,
+                    ],
+                    [
+                        [
+                            'x' => 20,
+                            'y' => 20,
+                        ], 1,
+                    ],
+                    [
+                        [
+                            'x' => 20,
+                            'y' => 10,
+                        ], 1,
+                    ],
+                ],
+            ],
+            [
                 5,
-                array(
-                    array(array('x' => 10, 'y' => 20), 0),
-                    array(array('x' => 20, 'y' => 20), 0),
-                    array(array('x' => 20, 'y' => 20), 1),
-                    array(array('x' => 20, 'y' => 10), 1),
-                    array(array('x' => 20, 'y' => 10), 2),
-                    array(array('x' => 10, 'y' => 20), 2),
-                ),
-            ),
-            array(
+                [
+                    [
+                        [
+                            'x' => 10,
+                            'y' => 20,
+                        ], 0,
+                    ],
+                    [
+                        [
+                            'x' => 20,
+                            'y' => 20,
+                        ], 0,
+                    ],
+                    [
+                        [
+                            'x' => 20,
+                            'y' => 20,
+                        ], 1,
+                    ],
+                    [
+                        [
+                            'x' => 20,
+                            'y' => 10,
+                        ], 1,
+                    ],
+                    [
+                        [
+                            'x' => 20,
+                            'y' => 10,
+                        ], 2,
+                    ],
+                    [
+                        [
+                            'x' => 10,
+                            'y' => 20,
+                        ], 2,
+                    ],
+                ],
+            ],
+            [
                 8,
-                array(
-                    array(array('x' => 10, 'y' => 20), 0),
-                    array(array('x' => 20, 'y' => 20), 0),
-                    array(array('x' => 20, 'y' => 10), 0),
-                ),
-            ),
-        );
+                [
+                    [
+                        [
+                            'x' => 10,
+                            'y' => 20,
+                        ], 0,
+                    ],
+                    [
+                        [
+                            'x' => 20,
+                            'y' => 20,
+                        ], 0,
+                    ],
+                    [
+                        [
+                            'x' => 20,
+                            'y' => 10,
+                        ], 0,
+                    ],
+                ],
+            ],
+        ];
     }
 
     public function testSearch()
@@ -373,7 +490,7 @@ class ShapeFileTest extends TestCase
             -1,
             $shp->getIndexFromDBFData('CNTRY_NAME', 'nonexisting')
         );
-        if (ShapeFile::supports_dbase()) {
+        if (ShapeFile::supportsDbase()) {
             $this->assertEquals(
                 218,
                 $shp->getIndexFromDBFData('CNTRY_NAME', 'Czech Republic')

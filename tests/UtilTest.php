@@ -51,11 +51,23 @@ class UtilTest extends TestCase
      */
     public function data()
     {
-        return array(
-            array('N', '', false),
-            array('N', false, false),
-            array('N', "\x01\x02\x03\x04", 0x01020304),
-        );
+        return [
+            [
+                'N',
+                '',
+                false,
+            ],
+            [
+                'N',
+                false,
+                false,
+            ],
+            [
+                'N',
+                "\x01\x02\x03\x04",
+                0x01020304,
+            ],
+        ];
     }
 
     /**

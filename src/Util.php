@@ -26,7 +26,7 @@ class Util
 {
     private static $little_endian = null;
 
-    private static $shape_names = array(
+    private static $shape_names = [
         0 => 'Null Shape',
         1 => 'Point',
         3 => 'PolyLine',
@@ -41,7 +41,7 @@ class Util
         25 => 'PolygonM',
         28 => 'MultiPointM',
         31 => 'MultiPatch',
-    );
+    ];
 
     /**
      * Reads data.
