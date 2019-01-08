@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+* Drop support for PHP 5.4, PHP 5.5, PHP 5.6, PHP 7.0 and HHVM
+
 ## [2.1] - 2017-05-15
 
 * Documentation improvements.
