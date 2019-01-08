@@ -3,31 +3,33 @@ language: php
 dist: trusty
 
 php:
-  - "5.4"
-  - "5.5"
-  - "5.6"
-  - "7.0"
-  - "7.1"
-  - "7.2"
-  - "hhvm-3.12"
-  - "hhvm-3.18"
-  - "hhvm-3.24"
-  - "nightly"
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
+  - hhvm-3.12
+  - hhvm-3.18
+  - hhvm-3.24
+  - hhvm-3.27
+  - nightly
 
 matrix:
   fast_finish: true
   allow_failures:
-    - php: "nightly"
+    - php: nightly
   include:
-    - php: "5.6"
+    - php: 5.6
       env: DBASE=yes
-    - php: "7.0"
+    - php: 7.0
       env: DBASE=yes
-    - php: "7.1"
+    - php: 7.1
       env: DBASE=yes
-    - php: "7.2"
+    - php: 7.2
       env: DBASE=yes
-    - php: "7.1"
+    - php: 7.1
       env: DOCS=yes
 
 install:
@@ -35,7 +37,7 @@ install:
   - if [ $(php -r "echo PHP_MAJOR_VERSION;") -lt 7 ] ; then sed -i '/sami/D' composer.json ; fi
   - composer install
 
-script: 
+script:
   - ./vendor/bin/phpunit --configuration phpunit.xml
   - cd examples
   - php create_shapefile.php
