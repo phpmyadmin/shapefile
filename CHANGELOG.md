@@ -45,9 +45,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 - Fixed behavior without configured DBF header
-
-## [0.11] - 2016-11-16
-### Fixed
 - Fixed saving Polygon/Polyline creation with multiple parts
 - Fixed saving Multipont records
 
