@@ -17,6 +17,8 @@ matrix:
       env: DBASE=yes
     - php: 7.2
       env: DBASE=yes
+    - php: 7.3
+      env: DBASE=yes
     - php: 7.1
       env: DOCS=yes
 
