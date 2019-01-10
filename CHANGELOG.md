@@ -32,6 +32,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Documentation improvements
 - Code cleanups
 
+## [0.13] - 2016-11-21
+### Changed
+- Code cleanups
+- Improved test coverage
+
 ## [0.12] - 2016-11-17
 ### Changed
 - Improved test coverage
@@ -96,7 +101,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 [2.0]: https://github.com/phpmyadmin/shapefile/compare/1.2...2.0
 [1.2]: https://github.com/phpmyadmin/shapefile/compare/1.1...1.2
 [1.1]: https://github.com/phpmyadmin/shapefile/compare/1.0...1.1
-[1.0]: https://github.com/phpmyadmin/shapefile/compare/0.12...1.0
+[1.0]: https://github.com/phpmyadmin/shapefile/compare/0.13...1.0
+[0.13]: https://github.com/phpmyadmin/shapefile/compare/0.12...0.13
 [0.12]: https://github.com/phpmyadmin/shapefile/compare/0.11...0.12
 [0.11]: https://github.com/phpmyadmin/shapefile/compare/0.10...0.11
 [0.10]: https://github.com/phpmyadmin/shapefile/compare/0.9...0.10
