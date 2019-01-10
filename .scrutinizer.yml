@@ -16,4 +16,4 @@ build:
       tests:
         override:
           - php-scrutinizer-run
-          - phpcs-run --config phpcs.xml.dist
+          - phpcs-run
