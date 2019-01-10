@@ -1,0 +1,19 @@
+checks:
+  php: true
+
+filter:
+  excluded_paths:
+    - ci/sami-config.php
+
+  dependency_paths:
+    - vendor/
+
+build:
+  nodes:
+    analysis:
+      environment:
+        php: 7.1
+      tests:
+        override:
+          - php-scrutinizer-run
+          - phpcs-run --config phpcs.xml.dist
