@@ -21,6 +21,9 @@ matrix:
       env: DBASE=yes
     - php: 7.1
       env: DOCS=yes
+    - php: 7.1
+      name: phpcs
+      script: vendor/bin/phpcs
 
 install:
   - if [ "$DBASE" = "yes" ] ; then ./ci/install-dbase ; fi
