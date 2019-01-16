@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Removed
 - Drop support for PHP 5.4, PHP 5.5, PHP 5.6, PHP 7.0 and HHVM
+- Enable strict mode on PHP files
 
 ## [2.1] - 2017-05-15
 ### Changed

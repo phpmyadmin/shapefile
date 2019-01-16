@@ -19,6 +19,8 @@
  * along with this program; if not, you can download one from
  * https://www.gnu.org/copyleft/gpl.html.
  */
+declare(strict_types=1);
+
 use PhpMyAdmin\ShapeFile\ShapeFile;
 
 /**
