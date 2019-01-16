@@ -318,7 +318,7 @@ class ShapeFile
      */
     private function _deleteRecordFromDBF($index)
     {
-        if (@dbase_delete_record($this->DBFFile, $index)) {
+        if ($this->DBFFile !== null && @dbase_delete_record($this->DBFFile, $index)) {
             dbase_pack($this->DBFFile);
         }
     }
