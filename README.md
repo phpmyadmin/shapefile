@@ -18,22 +18,22 @@ making translations or offering new ideas please contact us.
 ## Installation
 
 Please use [Composer][1] to install:
-    
-``` 
+
+```
 composer require phpmyadmin/shapefile
-``` 
+```
 
 To be able to read and write the associated DBF file, you need ``dbase``
 extension:
 
 ```
 pecl install dbase
-echo "extension=dbase.so" > /etc/php5/conf.d/dbase.ini
+echo "extension=dbase.so" > /etc/php7/conf.d/dbase.ini
 ```
 
 ## Documentation
 
-The API documentation is available at 
+The API documentation is available at
 <https://develdocs.phpmyadmin.net/shapefile/>.
 
 ## Usage

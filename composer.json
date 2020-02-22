@@ -15,6 +15,15 @@
         "issues": "https://github.com/phpmyadmin/shapefile/issues",
         "source": "https://github.com/phpmyadmin/shapefile"
     },
+    "scripts": {
+        "phpcbf": "phpcbf",
+        "phpcs": "phpcs",
+        "phpunit": "phpunit --color=always",
+        "test": [
+            "@phpcs",
+            "@phpunit"
+        ]
+    },
     "require": {
         "php": "^7.1"
     },
