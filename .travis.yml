@@ -8,44 +8,47 @@ php:
   - 7.3
   - 7.4
 
+env:
+  - DBASE=no
+  - DBASE=yes
+
 matrix:
   fast_finish: true
   allow_failures:
     - php: nightly
   include:
     - php: 7.1
-      env: DBASE=yes
-    - php: 7.2
-      env: DBASE=yes
-    - php: 7.3
-      env: DBASE=yes
-    - php: 7.4
-      env: DBASE=yes
+      name: "Documentation"
+      script: vendor/bin/sami.php --no-interaction update ./ci/sami-config.php
     - php: 7.1
-      env: DOCS=yes
-    - php: 7.1
-      name: phpcs
+      name: "Coding standard"
       script: vendor/bin/phpcs
     - php: nightly
+      env: DBASE=no
+      install:
+        - composer install --no-interaction --ignore-platform-reqs
+    - php: nightly
+      env: DBASE=yes
       install:
         - composer install --no-interaction --ignore-platform-reqs
 
-install:
+before_install:
   - |
     if [[ "$DBASE" == "yes" ]]; then
         pecl channel-update pecl.php.net
         pecl install dbase
     fi
+
+install:
   - composer install --no-interaction
 
 script:
-  - ./vendor/bin/phpunit --configuration phpunit.xml.dist
+  - vendor/bin/phpunit --configuration phpunit.xml.dist
   - cd examples
   - php create_shapefile.php
   - php read_point.php > /dev/null
   - php read_polygon.php > /dev/null
   - cd ..
-  - if [ "$DOCS" = "yes" ] ; then ./vendor/bin/sami.php --no-interaction update ./ci/sami-config.php ; fi
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
