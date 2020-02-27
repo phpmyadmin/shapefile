@@ -1,7 +1,0 @@
-#!/bin/sh
-# Installs dbase extension for current version of PHP
-set -x
-set -e
-
-pecl channel-update pecl.php.net
-pecl install dbase-7.0.0beta1

@@ -31,8 +31,12 @@ matrix:
         - composer install --no-interaction --ignore-platform-reqs
 
 install:
-  - if [ "$DBASE" = "yes" ] ; then ./ci/install-dbase ; fi
-  - composer install
+  - |
+    if [[ "$DBASE" == "yes" ]]; then
+        pecl channel-update pecl.php.net
+        pecl install dbase
+    fi
+  - composer install --no-interaction
 
 script:
   - ./vendor/bin/phpunit --configuration phpunit.xml.dist
