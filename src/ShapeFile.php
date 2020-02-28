@@ -102,7 +102,12 @@ class ShapeFile
         $this->shapeType = $shapeType;
         $this->boundingBox = $boundingBox;
         $this->fileName = $fileName;
-        $this->fileLength = 50; // The value for file length is the total length of the file in 16-bit words (including the fifty 16-bit words that make up the header).
+
+        /**
+         * The value for file length is the total length of the file in 16-bit words
+         * (including the fifty 16-bit words that make up the header).
+         */
+        $this->fileLength = 50;
     }
 
     /**
@@ -189,11 +194,17 @@ class ShapeFile
         $min = $type . 'min';
         $max = $type . 'max';
 
-        if (! isset($this->boundingBox[$min]) || $this->boundingBox[$min] == 0.0 || ($this->boundingBox[$min] > $data[$min])) {
+        if (! isset($this->boundingBox[$min])
+            || $this->boundingBox[$min] == 0.0
+            || ($this->boundingBox[$min] > $data[$min])
+        ) {
             $this->boundingBox[$min] = $data[$min];
         }
 
-        if (isset($this->boundingBox[$max]) && $this->boundingBox[$max] != 0.0 && ($this->boundingBox[$max] >= $data[$max])) {
+        if (isset($this->boundingBox[$max])
+            && $this->boundingBox[$max] != 0.0
+            && ($this->boundingBox[$max] >= $data[$max])
+        ) {
             return;
         }
 

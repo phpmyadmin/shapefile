@@ -413,7 +413,13 @@ class ShapeRecord
 
     private function saveMultiPointRecord()
     {
-        fwrite($this->shpFile, pack('dddd', $this->shpData['xmin'], $this->shpData['ymin'], $this->shpData['xmax'], $this->shpData['ymax']));
+        fwrite($this->shpFile, pack(
+            'dddd',
+            $this->shpData['xmin'],
+            $this->shpData['ymin'],
+            $this->shpData['xmax'],
+            $this->shpData['ymax']
+        ));
 
         fwrite($this->shpFile, pack('V', $this->shpData['numpoints']));
 
@@ -470,7 +476,9 @@ class ShapeRecord
                 ++$part;
             }
 
-            if (! isset($this->shpData['parts'][$part]['points']) || ! is_array($this->shpData['parts'][$part]['points'])) {
+            if (! isset($this->shpData['parts'][$part]['points'])
+                || ! is_array($this->shpData['parts'][$part]['points'])
+            ) {
                 $this->shpData['parts'][$part] = ['points' => []];
             }
 
@@ -521,7 +529,13 @@ class ShapeRecord
 
     private function savePolyLineRecord()
     {
-        fwrite($this->shpFile, pack('dddd', $this->shpData['xmin'], $this->shpData['ymin'], $this->shpData['xmax'], $this->shpData['ymax']));
+        fwrite($this->shpFile, pack(
+            'dddd',
+            $this->shpData['xmin'],
+            $this->shpData['ymin'],
+            $this->shpData['xmax'],
+            $this->shpData['ymax']
+        ));
 
         fwrite($this->shpFile, pack('VV', $this->shpData['numparts'], $this->shpData['numpoints']));
 
@@ -742,13 +756,17 @@ class ShapeRecord
             case 23:
             case 25:
                 //Deletes the point from the selected part, if exists
-                if (isset($this->shpData['parts'][$partIndex]) && isset($this->shpData['parts'][$partIndex]['points'][$pointIndex])) {
+                if (isset($this->shpData['parts'][$partIndex])
+                    && isset($this->shpData['parts'][$partIndex]['points'][$pointIndex])
+                ) {
                     $count = count($this->shpData['parts'][$partIndex]['points']) - 1;
                     for ($i = $pointIndex; $i < $count; ++$i) {
-                        $this->shpData['parts'][$partIndex]['points'][$i] = $this->shpData['parts'][$partIndex]['points'][$i + 1];
+                        $point = $this->shpData['parts'][$partIndex]['points'][$i + 1];
+                        $this->shpData['parts'][$partIndex]['points'][$i] = $point;
                     }
 
-                    unset($this->shpData['parts'][$partIndex]['points'][count($this->shpData['parts'][$partIndex]['points']) - 1]);
+                    $count = count($this->shpData['parts'][$partIndex]['points']) - 1;
+                    unset($this->shpData['parts'][$partIndex]['points'][$count]);
 
                     $this->shpData['numparts'] = count($this->shpData['parts']);
                     --$this->shpData['numpoints'];
