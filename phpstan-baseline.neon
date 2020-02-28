@@ -1,0 +1,717 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$fileName has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shpFile has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shxFile has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$dbfFile has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$dbfHeader has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$lastError has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$boundingBox has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shapeType has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$records has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:__construct\\(\\) has parameter \\$boundingBox with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:loadFromFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:saveToFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:updateBBox\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:updateBBox\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:deleteRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:getDBFHeader\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:setDBFHeader\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:setDBFHeader\\(\\) has parameter \\$header with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:loadDBFHeader\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$fp of function feof expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$fp of function fread expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$str of function substr expects string, string\\|false given\\.$#"
+			count: 6
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#3 \\$length of function substr expects int, int\\|false given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$fp of function fclose expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:deleteRecordFromDBF\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:saveBBoxRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\$file of method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:saveBBoxRecord\\(\\) has invalid typehint type PhpMyAdmin\\\\ShapeFile\\\\file\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$fp of function fwrite expects resource, PhpMyAdmin\\\\ShapeFile\\\\file given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:saveBBox\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\$file of method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:saveBBox\\(\\) has invalid typehint type PhpMyAdmin\\\\ShapeFile\\\\file\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:saveHeaders\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:saveRecords\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:openFile\\(\\) never returns PhpMyAdmin\\\\ShapeFile\\\\file so it can be removed from the return typehint\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Return typehint of method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:openFile\\(\\) has invalid type PhpMyAdmin\\\\ShapeFile\\\\file\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:openFile\\(\\) should return PhpMyAdmin\\\\ShapeFile\\\\file\\|false but returns resource\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:closeSHPFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:closeSHXFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between int and false will always evaluate to false\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:closeDBFFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:setError\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:readSHP\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shpFile has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$dbfFile has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shapeFile has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$size has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$read has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$recordNumber has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shapeType has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$lastError has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shpData has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$dbfData has no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadFromFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadFromFile\\(\\) has parameter \\$dbfFile with no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadFromFile\\(\\) has parameter \\$shpFile with no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(file      &\\$dbfFile  Opened DBF file\\)\\: Unexpected token \"&\", expected variable at offset 153$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(file      &\\$shpFile  Opened SHP file\\)\\: Unexpected token \"&\", expected variable at offset 102$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:saveToFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:saveToFile\\(\\) has parameter \\$dbfFile with no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:saveToFile\\(\\) has parameter \\$shpFile with no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(file &\\$dbfFile     Opened DBF file\\)\\: Unexpected token \"&\", expected variable at offset 109$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(file &\\$shpFile     Opened SHP file\\)\\: Unexpected token \"&\", expected variable at offset 60$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:updateDBFInfo\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:updateDBFInfo\\(\\) has parameter \\$header with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadHeaders\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:saveHeaders\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPoint\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPointM\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPointZ\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePoint\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePoint\\(\\) has parameter \\$data with no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePointM\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePointM\\(\\) has parameter \\$data with no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePointZ\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePointZ\\(\\) has parameter \\$data with no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadNullRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPointRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPointMRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPointZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePointRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePointMRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePointZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadBBox\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadMultiPointRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadMultiPointMZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadMultiPointMRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadMultiPointZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:saveMultiPointRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:saveMultiPointMZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:saveMultiPointMRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:saveMultiPointZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPolyLineRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Offset 'parts' does not exist on array\\('numparts' \\=\\> mixed, 'numpoints' \\=\\> mixed, \\?'parts' \\=\\> array\\<int, mixed\\>\\)\\.$#"
+			count: 2
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPolyLineMZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPolyLineMRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPolyLineZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePolyLineRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePolyLineMZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePolyLineMRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePolyLineZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPolygonRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPolygonMRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPolygonZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePolygonRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePolygonMRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePolygonZRecord\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:adjustBBox\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:adjustBBox\\(\\) has parameter \\$point with no typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:fixPoint\\(\\) has parameter \\$point with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:fixPoint\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:adjustPoint\\(\\) has parameter \\$point with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:adjustPoint\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:addPoint\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:addPoint\\(\\) has parameter \\$point with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:deletePoint\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:getContentLength\\(\\) should return int but returns int\\|false\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadDBFData\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:saveDBFData\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:setError\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:\\$littleEndian has no typehint specified\\.$#"
+			count: 1
+			path: src/Util.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:\\$shapeNames has no typehint specified\\.$#"
+			count: 1
+			path: src/Util.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
+			count: 1
+			path: src/Util.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testLoad\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:provideFiles\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testLoadError\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:provideErrorFiles\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:createTestData\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testCreate\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testDelete\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testAdd\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testSaveNoDBF\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testShapeName\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testShapeSaveLoad\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testShapeSaveLoad\\(\\) has parameter \\$points with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testZetShapeSaveLoad\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testZetShapeSaveLoad\\(\\) has parameter \\$points with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testMeasureShapeSaveLoad\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testMeasureShapeSaveLoad\\(\\) has parameter \\$points with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:shapes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method ShapeFileTest\\\\ShapeFileTest\\:\\:testSearch\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method UtilTest\\\\UtilTest\\:\\:testLoadData\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/UtilTest.php
+
+		-
+			message: "#^Method UtilTest\\\\UtilTest\\:\\:data\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/UtilTest.php
+
+		-
+			message: "#^Method UtilTest\\\\UtilTest\\:\\:testSwap\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/UtilTest.php
+

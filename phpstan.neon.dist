@@ -1,0 +1,11 @@
+includes:
+    - phpstan-baseline.neon
+parameters:
+    level: max
+    paths:
+        - src
+        - tests
+    autoload_directories:
+        - tests
+    reportUnmatchedIgnoredErrors: true
+    inferPrivatePropertyTypeFromConstructor: true

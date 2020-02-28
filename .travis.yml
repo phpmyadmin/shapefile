@@ -23,6 +23,9 @@ matrix:
     - php: 7.1
       name: "Coding standard"
       script: vendor/bin/phpcs
+    - php: 7.1
+      name: "Static analysis"
+      script: vendor/bin/phpstan analyze
     - php: nightly
       env: DBASE=no
       install:
