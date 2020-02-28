@@ -23,6 +23,16 @@ declare(strict_types=1);
 
 namespace PhpMyAdmin\ShapeFile;
 
+use function array_values;
+use function count;
+use function fwrite;
+use function in_array;
+use function is_array;
+use function is_null;
+use function pack;
+use function sprintf;
+use function strlen;
+
 /**
  * ShapeFile record class.
  */

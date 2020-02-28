@@ -26,6 +26,8 @@ namespace ShapeFileTest;
 use PhpMyAdmin\ShapeFile\ShapeFile;
 use PhpMyAdmin\ShapeFile\ShapeRecord;
 use PHPUnit\Framework\TestCase;
+use function count;
+use function is_null;
 
 class ShapeFileTest extends TestCase
 {
@@ -268,7 +270,7 @@ class ShapeFileTest extends TestCase
     {
         $obj = new ShapeRecord(1);
         $this->assertEquals('Point', $obj->getShapeName());
-        $obj = new Shapefile(1);
+        $obj = new ShapeFile(1);
         $this->assertEquals('Point', $obj->getShapeName());
         $obj = new ShapeRecord(-1);
         $this->assertEquals('Shape -1', $obj->getShapeName());

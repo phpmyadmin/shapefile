@@ -23,6 +23,30 @@ declare(strict_types=1);
 
 namespace PhpMyAdmin\ShapeFile;
 
+use function array_push;
+use function chr;
+use function count;
+use function extension_loaded;
+use function fclose;
+use function feof;
+use function file_exists;
+use function fopen;
+use function fread;
+use function fwrite;
+use function in_array;
+use function is_array;
+use function is_null;
+use function is_readable;
+use function ord;
+use function pack;
+use function sprintf;
+use function str_replace;
+use function strpos;
+use function strtoupper;
+use function substr;
+use function trim;
+use function unlink;
+
 /**
  * ShapeFile class.
  */

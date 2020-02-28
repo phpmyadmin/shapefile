@@ -23,6 +23,13 @@ declare(strict_types=1);
 
 namespace PhpMyAdmin\ShapeFile;
 
+use function current;
+use function is_null;
+use function pack;
+use function sprintf;
+use function strlen;
+use function unpack;
+
 class Util
 {
     private static $littleEndian = null;
