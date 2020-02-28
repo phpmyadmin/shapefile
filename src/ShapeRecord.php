@@ -134,9 +134,11 @@ class ShapeRecord
             $this->setError(sprintf('Failed to parse record, read=%d, size=%d', $this->read, $this->size));
         }
 
-        if (ShapeFile::supportsDbase() && isset($this->dbfFile)) {
-            $this->loadDBFData();
+        if (! ShapeFile::supportsDbase() || ! isset($this->dbfFile)) {
+            return;
         }
+
+        $this->loadDBFData();
     }
 
     /**
@@ -198,9 +200,11 @@ class ShapeRecord
                 break;
         }
 
-        if (ShapeFile::supportsDbase() && $this->dbfFile !== null) {
-            $this->saveDBFData();
+        if (! ShapeFile::supportsDbase() || $this->dbfFile === null) {
+            return;
         }
+
+        $this->saveDBFData();
     }
 
     /**
@@ -613,9 +617,11 @@ class ShapeRecord
                 $this->shpData[$min] = $point[$direction];
             }
 
-            if (! isset($this->shpData[$max]) || ($this->shpData[$max] < $point[$direction])) {
-                $this->shpData[$max] = $point[$direction];
+            if (isset($this->shpData[$max]) && ($this->shpData[$max] >= $point[$direction])) {
+                continue;
             }
+
+            $this->shpData[$max] = $point[$direction];
         }
     }
 

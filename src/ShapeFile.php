@@ -155,15 +155,15 @@ class ShapeFile
             $this->fileName = $fileName;
         }
 
-        if ($this->openSHPFile(true) && ($this->openSHXFile(true)) && ($this->createDBFFile())) {
-            $this->saveHeaders();
-            $this->saveRecords();
-            $this->closeSHPFile();
-            $this->closeSHXFile();
-            $this->closeDBFFile();
-        } else {
+        if (! $this->openSHPFile(true) || (! $this->openSHXFile(true)) || (! $this->createDBFFile())) {
             return false;
         }
+
+        $this->saveHeaders();
+        $this->saveRecords();
+        $this->closeSHPFile();
+        $this->closeSHXFile();
+        $this->closeDBFFile();
     }
 
     /**
@@ -193,9 +193,11 @@ class ShapeFile
             $this->boundingBox[$min] = $data[$min];
         }
 
-        if (! isset($this->boundingBox[$max]) || $this->boundingBox[$max] == 0.0 || ($this->boundingBox[$max] < $data[$max])) {
-            $this->boundingBox[$max] = $data[$max];
+        if (isset($this->boundingBox[$max]) && $this->boundingBox[$max] != 0.0 && ($this->boundingBox[$max] >= $data[$max])) {
+            return;
         }
+
+        $this->boundingBox[$max] = $data[$max];
     }
 
     /**
@@ -236,16 +238,18 @@ class ShapeFile
      */
     public function deleteRecord($index)
     {
-        if (isset($this->records[$index])) {
-            $this->fileLength -= $this->records[$index]->getContentLength() + 4;
-            $count = count($this->records) - 1;
-            for ($i = $index; $i < $count; ++$i) {
-                $this->records[$i] = $this->records[$i + 1];
-            }
-
-            unset($this->records[count($this->records) - 1]);
-            $this->deleteRecordFromDBF($index);
+        if (! isset($this->records[$index])) {
+            return;
         }
+
+        $this->fileLength -= $this->records[$index]->getContentLength() + 4;
+        $count = count($this->records) - 1;
+        for ($i = $index; $i < $count; ++$i) {
+            $this->records[$i] = $this->records[$i + 1];
+        }
+
+        unset($this->records[count($this->records) - 1]);
+        $this->deleteRecordFromDBF($index);
     }
 
     /**
@@ -346,9 +350,11 @@ class ShapeFile
      */
     private function deleteRecordFromDBF($index)
     {
-        if ($this->dbfFile !== null && @dbase_delete_record($this->dbfFile, $index)) {
-            dbase_pack($this->dbfFile);
+        if ($this->dbfFile === null || ! @dbase_delete_record($this->dbfFile, $index)) {
+            return;
         }
+
+        dbase_pack($this->dbfFile);
     }
 
     /**
@@ -472,16 +478,18 @@ class ShapeFile
     private function saveRecords()
     {
         $offset = 50;
-        if (is_array($this->records) && (count($this->records) > 0)) {
-            foreach ($this->records as $index => $record) {
-                //Save the record to the .shp file
-                $record->saveToFile($this->shpFile, $this->dbfFile, $index + 1);
+        if (! is_array($this->records) || (count($this->records) <= 0)) {
+            return;
+        }
 
-                //Save the record to the .shx file
-                fwrite($this->shxFile, pack('N', $offset));
-                fwrite($this->shxFile, pack('N', $record->getContentLength()));
-                $offset += 4 + $record->getContentLength();
-            }
+        foreach ($this->records as $index => $record) {
+            //Save the record to the .shp file
+            $record->saveToFile($this->shpFile, $this->dbfFile, $index + 1);
+
+            //Save the record to the .shx file
+            fwrite($this->shxFile, pack('N', $offset));
+            fwrite($this->shxFile, pack('N', $record->getContentLength()));
+            $offset += 4 + $record->getContentLength();
         }
     }
 
@@ -526,10 +534,12 @@ class ShapeFile
      */
     private function closeSHPFile()
     {
-        if ($this->shpFile) {
-            fclose($this->shpFile);
-            $this->shpFile = null;
+        if (! $this->shpFile) {
+            return;
         }
+
+        fclose($this->shpFile);
+        $this->shpFile = null;
     }
 
     /**
@@ -551,10 +561,12 @@ class ShapeFile
      */
     private function closeSHXFile()
     {
-        if ($this->shxFile) {
-            fclose($this->shxFile);
-            $this->shxFile = null;
+        if (! $this->shxFile) {
+            return;
         }
+
+        fclose($this->shxFile);
+        $this->shxFile = null;
     }
 
     /**
@@ -602,15 +614,15 @@ class ShapeFile
         }
 
         $dbfName = $this->getFilename('.dbf');
-        if (is_readable($dbfName)) {
-            $this->dbfFile = @dbase_open($dbfName, 0);
-            if (! $this->dbfFile) {
-                $this->setError(sprintf('It wasn\'t possible to open the DBase file "%s"', $dbfName));
-
-                return false;
-            }
-        } else {
+        if (! is_readable($dbfName)) {
             $this->setError(sprintf('It wasn\'t possible to find the DBase file "%s"', $dbfName));
+
+            return false;
+        }
+
+        $this->dbfFile = @dbase_open($dbfName, 0);
+        if (! $this->dbfFile) {
+            $this->setError(sprintf('It wasn\'t possible to open the DBase file "%s"', $dbfName));
 
             return false;
         }
@@ -623,10 +635,12 @@ class ShapeFile
      */
     private function closeDBFFile()
     {
-        if ($this->dbfFile) {
-            dbase_close($this->dbfFile);
-            $this->dbfFile = null;
+        if (! $this->dbfFile) {
+            return;
         }
+
+        dbase_close($this->dbfFile);
+        $this->dbfFile = null;
     }
 
     /**

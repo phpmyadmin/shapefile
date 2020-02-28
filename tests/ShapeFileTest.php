@@ -45,9 +45,11 @@ class ShapeFileTest extends TestCase
         $shp->loadFromFile($filename);
         $this->assertEquals('', $shp->lastError);
         $this->assertEquals($records, count($shp->records));
-        if ($parts !== null) {
-            $this->assertEquals($parts, count($shp->records[0]->shpData['parts']));
+        if ($parts === null) {
+            return;
         }
+
+        $this->assertEquals($parts, count($shp->records[0]->shpData['parts']));
     }
 
     /**
@@ -328,12 +330,14 @@ class ShapeFileTest extends TestCase
             'numpoints',
         ];
         foreach ($items as $item) {
-            if (isset($record->shpData[$item])) {
-                $this->assertEquals(
-                    $record->shpData[$item],
-                    $record2->shpData[$item]
-                );
+            if (! isset($record->shpData[$item])) {
+                continue;
             }
+
+            $this->assertEquals(
+                $record->shpData[$item],
+                $record2->shpData[$item]
+            );
         }
 
         /* Test deletion works */
@@ -490,11 +494,13 @@ class ShapeFileTest extends TestCase
             -1,
             $shp->getIndexFromDBFData('CNTRY_NAME', 'nonexisting')
         );
-        if (ShapeFile::supportsDbase()) {
-            $this->assertEquals(
-                218,
-                $shp->getIndexFromDBFData('CNTRY_NAME', 'Czech Republic')
-            );
+        if (! ShapeFile::supportsDbase()) {
+            return;
         }
+
+        $this->assertEquals(
+            218,
+            $shp->getIndexFromDBFData('CNTRY_NAME', 'Czech Republic')
+        );
     }
 }
