@@ -27,7 +27,6 @@ use PhpMyAdmin\ShapeFile\ShapeFile;
 use PhpMyAdmin\ShapeFile\ShapeRecord;
 use PHPUnit\Framework\TestCase;
 use function count;
-use function is_null;
 
 class ShapeFileTest extends TestCase
 {
@@ -46,7 +45,7 @@ class ShapeFileTest extends TestCase
         $shp->loadFromFile($filename);
         $this->assertEquals('', $shp->lastError);
         $this->assertEquals($records, count($shp->records));
-        if (! is_null($parts)) {
+        if ($parts !== null) {
             $this->assertEquals($parts, count($shp->records[0]->shpData['parts']));
         }
     }

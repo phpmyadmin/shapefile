@@ -28,7 +28,6 @@ use function count;
 use function fwrite;
 use function in_array;
 use function is_array;
-use function is_null;
 use function pack;
 use function sprintf;
 use function strlen;
@@ -199,7 +198,7 @@ class ShapeRecord
                 break;
         }
 
-        if (ShapeFile::supportsDbase() && ! is_null($this->dbfFile)) {
+        if (ShapeFile::supportsDbase() && $this->dbfFile !== null) {
             $this->saveDBFData();
         }
     }

@@ -35,7 +35,6 @@ use function fread;
 use function fwrite;
 use function in_array;
 use function is_array;
-use function is_null;
 use function is_readable;
 use function ord;
 use function pack;
@@ -152,7 +151,7 @@ class ShapeFile
      */
     public function saveToFile($fileName = null)
     {
-        if (! is_null($fileName)) {
+        if ($fileName !== null) {
             $this->fileName = $fileName;
         }
 
