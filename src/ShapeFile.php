@@ -52,7 +52,7 @@ use function unlink;
  */
 class ShapeFile
 {
-    const MAGIC = 0x270a;
+    public const MAGIC = 0x270a;
 
     public $fileName;
 
