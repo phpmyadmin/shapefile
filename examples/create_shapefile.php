@@ -72,14 +72,14 @@ $shp->setDBFHeader(
     ]
 );
 
-$shp->records[0]->DBFData['ID'] = '1';
-$shp->records[0]->DBFData['DESC'] = 'AAAAAAAAA';
+$shp->records[0]->dbfData['ID'] = '1';
+$shp->records[0]->dbfData['DESC'] = 'AAAAAAAAA';
 
-$shp->records[1]->DBFData['ID'] = '2';
-$shp->records[1]->DBFData['DESC'] = 'BBBBBBBBBB';
+$shp->records[1]->dbfData['ID'] = '2';
+$shp->records[1]->dbfData['DESC'] = 'BBBBBBBBBB';
 
-$shp->records[2]->DBFData['ID'] = '3';
-$shp->records[2]->DBFData['DESC'] = 'CCCCCCCCCCC';
+$shp->records[2]->dbfData['ID'] = '3';
+$shp->records[2]->dbfData['DESC'] = 'CCCCCCCCCCC';
 
 $shp->saveToFile('../data/new_shape.*');
 

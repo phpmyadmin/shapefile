@@ -25,9 +25,9 @@ namespace PhpMyAdmin\ShapeFile;
 
 class Util
 {
-    private static $little_endian = null;
+    private static $littleEndian = null;
 
-    private static $shape_names = [
+    private static $shapeNames = [
         0 => 'Null Shape',
         1 => 'Point',
         3 => 'PolyLine',
@@ -90,11 +90,11 @@ class Util
     {
         $bin = pack('d', (float) $value);
 
-        if (is_null(self::$little_endian)) {
-            self::$little_endian = (pack('L', 1) == pack('V', 1));
+        if (is_null(self::$littleEndian)) {
+            self::$littleEndian = (pack('L', 1) == pack('V', 1));
         }
 
-        if (self::$little_endian) {
+        if (self::$littleEndian) {
             return $bin;
         }
 
@@ -110,8 +110,8 @@ class Util
      */
     public static function nameShape($type)
     {
-        if (isset(self::$shape_names[$type])) {
-            return self::$shape_names[$type];
+        if (isset(self::$shapeNames[$type])) {
+            return self::$shapeNames[$type];
         }
 
         return sprintf('Shape %d', $type);

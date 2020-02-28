@@ -39,11 +39,11 @@ function display_file($filename)
         echo "Record No. $i:\n\n\n";
         // All the data related to the record
         echo 'SHP Data = ';
-        print_r($record->SHPData);
+        print_r($record->shpData);
         print_r("\n\n\n");
         // All the information related to each record
         echo 'DBF Data = ';
-        print_r($record->DBFData);
+        print_r($record->dbfData);
         print_r("\n\n\n");
         echo '</pre>';
     }

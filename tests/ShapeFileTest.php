@@ -46,7 +46,7 @@ class ShapeFileTest extends TestCase
         $this->assertEquals('', $shp->lastError);
         $this->assertEquals($records, count($shp->records));
         if (! is_null($parts)) {
-            $this->assertEquals($parts, count($shp->records[0]->SHPData['parts']));
+            $this->assertEquals($parts, count($shp->records[0]->shpData['parts']));
         }
     }
 
@@ -171,17 +171,17 @@ class ShapeFileTest extends TestCase
             ]
         );
 
-        $shp->records[0]->DBFData['ID'] = '1';
-        $shp->records[0]->DBFData['DESC'] = 'AAAAAAAAA';
+        $shp->records[0]->dbfData['ID'] = '1';
+        $shp->records[0]->dbfData['DESC'] = 'AAAAAAAAA';
 
-        $shp->records[1]->DBFData['ID'] = '2';
-        $shp->records[1]->DBFData['DESC'] = 'BBBBBBBBBB';
+        $shp->records[1]->dbfData['ID'] = '2';
+        $shp->records[1]->dbfData['DESC'] = 'BBBBBBBBBB';
 
-        $shp->records[2]->DBFData['ID'] = '3';
-        $shp->records[2]->DBFData['DESC'] = 'CCCCCCCCCCC';
+        $shp->records[2]->dbfData['ID'] = '3';
+        $shp->records[2]->dbfData['DESC'] = 'CCCCCCCCCCC';
 
-        $shp->records[3]->DBFData['ID'] = '4';
-        $shp->records[3]->DBFData['DESC'] = 'CCCCCCCCCCC';
+        $shp->records[3]->dbfData['ID'] = '4';
+        $shp->records[3]->dbfData['DESC'] = 'CCCCCCCCCCC';
 
         $shp->saveToFile('./data/test_shape.*');
     }
@@ -239,8 +239,8 @@ class ShapeFileTest extends TestCase
         $record0->addPoint(['x' => 482131.764567, 'y' => 2143634.39608]);
 
         $shp->addRecord($record0);
-        $shp->records[4]->DBFData['ID'] = '4';
-        $shp->records[4]->DBFData['DESC'] = 'CCCCCCCCCCC';
+        $shp->records[4]->dbfData['ID'] = '4';
+        $shp->records[4]->dbfData['DESC'] = 'CCCCCCCCCCC';
 
         $shp->saveToFile();
         $this->assertEquals(5, count($shp->records));
@@ -327,10 +327,10 @@ class ShapeFileTest extends TestCase
             'numpoints',
         ];
         foreach ($items as $item) {
-            if (isset($record->SHPData[$item])) {
+            if (isset($record->shpData[$item])) {
                 $this->assertEquals(
-                    $record->SHPData[$item],
-                    $record2->SHPData[$item]
+                    $record->shpData[$item],
+                    $record2->shpData[$item]
                 );
             }
         }

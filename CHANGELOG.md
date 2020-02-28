@@ -4,10 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Added
+- Support for PHPUnit 8
+
+### Changed
+- Enable strict mode on PHP files
+- Rename ShapeFile::$FileName property to ShapeFile::$fileName
+- Rename ShapeRecord::$SHPData property to ShapeRecord::$shpData
+- Rename ShapeRecord::$DBFData property to ShapeRecord::$dbfData
+
 ### Removed
 - Drop support for PHP 5.4, PHP 5.5, PHP 5.6, PHP 7.0 and HHVM
-- Enable strict mode on PHP files
-- Support phpunit 8
 
 ## [2.1] - 2017-05-15
 ### Changed
@@ -27,7 +34,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [1.1] - 2016-11-21
 ### Fixed
-- Fixed adjusting of record bouding box
+- Fixed adjusting of record bounding box
 
 ## [1.0] - 2016-11-21
 ### Changed
