@@ -215,7 +215,7 @@ class ShapeRecord
         unset($this->dbfData);
         $this->dbfData = [];
         foreach ($header as $value) {
-            $this->dbfData[$value[0]] = (isset($tmp[$value[0]])) ? $tmp[$value[0]] : '';
+            $this->dbfData[$value[0]] = $tmp[$value[0]] ?? '';
         }
     }
 
@@ -685,14 +685,14 @@ class ShapeRecord
                 //Adds a new point to the selected part
                 $this->shpData['parts'][$partIndex]['points'][] = $point;
                 $this->shpData['numparts'] = count($this->shpData['parts']);
-                $this->shpData['numpoints'] = 1 + (isset($this->shpData['numpoints']) ? $this->shpData['numpoints'] : 0);
+                $this->shpData['numpoints'] = 1 + ($this->shpData['numpoints'] ?? 0);
                 break;
             case 8:
             case 18:
             case 28:
                 //Adds a new point
                 $this->shpData['points'][] = $point;
-                $this->shpData['numpoints'] = 1 + (isset($this->shpData['numpoints']) ? $this->shpData['numpoints'] : 0);
+                $this->shpData['numpoints'] = 1 + ($this->shpData['numpoints'] ?? 0);
                 break;
             default:
                 $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));

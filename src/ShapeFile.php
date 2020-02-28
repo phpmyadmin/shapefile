@@ -401,7 +401,7 @@ class ShapeFile
     private function saveBBoxRecord($file, $type)
     {
         fwrite($file, Util::packDouble(
-            isset($this->boundingBox[$type]) ? $this->boundingBox[$type] : 0
+            $this->boundingBox[$type] ?? 0
         ));
     }
 
