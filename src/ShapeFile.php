@@ -156,7 +156,7 @@ class ShapeFile
             $this->fileName = $fileName;
         }
 
-        if (($this->openSHPFile(true)) && ($this->openSHXFile(true)) && ($this->createDBFFile())) {
+        if ($this->openSHPFile(true) && ($this->openSHXFile(true)) && ($this->createDBFFile())) {
             $this->saveHeaders();
             $this->saveRecords();
             $this->closeSHPFile();
@@ -208,11 +208,11 @@ class ShapeFile
      */
     public function addRecord($record)
     {
-        if ((isset($this->dbfHeader)) && (is_array($this->dbfHeader))) {
+        if (isset($this->dbfHeader) && (is_array($this->dbfHeader))) {
             $record->updateDBFInfo($this->dbfHeader);
         }
 
-        $this->fileLength += ($record->getContentLength() + 4);
+        $this->fileLength += $record->getContentLength() + 4;
         $this->records[] = $record;
         $this->records[count($this->records) - 1]->recordNumber = count($this->records);
 
@@ -238,7 +238,7 @@ class ShapeFile
     public function deleteRecord($index)
     {
         if (isset($this->records[$index])) {
-            $this->fileLength -= ($this->records[$index]->getContentLength() + 4);
+            $this->fileLength -= $this->records[$index]->getContentLength() + 4;
             $count = count($this->records) - 1;
             for ($i = $index; $i < $count; ++$i) {
                 $this->records[$i] = $this->records[$i + 1];
@@ -481,7 +481,7 @@ class ShapeFile
                 //Save the record to the .shx file
                 fwrite($this->shxFile, pack('N', $offset));
                 fwrite($this->shxFile, pack('N', $record->getContentLength()));
-                $offset += (4 + $record->getContentLength());
+                $offset += 4 + $record->getContentLength();
             }
         }
     }
