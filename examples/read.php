@@ -36,7 +36,7 @@ function display_file($filename)
     $i = 1;
     foreach ($shp->records as $i => $record) {
         echo '<pre>';
-        echo "Record No. $i:\n\n\n";
+        echo 'Record No. ' . $i . ':' . "\n\n\n";
         // All the data related to the record
         echo 'SHP Data = ';
         print_r($record->shpData);
@@ -48,6 +48,6 @@ function display_file($filename)
         echo '</pre>';
     }
 
-    echo "The ShapeFile was completely readed.<br />\n";
-    echo "Return to the <a href='index.php'>index</a>.";
+    echo 'The ShapeFile was completely read.<br />' . "\n";
+    echo 'Return to the <a href="index.php">index</a>.';
 }

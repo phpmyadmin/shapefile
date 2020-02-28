@@ -286,7 +286,7 @@ class ShapeFileTest extends TestCase
      */
     public function testShapeSaveLoad($type, $points)
     {
-        $filename = "./data/test_shape-$type.*";
+        $filename = './data/test_shape-' . $type . '.*';
         $shp = new ShapeFile($type);
         $shp->setDBFHeader([
             [
