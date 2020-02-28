@@ -517,11 +517,8 @@ class ShapeFile
     private function openSHPFile($toWrite = false)
     {
         $this->shpFile = $this->openFile($toWrite, '.shp', 'Shape');
-        if (! $this->shpFile) {
-            return false;
-        }
 
-        return true;
+        return (bool) $this->shpFile;
     }
 
     /**
@@ -545,11 +542,8 @@ class ShapeFile
     private function openSHXFile($toWrite = false)
     {
         $this->shxFile = $this->openFile($toWrite, '.shx', 'Index');
-        if (! $this->shxFile) {
-            return false;
-        }
 
-        return true;
+        return (bool) $this->shxFile;
     }
 
     /**
