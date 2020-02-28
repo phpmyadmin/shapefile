@@ -64,7 +64,7 @@ class ShapeFile
     /**
      * @param int        $shapeType   File shape type, should be same as all records
      * @param array      $boundingBox File bounding box
-     * @param null|mixed $fileName    File name
+     * @param mixed|null $fileName    File name
      */
     public function __construct(
         $shapeType,
@@ -104,12 +104,14 @@ class ShapeFile
 
                 return false;
             }
+
             if (! $this->loadRecords()) {
                 $this->closeSHPFile();
                 $this->closeDBFFile();
 
                 return false;
             }
+
             $this->closeSHPFile();
             $this->closeDBFFile();
 
@@ -167,6 +169,7 @@ class ShapeFile
         if (! isset($this->boundingBox[$min]) || $this->boundingBox[$min] == 0.0 || ($this->boundingBox[$min] > $data[$min])) {
             $this->boundingBox[$min] = $data[$min];
         }
+
         if (! isset($this->boundingBox[$max]) || $this->boundingBox[$max] == 0.0 || ($this->boundingBox[$max] < $data[$max])) {
             $this->boundingBox[$max] = $data[$max];
         }
@@ -216,6 +219,7 @@ class ShapeFile
             for ($i = $index; $i < $count; ++$i) {
                 $this->records[$i] = $this->records[$i + 1];
             }
+
             unset($this->records[count($this->records) - 1]);
             $this->deleteRecordFromDBF($index);
         }
@@ -300,6 +304,7 @@ class ShapeFile
                         array_push($result, [$fieldName, $fieldType, $fieldLen, $fieldDec]);
                     }
                 }
+
                 ++$i;
             } else {
                 $inHeader = false;
@@ -427,6 +432,7 @@ class ShapeFile
 
                 return false;
             }
+
             if (($record->shapeType === false || $record->shapeType === '') && $this->eofSHP()) {
                 break;
             }
@@ -546,6 +552,7 @@ class ShapeFile
 
             return true;
         }
+
         $dbfName = $this->getFilename('.dbf');
 
         /* Unlink existing file */
@@ -576,6 +583,7 @@ class ShapeFile
 
             return true;
         }
+
         $dbfName = $this->getFilename('.dbf');
         if (is_readable($dbfName)) {
             $this->dbfFile = @dbase_open($dbfName, 0);

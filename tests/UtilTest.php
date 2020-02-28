@@ -34,7 +34,6 @@ class UtilTest extends TestCase
      * @param mixed  $data     Data to parse
      * @param mixed  $expected Expected result
      *
-     *
      * @dataProvider data
      */
     public function testLoadData($type, $data, $expected)

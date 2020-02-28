@@ -188,6 +188,7 @@ class ShapeRecord
                 $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
                 break;
         }
+
         if (ShapeFile::supportsDbase() && ! is_null($this->dbfFile)) {
             $this->saveDBFData();
         }
@@ -222,6 +223,7 @@ class ShapeRecord
         if ($data === false) {
             return false;
         }
+
         $this->read += strlen($data);
 
         return Util::loadData($type, $data);
@@ -237,11 +239,13 @@ class ShapeRecord
         if ($this->recordNumber === false) {
             return;
         }
+
         // We read the length of the record
         $this->size = $this->loadData('N', 4);
         if ($this->size === false) {
             return;
         }
+
         $this->size = $this->size * 2 + 8;
         $this->shapeType = $this->loadData('V', 4);
     }
@@ -452,9 +456,11 @@ class ShapeRecord
             if ($part + 1 < $numparts && $i == $this->shpData['parts'][$part + 1]) {
                 ++$part;
             }
+
             if (! isset($this->shpData['parts'][$part]['points']) || ! is_array($this->shpData['parts'][$part]['points'])) {
                 $this->shpData['parts'][$part] = ['points' => []];
             }
+
             $this->shpData['parts'][$part]['points'][] = $this->loadPoint();
         }
     }
@@ -480,6 +486,7 @@ class ShapeRecord
             if ($part + 1 < $numparts && $i == $this->shpData['parts'][$part + 1]) {
                 ++$part;
             }
+
             $this->shpData['parts'][$part]['points'][$i][$type] = $this->loadData('d', 8);
         }
     }
@@ -590,11 +597,13 @@ class ShapeRecord
             if (! isset($point[$direction])) {
                 continue;
             }
+
             $min = $direction . 'min';
             $max = $direction . 'max';
             if (! isset($this->shpData[$min]) || ($this->shpData[$min] > $point[$direction])) {
                 $this->shpData[$min] = $point[$direction];
             }
+
             if (! isset($this->shpData[$max]) || ($this->shpData[$max] < $point[$direction])) {
                 $this->shpData[$max] = $point[$direction];
             }
@@ -680,6 +689,7 @@ class ShapeRecord
 
                 return;
         }
+
         $this->adjustBBox($point);
     }
 
@@ -704,9 +714,11 @@ class ShapeRecord
                 if (in_array($this->shapeType, [11, 21])) {
                     $this->shpData['m'] = 0.0;
                 }
+
                 if (in_array($this->shapeType, [11])) {
                     $this->shpData['z'] = 0.0;
                 }
+
                 break;
             case 3:
             case 5:
@@ -720,11 +732,13 @@ class ShapeRecord
                     for ($i = $pointIndex; $i < $count; ++$i) {
                         $this->shpData['parts'][$partIndex]['points'][$i] = $this->shpData['parts'][$partIndex]['points'][$i + 1];
                     }
+
                     unset($this->shpData['parts'][$partIndex]['points'][count($this->shpData['parts'][$partIndex]['points']) - 1]);
 
                     $this->shpData['numparts'] = count($this->shpData['parts']);
                     --$this->shpData['numpoints'];
                 }
+
                 break;
             case 8:
             case 18:
@@ -735,10 +749,12 @@ class ShapeRecord
                     for ($i = $pointIndex; $i < $count; ++$i) {
                         $this->shpData['points'][$i] = $this->shpData['points'][$i + 1];
                     }
+
                     unset($this->shpData['points'][count($this->shpData['points']) - 1]);
 
                     --$this->shpData['numpoints'];
                 }
+
                 break;
             default:
                 $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
@@ -775,6 +791,7 @@ class ShapeRecord
                 for ($i = 0; $i < $count; ++$i) {
                     $result += 8 * count($this->shpData['parts'][$i]['points']);
                 }
+
                 break;
             case 23:
             case 25:
@@ -783,6 +800,7 @@ class ShapeRecord
                 for ($i = 0; $i < $count; ++$i) {
                     $result += (8 + 4) * count($this->shpData['parts'][$i]['points']);
                 }
+
                 break;
             case 13:
             case 15:
@@ -791,6 +809,7 @@ class ShapeRecord
                 for ($i = 0; $i < $count; ++$i) {
                     $result += (8 + 8) * count($this->shpData['parts'][$i]['points']);
                 }
+
                 break;
             case 8:
                 $result = 20 + 8 * count($this->shpData['points']);
@@ -821,6 +840,7 @@ class ShapeRecord
         if (count($this->dbfData) == 0) {
             return;
         }
+
         unset($this->dbfData['deleted']);
         if ($this->recordNumber <= dbase_numrecords($this->dbfFile)) {
             if (! dbase_replace_record($this->dbfFile, array_values($this->dbfData), $this->recordNumber)) {

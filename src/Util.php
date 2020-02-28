@@ -57,6 +57,7 @@ class Util
         if ($data === false || strlen($data) == 0) {
             return false;
         }
+
         $tmp = unpack($type, $data);
 
         return current($tmp);

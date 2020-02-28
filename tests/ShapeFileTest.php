@@ -36,7 +36,6 @@ class ShapeFileTest extends TestCase
      * @param int    $records  Expected number of records
      * @param int    $parts    Expected number of parts in first record
      *
-     *
      * @dataProvider provideFiles
      */
     public function testLoad($filename, $records, $parts)
@@ -95,7 +94,6 @@ class ShapeFileTest extends TestCase
      * Test error handling in loader.
      *
      * @param string $filename name to load
-     *
      *
      * @dataProvider provideErrorFiles
      */
@@ -194,6 +192,7 @@ class ShapeFileTest extends TestCase
         if (! ShapeFile::supportsDbase()) {
             $this->markTestSkipped('dbase extension missing');
         }
+
         $this->createTestData();
 
         $shp = new ShapeFile(1);
@@ -209,6 +208,7 @@ class ShapeFileTest extends TestCase
         if (! ShapeFile::supportsDbase()) {
             $this->markTestSkipped('dbase extension missing');
         }
+
         $this->createTestData();
 
         $shp = new ShapeFile(1);
@@ -230,6 +230,7 @@ class ShapeFileTest extends TestCase
         if (! ShapeFile::supportsDbase()) {
             $this->markTestSkipped('dbase extension missing');
         }
+
         $this->createTestData();
 
         $shp = new ShapeFile(1);
@@ -278,7 +279,6 @@ class ShapeFileTest extends TestCase
      *
      * @param int   $type   Shape type
      * @param array $points Points
-     *
      *
      * @dataProvider shapes
      */
@@ -345,7 +345,6 @@ class ShapeFileTest extends TestCase
      * @param int   $type   Shape type
      * @param array $points Points
      *
-     *
      * @dataProvider shapes
      */
     public function testZetShapeSaveLoad($type, $points)
@@ -358,7 +357,6 @@ class ShapeFileTest extends TestCase
      *
      * @param int   $type   Shape type
      * @param array $points Points
-     *
      *
      * @dataProvider shapes
      */
