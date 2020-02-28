@@ -8,3 +8,4 @@ phpunit.xml
 coverage.xml
 phpcs.xml
 /.phpunit.result.cache
+phpstan.neon
