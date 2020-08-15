@@ -5,7 +5,5 @@ parameters:
     paths:
         - src
         - tests
-    autoload_directories:
-        - tests
     reportUnmatchedIgnoredErrors: true
     inferPrivatePropertyTypeFromConstructor: true
