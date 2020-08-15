@@ -800,7 +800,7 @@ class ShapeRecord
      *
      * @return int
      */
-    public function getContentLength()
+    public function getContentLength(): ?int
     {
         // The content length for a record is the length of the record contents section measured in 16-bit words.
         // one coordinate makes 4 16-bit words (64 bit double)
@@ -854,7 +854,7 @@ class ShapeRecord
                 $result = 20 + (4 * 4) + (8 + 8) * count($this->shpData['points']);
                 break;
             default:
-                $result = false;
+                $result = null;
                 $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType));
                 break;
         }
