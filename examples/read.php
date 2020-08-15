@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * phpMyAdmin ShapeFile library
  * <https://github.com/phpmyadmin/shapefile/>.
@@ -19,7 +22,6 @@
  * along with this program; if not, you can download one from
  * https://www.gnu.org/copyleft/gpl.html.
  */
-declare(strict_types=1);
 
 use PhpMyAdmin\ShapeFile\ShapeFile;
 
@@ -28,7 +30,7 @@ use PhpMyAdmin\ShapeFile\ShapeFile;
  *
  * @param string $filename File to open
  */
-function display_file($filename)
+function display_file(string $filename): void
 {
     $shp = new ShapeFile(1);
     $shp->loadFromFile($filename);

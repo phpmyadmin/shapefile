@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * phpMyAdmin ShapeFile library
  * <https://github.com/phpmyadmin/shapefile/>.
@@ -18,7 +21,6 @@
  * along with this program; if not, you can download one from
  * https://www.gnu.org/copyleft/gpl.html.
  */
-declare(strict_types=1);
 
 namespace UtilTest;
 
@@ -30,13 +32,13 @@ class UtilTest extends TestCase
     /**
      * Test data loading.
      *
-     * @param string $type     Data type
-     * @param mixed  $data     Data to parse
-     * @param mixed  $expected Expected result
+     * @param string       $type     Data type
+     * @param string|false $data     Data to parse
+     * @param string|false $expected Expected result
      *
      * @dataProvider data
      */
-    public function testLoadData($type, $data, $expected)
+    public function testLoadData(string $type, $data, $expected): void
     {
         $this->assertEquals(
             $expected,
@@ -49,7 +51,7 @@ class UtilTest extends TestCase
      *
      * @return array
      */
-    public function data()
+    public function data(): array
     {
         return [
             [
@@ -73,7 +75,7 @@ class UtilTest extends TestCase
     /**
      * Test for byte order changes.
      */
-    public function testSwap()
+    public function testSwap(): void
     {
         $this->assertEquals(
             "\x01\x02\x03\x04",

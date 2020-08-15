@@ -33,8 +33,8 @@
         "ext-dbase": "For dbf files parsing"
     },
     "require-dev": {
-        "phpmyadmin/coding-standard": "^1.0",
         "phpstan/phpstan": "^0.12.37",
+        "phpmyadmin/coding-standard": "^2.0",
         "phpstan/phpstan-phpunit": "^0.12.6",
         "phpunit/phpunit": "^7.4 || ^8 || ^9"
     },

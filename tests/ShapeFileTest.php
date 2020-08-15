@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * phpMyAdmin ShapeFile library
  * <https://github.com/phpmyadmin/shapefile/>.
@@ -19,7 +22,6 @@
  * along with this program; if not, you can download one from
  * https://www.gnu.org/copyleft/gpl.html.
  */
-declare(strict_types=1);
 
 namespace ShapeFileTest;
 
@@ -33,13 +35,13 @@ class ShapeFileTest extends TestCase
     /**
      * Tests loading of a file.
      *
-     * @param string $filename Name of file
-     * @param int    $records  Expected number of records
-     * @param int    $parts    Expected number of parts in first record
+     * @param string   $filename Name of file
+     * @param int      $records  Expected number of records
+     * @param int|null $parts    Expected number of parts in first record
      *
      * @dataProvider provideFiles
      */
-    public function testLoad($filename, $records, $parts)
+    public function testLoad(string $filename, int $records, ?int $parts): void
     {
         $shp = new ShapeFile(1);
         $shp->loadFromFile($filename);
@@ -57,7 +59,7 @@ class ShapeFileTest extends TestCase
      *
      * @return array
      */
-    public function provideFiles()
+    public function provideFiles(): array
     {
         return [
             [
@@ -100,7 +102,7 @@ class ShapeFileTest extends TestCase
      *
      * @dataProvider provideErrorFiles
      */
-    public function testLoadError($filename)
+    public function testLoadError(string $filename): void
     {
         $shp = new ShapeFile(1);
         $shp->loadFromFile($filename);
@@ -112,7 +114,7 @@ class ShapeFileTest extends TestCase
      *
      * @return array
      */
-    public function provideErrorFiles()
+    public function provideErrorFiles(): array
     {
         $result = [
             ['data/no-shp.*'],
@@ -131,7 +133,7 @@ class ShapeFileTest extends TestCase
     /**
      * Creates test data.
      */
-    private function createTestData()
+    private function createTestData(): void
     {
         $shp = new ShapeFile(1);
 
@@ -190,7 +192,7 @@ class ShapeFileTest extends TestCase
     /**
      * Tests creating file.
      */
-    public function testCreate()
+    public function testCreate(): void
     {
         if (! ShapeFile::supportsDbase()) {
             $this->markTestSkipped('dbase extension missing');
@@ -206,7 +208,7 @@ class ShapeFileTest extends TestCase
     /**
      * Tests removing record from a file.
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         if (! ShapeFile::supportsDbase()) {
             $this->markTestSkipped('dbase extension missing');
@@ -228,7 +230,7 @@ class ShapeFileTest extends TestCase
     /**
      * Test adding record to a file.
      */
-    public function testAdd()
+    public function testAdd(): void
     {
         if (! ShapeFile::supportsDbase()) {
             $this->markTestSkipped('dbase extension missing');
@@ -257,7 +259,7 @@ class ShapeFileTest extends TestCase
     /**
      * Tests saving without DBF.
      */
-    public function testSaveNoDBF()
+    public function testSaveNoDBF(): void
     {
         $shp = new ShapeFile(1);
         $shp->saveToFile('./data/test_nodbf.*');
@@ -267,7 +269,7 @@ class ShapeFileTest extends TestCase
     /**
      * Test shape naming.
      */
-    public function testShapeName()
+    public function testShapeName(): void
     {
         $obj = new ShapeRecord(1);
         $this->assertEquals('Point', $obj->getShapeName());
@@ -285,7 +287,7 @@ class ShapeFileTest extends TestCase
      *
      * @dataProvider shapes
      */
-    public function testShapeSaveLoad($type, $points)
+    public function testShapeSaveLoad(int $type, array $points): void
     {
         $filename = './data/test_shape-' . $type . '.*';
         $shp = new ShapeFile($type);
@@ -352,7 +354,7 @@ class ShapeFileTest extends TestCase
      *
      * @dataProvider shapes
      */
-    public function testZetShapeSaveLoad($type, $points)
+    public function testZetShapeSaveLoad(int $type, array $points): void
     {
         $this->testShapeSaveLoad($type + 10, $points);
     }
@@ -365,7 +367,7 @@ class ShapeFileTest extends TestCase
      *
      * @dataProvider shapes
      */
-    public function testMeasureShapeSaveLoad($type, $points)
+    public function testMeasureShapeSaveLoad(int $type, array $points): void
     {
         $this->testShapeSaveLoad($type + 20, $points);
     }
@@ -375,7 +377,7 @@ class ShapeFileTest extends TestCase
      *
      * @return array
      */
-    public function shapes()
+    public function shapes(): array
     {
         return [
             [
@@ -385,7 +387,8 @@ class ShapeFileTest extends TestCase
                         [
                             'x' => 10,
                             'y' => 20,
-                        ], 0,
+                        ],
+                        0,
                     ],
                 ],
             ],
@@ -396,25 +399,29 @@ class ShapeFileTest extends TestCase
                         [
                             'x' => 10,
                             'y' => 20,
-                        ], 0,
+                        ],
+                        0,
                     ],
                     [
                         [
                             'x' => 20,
                             'y' => 20,
-                        ], 0,
+                        ],
+                        0,
                     ],
                     [
                         [
                             'x' => 20,
                             'y' => 20,
-                        ], 1,
+                        ],
+                        1,
                     ],
                     [
                         [
                             'x' => 20,
                             'y' => 10,
-                        ], 1,
+                        ],
+                        1,
                     ],
                 ],
             ],
@@ -425,37 +432,43 @@ class ShapeFileTest extends TestCase
                         [
                             'x' => 10,
                             'y' => 20,
-                        ], 0,
+                        ],
+                        0,
                     ],
                     [
                         [
                             'x' => 20,
                             'y' => 20,
-                        ], 0,
+                        ],
+                        0,
                     ],
                     [
                         [
                             'x' => 20,
                             'y' => 20,
-                        ], 1,
+                        ],
+                        1,
                     ],
                     [
                         [
                             'x' => 20,
                             'y' => 10,
-                        ], 1,
+                        ],
+                        1,
                     ],
                     [
                         [
                             'x' => 20,
                             'y' => 10,
-                        ], 2,
+                        ],
+                        2,
                     ],
                     [
                         [
                             'x' => 10,
                             'y' => 20,
-                        ], 2,
+                        ],
+                        2,
                     ],
                 ],
             ],
@@ -466,26 +479,29 @@ class ShapeFileTest extends TestCase
                         [
                             'x' => 10,
                             'y' => 20,
-                        ], 0,
+                        ],
+                        0,
                     ],
                     [
                         [
                             'x' => 20,
                             'y' => 20,
-                        ], 0,
+                        ],
+                        0,
                     ],
                     [
                         [
                             'x' => 20,
                             'y' => 10,
-                        ], 0,
+                        ],
+                        0,
                     ],
                 ],
             ],
         ];
     }
 
-    public function testSearch()
+    public function testSearch(): void
     {
         $shp = new ShapeFile(0);
         $shp->loadFromFile('data/capitals.*');
