@@ -55,6 +55,7 @@ class ShapeFile
 {
     public const MAGIC = 0x270a;
 
+    /** @var string */
     public $fileName;
 
     private $shpFile = null;
@@ -63,17 +64,22 @@ class ShapeFile
 
     private $dbfHeader;
 
+    /** @var string */
     public $lastError = '';
 
+    /** @var array */
     public $boundingBox = [
         'xmin' => 0.0,
         'ymin' => 0.0,
         'xmax' => 0.0,
         'ymax' => 0.0,
     ];
+    /** @var int */
     private $fileLength = 0;
+    /** @var int */
     public $shapeType = 0;
 
+    /** @var array */
     public $records = [];
 
     /**

@@ -33,8 +33,10 @@ use function unpack;
 
 class Util
 {
+    /** @var bool|null */
     private static $littleEndian = null;
 
+    /** @var array */
     private static $shapeNames = [
         0 => 'Null Shape',
         1 => 'Point',

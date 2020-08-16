@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$fileName has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
 			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shpFile has no typehint specified\\.$#"
 			count: 1
 			path: src/ShapeFile.php
@@ -26,26 +21,6 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$lastError has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$boundingBox has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shapeType has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$records has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
 			message: "#^Parameter \\#1 \\$fp of function feof expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
@@ -61,47 +36,11 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#3 \\$length of function substr expects int, int\\<1, max\\>\\|int\\<min, \\-1\\>\\|false given\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
 			message: "#^Parameter \\#1 \\$fp of function fclose expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shpFile has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$dbfFile has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$recordNumber has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
 			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shapeType has no typehint specified\\.$#"
 			count: 1
 			path: src/ShapeRecord.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$lastError has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:\\$littleEndian has no typehint specified\\.$#"
-			count: 1
-			path: src/Util.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:\\$shapeNames has no typehint specified\\.$#"
-			count: 1
-			path: src/Util.php
-

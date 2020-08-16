@@ -39,7 +39,9 @@ use function strlen;
  */
 class ShapeRecord
 {
+    /** @var resource */
     private $shpFile = null;
+    /** @var resource */
     private $dbfFile = null;
     /** @var ShapeFile */
     private $shapeFile = null;
@@ -49,9 +51,11 @@ class ShapeRecord
     /** @var int */
     private $read = 0;
 
+    /** @var int|null */
     public $recordNumber = null;
     public $shapeType = null;
 
+     /** @var string */
     public $lastError = '';
 
     /** @var array */
