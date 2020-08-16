@@ -67,8 +67,9 @@ class ShapeRecord
     /**
      * Loads record from files.
      *
-     * @param resource $shpFile Opened SHP file (by reference)
-     * @param resource $dbfFile Opened DBF file (by reference)
+     * @param ShapeFile $shapeFile The ShapeFile object
+     * @param resource  $shpFile   Opened SHP file (by reference)
+     * @param resource  $dbfFile   Opened DBF file (by reference)
      */
     public function loadFromFile(ShapeFile &$shapeFile, &$shpFile, &$dbfFile): void
     {

@@ -40,7 +40,7 @@ matrix:
         - composer global require "code-lts/doctum:^5.0"
         - composer install --no-interaction
       script:
-        - $HOME/.composer/vendor/bin/doctum.php --no-interaction update ./ci/doctum-config.php || $HOME/.composer/vendor/bin/doctum.php --no-interaction parse ./ci/doctum-config.php
+        - $HOME/.composer/vendor/bin/doctum.php --no-interaction update ./ci/doctum-config.php -vvv
 
 before_install:
   - |
