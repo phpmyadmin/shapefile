@@ -1,18 +1,26 @@
-checks:
-  php: true
-
+# scrutinizer-ci.com configuration
+imports:
+  - php
 filter:
   excluded_paths:
-    - ci/doctum-config.php
-
-  dependency_paths:
+    - build/
+    - tmp/
     - vendor/
-
+    - ci/doctum-config.php
+checks:
+  php: true
+tools:
+  external_code_coverage:
+    runs: 8 # php 7.x versions * 2
+    timeout: 480 # 8 min
 build:
   nodes:
     analysis:
       environment:
         php: 7.1
+      dependencies:
+        before:
+          - composer install
       tests:
         override:
           - php-scrutinizer-run
