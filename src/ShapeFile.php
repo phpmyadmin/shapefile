@@ -326,7 +326,7 @@ class ShapeFile
                         $inHeader = false;
                     } else {
                         $pos = strpos(substr($buff32, 0, 10), chr(0));
-                        $pos = ($pos === 0 ? 10 : $pos);
+                        $pos = ($pos === false ? 10 : $pos);
 
                         $fieldName = substr($buff32, 0, $pos);
                         $fieldType = substr($buff32, 11, 1);
