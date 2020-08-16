@@ -2,7 +2,7 @@
 composer.phar
 composer.lock
 /vendor/
-/doc/
+/build/
 .php_cs.cache
 phpunit.xml
 coverage.xml

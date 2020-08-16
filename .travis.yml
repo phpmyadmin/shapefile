@@ -18,9 +18,6 @@ matrix:
     - php: nightly
   include:
     - php: 7.1
-      name: "Documentation"
-      script: vendor/bin/sami.php --no-interaction update ./ci/sami-config.php
-    - php: 7.1
       name: "Coding standard"
       script: vendor/bin/phpcs
     - php: 7.1
@@ -34,6 +31,15 @@ matrix:
       env: DBASE=yes
       install:
         - composer install --no-interaction --ignore-platform-reqs
+    - php: 7.2
+      name: "API docs"
+      before_install: phpenv config-rm xdebug.ini
+      after_success: skip
+      install:
+        - composer global require "code-lts/doctum:^5.0"
+        - composer install --no-interaction
+      script:
+        - $HOME/.composer/vendor/bin/doctum.php --no-interaction update ./ci/doctum-config.php
 
 before_install:
   - |

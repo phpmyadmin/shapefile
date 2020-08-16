@@ -3,7 +3,7 @@ checks:
 
 filter:
   excluded_paths:
-    - ci/sami-config.php
+    - ci/doctum-config.php
 
   dependency_paths:
     - vendor/
