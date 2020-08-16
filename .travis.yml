@@ -22,6 +22,7 @@ matrix:
       script: vendor/bin/phpcs
     - php: 7.1
       name: "Static analysis"
+      env: DBASE=yes
       script: vendor/bin/phpstan analyze
     - php: nightly
       env: DBASE=no
@@ -39,7 +40,7 @@ matrix:
         - composer global require "code-lts/doctum:^5.0"
         - composer install --no-interaction
       script:
-        - $HOME/.composer/vendor/bin/doctum.php --no-interaction update ./ci/doctum-config.php
+        - $HOME/.composer/vendor/bin/doctum.php --no-interaction update ./ci/doctum-config.php || $HOME/.composer/vendor/bin/doctum.php --no-interaction parse ./ci/doctum-config.php
 
 before_install:
   - |
