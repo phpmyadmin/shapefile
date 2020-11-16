@@ -34,7 +34,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12.37",
-        "phpmyadmin/coding-standard": "^2.0",
+        "phpmyadmin/coding-standard": "^2.1.1",
         "phpstan/phpstan-phpunit": "^0.12.6",
         "phpunit/phpunit": "^7.4 || ^8 || ^9"
     },
