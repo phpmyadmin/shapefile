@@ -83,7 +83,7 @@ class ShapeFile
     public $records = [];
 
     /**
-     * Checks whether dbase manipuations are supported.
+     * Checks whether dbase manipulations are supported.
      */
     public static function supportsDbase(): bool
     {
@@ -295,7 +295,7 @@ class ShapeFile
     }
 
     /**
-     * Lookups value in the DBF file and returs index.
+     * Lookups value in the DBF file and returns index.
      *
      * @param string $field Field to match
      * @param mixed  $value Value to match
