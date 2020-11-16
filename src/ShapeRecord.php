@@ -53,6 +53,8 @@ class ShapeRecord
 
     /** @var int|null */
     public $recordNumber = null;
+
+    /** @var int */
     public $shapeType = null;
 
      /** @var string */

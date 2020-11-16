@@ -58,10 +58,14 @@ class ShapeFile
     /** @var string */
     public $fileName;
 
+    /** @var resource|null */
     private $shpFile = null;
+    /** @var resource|null */
     private $shxFile = null;
+    /** @var resource|null */
     private $dbfFile = null;
 
+    /** @var array|null */
     private $dbfHeader;
 
     /** @var string */
