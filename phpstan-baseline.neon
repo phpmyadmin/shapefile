@@ -1,22 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shpFile has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shxFile has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$dbfFile has no typehint specified\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$dbfHeader has no typehint specified\\.$#"
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:getDBFHeader\\(\\) should return array but returns array\\|null\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
@@ -31,7 +16,7 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function substr expects string, string\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
 			count: 6
 			path: src/ShapeFile.php
 
@@ -41,7 +26,67 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shapeType has no typehint specified\\.$#"
+			message: "#^Parameter \\#1 \\$fp of function fwrite expects resource, resource\\|null given\\.$#"
+			count: 10
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$file of method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:saveBBox\\(\\) expects resource, resource\\|null given\\.$#"
+			count: 2
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Result of \\|\\| is always false\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between int and '' will always evaluate to false\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between int and false will always evaluate to false\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shpFile \\(resource\\|null\\) does not accept resource\\|false\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shxFile \\(resource\\|null\\) does not accept resource\\|false\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$dbfFile \\(resource\\|null\\) does not accept resource\\|false\\.$#"
+			count: 2
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$fp of function fread expects resource, resource\\|null given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$fp of function feof expects resource, resource\\|null given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of static method PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:nameShape\\(\\) expects int, int\\|false given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shapeType \\(int\\) does not accept false\\.$#"
 			count: 1
 			path: src/ShapeRecord.php
 

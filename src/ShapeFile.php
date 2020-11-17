@@ -80,7 +80,8 @@ class ShapeFile
     ];
     /** @var int */
     private $fileLength = 0;
-    /** @var int */
+
+    /** @var int|false */
     public $shapeType = 0;
 
     /** @var array */
