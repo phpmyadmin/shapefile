@@ -55,7 +55,7 @@ class ShapeFile
 {
     public const MAGIC = 0x270a;
 
-    /** @var string */
+    /** @var string|null */
     public $fileName;
 
     /** @var resource|null */
@@ -96,9 +96,9 @@ class ShapeFile
     }
 
     /**
-     * @param int        $shapeType   File shape type, should be same as all records
-     * @param array      $boundingBox File bounding box
-     * @param mixed|null $fileName    File name
+     * @param int         $shapeType   File shape type, should be same as all records
+     * @param array       $boundingBox File bounding box
+     * @param string|null $fileName    File name
      */
     public function __construct(
         int $shapeType,
@@ -108,7 +108,7 @@ class ShapeFile
             'xmax' => 0.0,
             'ymax' => 0.0,
         ],
-        $fileName = null
+        ?string $fileName = null
     ) {
         $this->shapeType = $shapeType;
         $this->boundingBox = $boundingBox;
