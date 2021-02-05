@@ -23,7 +23,7 @@ declare(strict_types=1);
  * https://www.gnu.org/copyleft/gpl.html.
  */
 
-require_once '../vendor/autoload.php';
-require_once './read.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/read.php';
 
-display_file('../data/capitals.*');
+display_file(__DIR__ . '/../data/capitals.*');

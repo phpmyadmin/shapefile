@@ -26,7 +26,7 @@ declare(strict_types=1);
 use PhpMyAdmin\ShapeFile\ShapeFile;
 use PhpMyAdmin\ShapeFile\ShapeRecord;
 
-require_once '../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $shp = new ShapeFile(1, [
     'xmin' => 464079.002268,
@@ -85,5 +85,5 @@ $shp->records[2]->dbfData['DESC'] = 'CCCCCCCCCCC';
 
 $shp->saveToFile('../data/new_shape.*');
 
-echo "The ShapeFile was created.<br />\n";
-echo "Return to the <a href='index.php'>index</a>.";
+echo "The ShapeFile was created.<br>\n";
+echo 'Return to the <a href="index.php">index</a>.';

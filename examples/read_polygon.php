@@ -22,7 +22,7 @@ declare(strict_types=1);
  * along with this program; if not, you can download one from
  * https://www.gnu.org/copyleft/gpl.html.
  */
-require_once '../vendor/autoload.php';
-require_once './read.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/read.php';
 
-display_file('../data/mexico.*');
+display_file(__DIR__ . '/../data/mexico.*');

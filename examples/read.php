@@ -50,6 +50,6 @@ function display_file(string $filename): void
         echo '</pre>';
     }
 
-    echo 'The ShapeFile was completely read.<br />' . "\n";
+    echo 'The ShapeFile was completely read.<br>' . "\n";
     echo 'Return to the <a href="index.php">index</a>.';
 }
