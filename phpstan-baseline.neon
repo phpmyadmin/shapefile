@@ -71,11 +71,6 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#1 \\$fp of function fread expects resource, resource\\|null given\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
 			message: "#^Parameter \\#1 \\$fp of function feof expects resource, resource\\|null given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
