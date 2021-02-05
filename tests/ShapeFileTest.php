@@ -125,6 +125,15 @@ class ShapeFileTest extends TestCase
     }
 
     /**
+     * Test to call getDBFHeader on a non loaded file
+     */
+    public function testGetDBFHeader(): void
+    {
+        $shp = new ShapeFile(1);
+        $this->assertNull($shp->getDBFHeader());
+    }
+
+    /**
      * Data provider for file loading error tests.
      *
      * @return array
