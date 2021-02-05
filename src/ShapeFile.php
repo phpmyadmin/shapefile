@@ -191,7 +191,7 @@ class ShapeFile
      */
     private function getFilename(string $extension): string
     {
-        return str_replace('.*', $extension, $this->fileName);
+        return str_replace('.*', $extension, (string) $this->fileName);
     }
 
     /**
