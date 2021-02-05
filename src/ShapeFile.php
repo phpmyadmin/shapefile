@@ -660,6 +660,10 @@ class ShapeFile
      */
     public function readSHP(int $bytes)
     {
+        if ($this->shpFile === null) {
+            return false;
+        }
+
         return fread($this->shpFile, $bytes);
     }
 

@@ -110,6 +110,16 @@ class ShapeFileTest extends TestCase
     }
 
     /**
+     * Test load an empty file name
+     */
+    public function testLoadEmptyFilename(): void
+    {
+        $shp = new ShapeFile(1);
+        $shp->loadFromFile('');
+        $this->assertEquals('Not a SHP file (file code mismatch)', $shp->lastError);
+    }
+
+    /**
      * Data provider for file loading error tests.
      *
      * @return array
