@@ -273,9 +273,9 @@ class ShapeFile
     /**
      * Returns array defining fields in DBF file.
      *
-     * @return array see setDBFHeader for more information
+     * @return array|null see setDBFHeader for more information
      */
-    public function getDBFHeader(): array
+    public function getDBFHeader(): ?array
     {
         return $this->dbfHeader;
     }

@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:getDBFHeader\\(\\) should return array but returns array\\|null\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
 			message: "#^Parameter \\#1 \\$fp of function feof expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
