@@ -38,6 +38,7 @@ jobs:
               with:
                   php-version: 7.1
                   tools: composer:v2
+                  extensions: dbase
             - name: Cache module
               uses: actions/cache@v2
               with:
