@@ -74,7 +74,7 @@ class Util
 
         $tmp = unpack($type, $data);
 
-        return current($tmp);
+        return $tmp === false ? $tmp : current($tmp);
     }
 
     /**
