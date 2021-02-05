@@ -116,6 +116,11 @@ class ShapeFileTest extends TestCase
     {
         $shp = new ShapeFile(1);
         $shp->loadFromFile('');
+        if (ShapeFile::supportsDbase()) {
+            $this->assertEquals('It wasn\'t possible to find the DBase file ""', $shp->lastError);
+
+            return;
+        }
         $this->assertEquals('Not a SHP file (file code mismatch)', $shp->lastError);
     }
 
