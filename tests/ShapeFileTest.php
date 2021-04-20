@@ -30,6 +30,7 @@ use PhpMyAdmin\ShapeFile\ShapeRecord;
 use PHPUnit\Framework\TestCase;
 
 use function count;
+use function method_exists;
 
 class ShapeFileTest extends TestCase
 {
@@ -289,7 +290,12 @@ class ShapeFileTest extends TestCase
     {
         $shp = new ShapeFile(1);
         $shp->saveToFile('./data/test_nodbf.*');
-        $this->assertFileNotExists('./data/test_nodbf.dbf');
+
+        if (method_exists($this, 'assertFileDoesNotExist')) {
+            $this->assertFileDoesNotExist('./data/test_nodbf.dbf');
+        } else {
+            $this->assertFileNotExists('./data/test_nodbf.dbf');
+        }
     }
 
     /**
