@@ -30,6 +30,7 @@ use PhpMyAdmin\ShapeFile\ShapeFile;
  *
  * @param string $filename File to open
  */
+// phpcs:ignore Squiz.Functions.GlobalFunction.Found
 function display_file(string $filename): void
 {
     $shp = new ShapeFile(1);

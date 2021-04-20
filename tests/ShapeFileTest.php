@@ -28,6 +28,7 @@ namespace ShapeFileTest;
 use PhpMyAdmin\ShapeFile\ShapeFile;
 use PhpMyAdmin\ShapeFile\ShapeRecord;
 use PHPUnit\Framework\TestCase;
+
 use function count;
 
 class ShapeFileTest extends TestCase
@@ -121,6 +122,7 @@ class ShapeFileTest extends TestCase
 
             return;
         }
+
         $this->assertEquals('Not a SHP file (file code mismatch)', $shp->lastError);
     }
 
@@ -360,10 +362,7 @@ class ShapeFileTest extends TestCase
                 continue;
             }
 
-            $this->assertEquals(
-                $record->shpData[$item],
-                $record2->shpData[$item]
-            );
+            $this->assertEquals($record->shpData[$item], $record2->shpData[$item]);
         }
 
         /* Test deletion works */
