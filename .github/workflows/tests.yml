@@ -10,12 +10,18 @@ on:
 jobs:
     test-php:
         name: Test on php ${{ matrix.php-version }} (${{ matrix.php-extensions }}) and ${{ matrix.os }}
+        if: "!contains(github.event.head_commit.message, '[ci skip]')"
         runs-on: ${{ matrix.os }}
+        continue-on-error: ${{ matrix.experimental }}
         strategy:
             matrix:
                 php-version: ["7.1", "7.2", "7.3", "7.4", "8.0"]
                 php-extensions: ["dbase", ""]
                 os: [ubuntu-latest]
+                experimental: [false]
+                composer-options: ['']
+                include:
+                    - { php-version: '8.1', php-extensions: '', composer-options: '--ignore-platform-req=php', experimental: true, os: ubuntu-latest }
         steps:
             - uses: actions/checkout@v2
             - name: Use php ${{ matrix.php-version }}
@@ -30,7 +36,7 @@ jobs:
                   path: ~/.composer/cache/
                   key: composer-cache
             - name: Install dependencies
-              run: composer install
+              run: composer install --no-interaction ${{ matrix.composer-options }}
             - name: Run php tests
               run: composer run phpunit
             - name: Run php examples
