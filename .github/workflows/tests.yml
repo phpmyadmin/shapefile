@@ -15,13 +15,13 @@ jobs:
         continue-on-error: ${{ matrix.experimental }}
         strategy:
             matrix:
-                php-version: ["7.1", "7.2", "7.3", "7.4", "8.0"]
+                php-version: ["7.1", "7.2", "7.3", "7.4", "8.0", "8.1"]
                 php-extensions: ["dbase", ""]
                 os: [ubuntu-latest]
                 experimental: [false]
                 composer-options: ['']
                 include:
-                    - { php-version: '8.1', php-extensions: '', composer-options: '--ignore-platform-req=php', experimental: true, os: ubuntu-latest }
+                    - { php-version: 'nightly', php-extensions: '', composer-options: '--ignore-platform-req=php', experimental: true, os: ubuntu-latest }
         steps:
             - uses: actions/checkout@v2
               with:
