@@ -23,7 +23,7 @@ jobs:
                 include:
                     - { php-version: 'nightly', php-extensions: '', composer-options: '--ignore-platform-req=php', experimental: true, os: ubuntu-latest }
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
               with:
                   # Fetch some commits for Scrutinizer coverage upload
                   fetch-depth: 15
@@ -34,7 +34,7 @@ jobs:
                   extensions: ${{ matrix.php-extensions }}
                   coverage: xdebug
             - name: Cache module
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                   path: ~/.composer/cache/
                   key: composer-cache
