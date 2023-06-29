@@ -231,7 +231,7 @@ class ShapeFile
      */
     public function addRecord(ShapeRecord $record): int
     {
-        if (isset($this->dbfHeader) && (is_array($this->dbfHeader))) {
+        if ($this->dbfHeader !== null) {
             $record->updateDBFInfo($this->dbfHeader);
         }
 
