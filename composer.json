@@ -16,14 +16,17 @@
         "source": "https://github.com/phpmyadmin/shapefile"
     },
     "scripts": {
-        "phpcbf": "phpcbf",
-        "phpcs": "phpcs",
-        "phpstan": "phpstan analyse",
-        "phpunit": "phpunit --color=always",
+        "phpcbf": "@php phpcbf",
+        "phpcs": "@php phpcs",
+        "phpstan": "@php phpstan analyse",
+        "phpunit": "@php phpunit --color=always",
         "test": [
             "@phpcs",
             "@phpstan",
             "@phpunit"
+        ],
+        "update:baselines": [
+            "@php phpstan analyse --generate-baseline"
         ]
     },
     "require": {
