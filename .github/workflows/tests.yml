@@ -48,7 +48,7 @@ jobs:
                 php -f examples/read_point.php > /dev/null
                 php -f examples/read_polygon.php > /dev/null
             - name: Send coverage
-              uses: codecov/codecov-action@v1
+              uses: codecov/codecov-action@v3
               with:
                 flags: unit-${{ matrix.php-version }}-${{ matrix.php-extensions }}-${{ matrix.os }}
                 name: phpunit-${{ matrix.php-version }}-${{ matrix.php-extensions }}-${{ matrix.os }}
