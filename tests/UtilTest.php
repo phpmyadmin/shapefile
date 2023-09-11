@@ -34,11 +34,11 @@ class UtilTest extends TestCase
      *
      * @param string       $type     Data type
      * @param string|false $data     Data to parse
-     * @param string|false $expected Expected result
+     * @param mixed        $expected Expected result
      *
      * @dataProvider data
      */
-    public function testLoadData(string $type, $data, $expected): void
+    public function testLoadData(string $type, string|false $data, mixed $expected): void
     {
         $this->assertEquals(
             $expected,
@@ -48,8 +48,6 @@ class UtilTest extends TestCase
 
     /**
      * Data provider for loadData tests.
-     *
-     * @return array
      */
     public static function data(): array
     {
@@ -70,16 +68,5 @@ class UtilTest extends TestCase
                 0x01020304,
             ],
         ];
-    }
-
-    /**
-     * Test for byte order changes.
-     */
-    public function testSwap(): void
-    {
-        $this->assertEquals(
-            "\x01\x02\x03\x04",
-            Util::swap("\x04\x03\x02\x01")
-        );
     }
 }

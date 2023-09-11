@@ -28,16 +28,14 @@ namespace PhpMyAdmin\ShapeFile;
 use function current;
 use function pack;
 use function sprintf;
-use function strlen;
+use function strrev;
 use function unpack;
 
 class Util
 {
-    /** @var bool|null */
-    private static $littleEndian = null;
+    private static bool|null $littleEndian = null;
 
-    /** @var array */
-    private static $shapeNames = [
+    private const SHAPE_NAMES = [
         0 => 'Null Shape',
         1 => 'Point',
         3 => 'PolyLine',
@@ -59,47 +57,24 @@ class Util
      *
      * @param string       $type type for unpack()
      * @param string|false $data Data to process
-     *
-     * @return mixed|false
      */
-    public static function loadData(string $type, $data)
+    public static function loadData(string $type, string|false $data): mixed
     {
-        if ($data === false) {
-            return false;
-        }
-
-        if (strlen($data) === 0) {
+        if ($data === false || $data === '') {
             return false;
         }
 
         $tmp = unpack($type, $data);
 
-        return $tmp === false ? $tmp : current($tmp);
-    }
-
-    /**
-     * Changes endianity.
-     *
-     * @param string $binValue Binary value
-     */
-    public static function swap(string $binValue): string
-    {
-        $result = $binValue[strlen($binValue) - 1];
-        for ($i = strlen($binValue) - 2; $i >= 0; --$i) {
-            $result .= $binValue[$i];
-        }
-
-        return $result;
+        return $tmp === false ? false : current($tmp);
     }
 
     /**
      * Encodes double value to correct endianity.
-     *
-     * @param float $value Value to pack
      */
     public static function packDouble(float $value): string
     {
-        $bin = pack('d', (float) $value);
+        $bin = pack('d', $value);
 
         if (self::$littleEndian === null) {
             self::$littleEndian = (pack('L', 1) === pack('V', 1));
@@ -109,7 +84,7 @@ class Util
             return $bin;
         }
 
-        return self::swap($bin);
+        return strrev($bin);
     }
 
     /**
@@ -117,10 +92,6 @@ class Util
      */
     public static function nameShape(int $type): string
     {
-        if (isset(self::$shapeNames[$type])) {
-            return self::$shapeNames[$type];
-        }
-
-        return sprintf('Shape %d', $type);
+        return self::SHAPE_NAMES[$type] ?? sprintf('Shape %d', $type);
     }
 }
