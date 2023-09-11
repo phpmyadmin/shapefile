@@ -51,7 +51,7 @@ class UtilTest extends TestCase
      *
      * @return array
      */
-    public function data(): array
+    public static function data(): array
     {
         return [
             [

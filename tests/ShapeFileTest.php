@@ -61,7 +61,7 @@ class ShapeFileTest extends TestCase
      *
      * @return array
      */
-    public function provideFiles(): array
+    public static function provideFiles(): array
     {
         return [
             [
@@ -141,7 +141,7 @@ class ShapeFileTest extends TestCase
      *
      * @return array
      */
-    public function provideErrorFiles(): array
+    public static function provideErrorFiles(): array
     {
         $result = [
             ['data/no-shp.*'],
@@ -406,7 +406,7 @@ class ShapeFileTest extends TestCase
      *
      * @return array
      */
-    public function shapes(): array
+    public static function shapes(): array
     {
         return [
             [
