@@ -22,7 +22,7 @@ declare(strict_types=1);
  * https://www.gnu.org/copyleft/gpl.html.
  */
 
-namespace UtilTest;
+namespace PhpMyAdminTest\ShapeFile;
 
 use PhpMyAdmin\ShapeFile\Util;
 use PHPUnit\Framework\TestCase;

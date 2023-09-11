@@ -46,6 +46,11 @@
             "PhpMyAdmin\\ShapeFile\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "PhpMyAdminTest\\ShapeFile\\": "tests"
+        }
+    },
     "config":{
         "sort-packages": true,
         "allow-plugins": {

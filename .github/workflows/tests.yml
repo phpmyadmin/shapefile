@@ -6,7 +6,7 @@ on:
 
 jobs:
   test-php:
-    name: Test on PHP ${{ matrix.php-version }} (${{ matrix.extensions }})
+    name: Test on PHP ${{ matrix.php-version }} (${{ matrix.php-extensions }})
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
     strategy:

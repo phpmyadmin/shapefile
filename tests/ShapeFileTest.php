@@ -23,7 +23,7 @@ declare(strict_types=1);
  * https://www.gnu.org/copyleft/gpl.html.
  */
 
-namespace ShapeFileTest;
+namespace PhpMyAdminTest\ShapeFile;
 
 use PhpMyAdmin\ShapeFile\ShapeFile;
 use PhpMyAdmin\ShapeFile\ShapeRecord;
