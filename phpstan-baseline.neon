@@ -6,32 +6,32 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#1 \\$fp of function fclose expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$stream of function fclose expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#1 \\$fp of function feof expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$stream of function feof expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#1 \\$fp of function feof expects resource, resource\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$stream of function feof expects resource, resource\\|null given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#1 \\$fp of function fread expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$stream of function fread expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#1 \\$fp of function fwrite expects resource, resource\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$stream of function fwrite expects resource, resource\\|null given\\.$#"
 			count: 10
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function strtoupper expects string, mixed given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
