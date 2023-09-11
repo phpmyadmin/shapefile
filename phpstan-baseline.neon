@@ -51,6 +51,16 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
+			message: "#^Parameter \\#2 \\$shpFile of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadFromFile\\(\\) expects resource, resource\\|null given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#3 \\$dbfFile of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadFromFile\\(\\) expects resource\\|false, resource\\|null given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
 			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$dbfFile \\(resource\\|null\\) does not accept resource\\|false\\.$#"
 			count: 2
 			path: src/ShapeFile.php
@@ -91,17 +101,32 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
+			message: "#^Parameter \\#1 \\$dbase_identifier of function dbase_add_record expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Parameter \\#1 \\$dbase_identifier of function dbase_get_record_with_names expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Parameter \\#1 \\$dbase_identifier of function dbase_numrecords expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Parameter \\#1 \\$dbase_identifier of function dbase_replace_record expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
 			message: "#^Parameter \\#2 \\$record_number of function dbase_get_record_with_names expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/ShapeRecord.php
 
 		-
 			message: "#^Parameter \\#3 \\$record_number of function dbase_replace_record expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$dbfFile \\(resource\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/ShapeRecord.php
 
