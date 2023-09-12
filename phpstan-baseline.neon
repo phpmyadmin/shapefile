@@ -22,22 +22,7 @@ parameters:
 
 		-
 			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Parameter \\#2 \\$record_number of function dbase_get_record_with_names expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Parameter \\#3 \\$record_number of function dbase_replace_record expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$recordNumber \\(int\\|null\\) does not accept mixed\\.$#"
-			count: 1
+			count: 2
 			path: src/ShapeRecord.php
 
 		-

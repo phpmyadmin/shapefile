@@ -53,8 +53,7 @@ class ShapeRecord
 
     private int $read = 0;
 
-    /** @var int|null */
-    public $recordNumber = null;
+    public int $recordNumber = 0;
 
     public int $shapeType;
 
@@ -198,10 +197,12 @@ class ShapeRecord
     private function loadHeaders(): void
     {
         $this->shapeType = -1;
-        $this->recordNumber = $this->loadData('N', 4);
-        if ($this->recordNumber === false) {
+        $recordNumber = $this->loadData('N', 4);
+        if ($recordNumber === false) {
             return;
         }
+
+        $this->recordNumber = (int) $recordNumber;
 
         // We read the length of the record
         $this->size = $this->loadData('N', 4);
