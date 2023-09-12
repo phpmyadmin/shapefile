@@ -48,8 +48,7 @@ class ShapeRecord
     /** @var ShapeFile */
     private $shapeFile = null;
 
-    /** @var int */
-    private $size = 0;
+    private int $size = 0;
 
     private int $read = 0;
 
@@ -205,12 +204,13 @@ class ShapeRecord
         $this->recordNumber = (int) $recordNumber;
 
         // We read the length of the record
-        $this->size = $this->loadData('N', 4);
-        if ($this->size === false) {
+        $size = $this->loadData('N', 4);
+        if ($size === false) {
             return;
         }
 
-        $this->size = ($this->size * 2) + 8;
+        $this->size = ($size * 2) + 8;
+
         $shapeType = $this->loadData('V', 4);
         if ($shapeType === false) {
             return;
