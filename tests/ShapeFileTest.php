@@ -57,8 +57,6 @@ class ShapeFileTest extends TestCase
 
     /**
      * Data provider for file loading tests.
-     *
-     * @return array
      */
     public static function provideFiles(): array
     {
@@ -137,8 +135,6 @@ class ShapeFileTest extends TestCase
 
     /**
      * Data provider for file loading error tests.
-     *
-     * @return array
      */
     public static function provideErrorFiles(): array
     {
@@ -398,8 +394,6 @@ class ShapeFileTest extends TestCase
 
     /**
      * Data provider for save/load testing.
-     *
-     * @return array
      */
     public static function shapes(): array
     {
