@@ -304,6 +304,9 @@ class ShapeFile
     private function loadDBFHeader(): array
     {
         $DBFFile = fopen($this->getFilename('.dbf'), 'r');
+        if ($DBFFile === false) {
+            return [];
+        }
 
         $result = [];
         $i = 1;
@@ -449,6 +452,10 @@ class ShapeFile
      */
     private function loadRecords(): bool
     {
+        if ($this->shpFile === false) {
+            return false;
+        }
+
         /* Need to start at offset 100 */
         while (! $this->eofSHP()) {
             $record = new ShapeRecord(-1);
@@ -475,7 +482,7 @@ class ShapeFile
     private function saveRecords(): void
     {
         $offset = 50;
-        if ($this->records === []) {
+        if ($this->records === [] || $this->shxFile === false || $this->shpFile === false) {
             return;
         }
 

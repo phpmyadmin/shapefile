@@ -40,7 +40,7 @@ use function strlen;
 class ShapeRecord
 {
     /** @var resource */
-    private $shpFile = null;
+    private $shpFile;
 
     /** @var resource|false */
     private $dbfFile = false;
@@ -780,13 +780,17 @@ class ShapeRecord
 
     private function loadDBFData(): void
     {
+        if ($this->dbfFile === false) {
+            return;
+        }
+
         $this->dbfData = @dbase_get_record_with_names($this->dbfFile, $this->recordNumber);
         unset($this->dbfData['deleted']);
     }
 
     private function saveDBFData(): void
     {
-        if ($this->dbfData === []) {
+        if ($this->dbfData === [] || $this->dbfFile === false) {
             return;
         }
 

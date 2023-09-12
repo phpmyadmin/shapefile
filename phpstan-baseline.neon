@@ -1,28 +1,8 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$shpFile of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:saveToFile\\(\\) expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Parameter \\#1 \\$stream of function fclose expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
 			message: "#^Parameter \\#1 \\$stream of function feof expects resource, resource\\|false given\\.$#"
-			count: 2
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Parameter \\#1 \\$stream of function fread expects resource, resource\\|false given\\.$#"
 			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Parameter \\#1 \\$stream of function fwrite expects resource, resource\\|false given\\.$#"
-			count: 2
 			path: src/ShapeFile.php
 
 		-
@@ -59,26 +39,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between int and false will always evaluate to false\\.$#"
 			count: 1
 			path: src/ShapeFile.php
-
-		-
-			message: "#^Parameter \\#1 \\$dbase_identifier of function dbase_add_record expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Parameter \\#1 \\$dbase_identifier of function dbase_get_record_with_names expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Parameter \\#1 \\$dbase_identifier of function dbase_numrecords expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Parameter \\#1 \\$dbase_identifier of function dbase_replace_record expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
 
 		-
 			message: "#^Parameter \\#2 \\$record_number of function dbase_get_record_with_names expects int, int\\|null given\\.$#"
