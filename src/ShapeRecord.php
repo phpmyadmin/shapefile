@@ -56,8 +56,7 @@ class ShapeRecord
     /** @var int|null */
     public $recordNumber = null;
 
-    /** @var int */
-    public $shapeType = null;
+    public int $shapeType;
 
     public string $lastError = '';
 
@@ -198,7 +197,7 @@ class ShapeRecord
      */
     private function loadHeaders(): void
     {
-        $this->shapeType = false;
+        $this->shapeType = -1;
         $this->recordNumber = $this->loadData('N', 4);
         if ($this->recordNumber === false) {
             return;
@@ -211,7 +210,12 @@ class ShapeRecord
         }
 
         $this->size = ($this->size * 2) + 8;
-        $this->shapeType = $this->loadData('V', 4);
+        $shapeType = $this->loadData('V', 4);
+        if ($shapeType === false) {
+            return;
+        }
+
+        $this->shapeType = (int) $shapeType;
     }
 
     /**

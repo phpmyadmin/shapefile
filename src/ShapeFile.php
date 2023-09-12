@@ -372,7 +372,8 @@ class ShapeFile
         /* We currently ignore version */
         $this->readSHP(4);
 
-        $this->shapeType = Util::loadData('V', $this->readSHP(4));
+        $shapeType = Util::loadData('V', $this->readSHP(4));
+        $this->shapeType = $shapeType === false ? -1 : (int) $shapeType;
 
         $this->boundingBox = [];
         $this->boundingBox['xmin'] = Util::loadData('d', $this->readSHP(8));
@@ -466,7 +467,7 @@ class ShapeFile
                 return false;
             }
 
-            if (($record->shapeType === false || $record->shapeType === '') && $this->eofSHP()) {
+            if (($record->shapeType === -1) && $this->eofSHP()) {
                 break;
             }
 

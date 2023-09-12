@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
 			message: "#^Parameter \\#1 \\$stream of function feof expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
@@ -16,29 +21,9 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shapeType \\(int\\) does not accept mixed\\.$#"
+			message: "#^Cannot cast mixed to int\\.$#"
 			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Result of \\|\\| is always false\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int and '' will always evaluate to false\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int and false will always evaluate to false\\.$#"
-			count: 1
-			path: src/ShapeFile.php
+			path: src/ShapeRecord.php
 
 		-
 			message: "#^Parameter \\#2 \\$record_number of function dbase_get_record_with_names expects int, int\\|null given\\.$#"
@@ -52,16 +37,6 @@ parameters:
 
 		-
 			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$recordNumber \\(int\\|null\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shapeType \\(int\\) does not accept false\\.$#"
-			count: 1
-			path: src/ShapeRecord.php
-
-		-
-			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shapeType \\(int\\) does not accept mixed\\.$#"
 			count: 1
 			path: src/ShapeRecord.php
 
