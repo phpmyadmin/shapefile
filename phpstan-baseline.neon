@@ -1,7 +1,32 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to function in_array\\(\\) requires parameter \\#3 to be set\\.$#"
+			count: 2
+			path: src/ShapeFile.php
+
+		-
 			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Casting to int something that's already int\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, resource\\|false given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Only numeric types are allowed in \\+, int\\|null given on the left side\\.$#"
+			count: 2
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Only numeric types are allowed in \\+, int\\|null given on the right side\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
@@ -36,13 +61,18 @@ parameters:
 			path: src/ShapeRecord.php
 
 		-
+			message: "#^Call to function in_array\\(\\) requires parameter \\#3 to be set\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
 			message: "#^Cannot access an offset on mixed\\.$#"
-			count: 2
+			count: 4
 			path: src/ShapeRecord.php
 
 		-
 			message: "#^Cannot access offset 'points' on mixed\\.$#"
-			count: 12
+			count: 17
 			path: src/ShapeRecord.php
 
 		-
@@ -57,12 +87,17 @@ parameters:
 
 		-
 			message: "#^Cannot access offset int\\<0, max\\> on mixed\\.$#"
-			count: 3
+			count: 14
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Cannot access offset int\\<1, max\\> on mixed\\.$#"
+			count: 2
 			path: src/ShapeRecord.php
 
 		-
 			message: "#^Cannot access offset string on mixed\\.$#"
-			count: 1
+			count: 4
 			path: src/ShapeRecord.php
 
 		-
@@ -82,17 +117,22 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$data of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePoint\\(\\) expects array, mixed given\\.$#"
-			count: 1
+			count: 2
 			path: src/ShapeRecord.php
 
 		-
 			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, mixed given\\.$#"
-			count: 15
+			count: 16
 			path: src/ShapeRecord.php
 
 		-
 			message: "#^Parameter \\#1 \\$value of static method PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:packDouble\\(\\) expects float, mixed given\\.$#"
-			count: 10
+			count: 11
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$size \\(int\\) does not accept \\(float\\|int\\)\\.$#"
+			count: 1
 			path: src/ShapeRecord.php
 
 		-
@@ -103,6 +143,31 @@ parameters:
 		-
 			message: "#^Cannot access offset 1 on mixed\\.$#"
 			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertEquals\\(\\)\\.$#"
+			count: 17
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertFileDoesNotExist\\(\\)\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotEquals\\(\\)\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\)\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:markTestSkipped\\(\\)\\.$#"
+			count: 3
 			path: tests/ShapeFileTest.php
 
 		-
@@ -119,4 +184,9 @@ parameters:
 			message: "#^Parameter \\#2 \\$partIndex of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:addPoint\\(\\) expects int, mixed given\\.$#"
 			count: 1
 			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertEquals\\(\\)\\.$#"
+			count: 1
+			path: tests/UtilTest.php
 

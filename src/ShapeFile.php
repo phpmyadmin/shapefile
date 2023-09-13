@@ -62,6 +62,7 @@ class ShapeFile
     /** @var resource|false */
     private $dbfFile = false;
 
+    /** @var mixed[]|null */
     private array|null $dbfHeader = null;
 
     public string $lastError = '';
