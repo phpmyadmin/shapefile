@@ -454,10 +454,6 @@ class ShapeFile
      */
     private function loadRecords(): bool
     {
-        if ($this->shpFile === false) {
-            return false;
-        }
-
         /* Need to start at offset 100 */
         while (! $this->eofSHP()) {
             $record = new ShapeRecord(-1);
