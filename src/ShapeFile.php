@@ -85,7 +85,7 @@ class ShapeFile
 
     /**
      * @param int         $shapeType   File shape type, should be same as all records
-     * @param array       $boundingBox File bounding box
+     * @param mixed[]     $boundingBox File bounding box
      * @param string|null $fileName    File name
      */
     public function __construct(
@@ -96,7 +96,7 @@ class ShapeFile
             'xmax' => 0.0,
             'ymax' => 0.0,
         ],
-        public ?string $fileName = null
+        public string|null $fileName = null,
     ) {
     }
 
@@ -144,7 +144,7 @@ class ShapeFile
      *
      * @param string|null $fileName Name of file, otherwise existing is used
      */
-    public function saveToFile(?string $fileName = null): bool
+    public function saveToFile(string|null $fileName = null): bool
     {
         if ($fileName !== null) {
             $this->fileName = $fileName;
@@ -176,8 +176,8 @@ class ShapeFile
     /**
      * Updates bounding box based on shpData.
      *
-     * @param string $type Type of box
-     * @param array  $data ShapeRecord shpData
+     * @param string  $type Type of box
+     * @param mixed[] $data ShapeRecord shpData
      */
     private function updateBBox(string $type, array $data): void
     {
@@ -254,9 +254,9 @@ class ShapeFile
     /**
      * Returns array defining fields in DBF file.
      *
-     * @return array|null see setDBFHeader for more information
+     * @return mixed[]|null see setDBFHeader for more information
      */
-    public function getDBFHeader(): ?array
+    public function getDBFHeader(): array|null
     {
         return $this->dbfHeader;
     }
@@ -264,11 +264,11 @@ class ShapeFile
     /**
      * Changes array defining fields in DBF file, used in dbase_create call.
      *
-     * @param array $header An array of arrays, each array describing the
-     *                      format of one field of the database. Each
-     *                      field consists of a name, a character indicating
-     *                      the field type, and optionally, a length,
-     *                      a precision and a nullable flag.
+     * @param mixed[] $header An array of arrays, each array describing the
+     *                        format of one field of the database. Each
+     *                        field consists of a name, a character indicating
+     *                        the field type, and optionally, a length,
+     *                        a precision and a nullable flag.
      */
     public function setDBFHeader(array $header): void
     {
@@ -401,7 +401,7 @@ class ShapeFile
     private function saveBBoxRecord($file, string $type): void
     {
         fwrite($file, Util::packDouble(
-            $this->boundingBox[$type] ?? 0
+            $this->boundingBox[$type] ?? 0,
         ));
     }
 

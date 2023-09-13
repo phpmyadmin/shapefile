@@ -71,7 +71,7 @@ $shp->setDBFHeader(
             50,
             0,
         ],
-    ]
+    ],
 );
 
 $shp->records[0]->dbfData['ID'] = '1';

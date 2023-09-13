@@ -36,9 +36,9 @@
         "ext-dbase": "For dbf files parsing"
     },
     "require-dev": {
-        "phpmyadmin/coding-standard": "^3.0.0",
-        "phpstan/phpstan": "^1.4.10",
-        "phpstan/phpstan-phpunit": "^1.0",
+        "phpmyadmin/coding-standard": "^4.0",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-phpunit": "^1.3",
         "phpunit/phpunit": "^10.3"
     },
     "autoload": {

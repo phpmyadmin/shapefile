@@ -42,12 +42,14 @@ class UtilTest extends TestCase
     {
         $this->assertEquals(
             $expected,
-            Util::loadData($type, $data)
+            Util::loadData($type, $data),
         );
     }
 
     /**
      * Data provider for loadData tests.
+     *
+     * @psalm-return list<array{string, string|false, mixed}>
      */
     public static function data(): array
     {

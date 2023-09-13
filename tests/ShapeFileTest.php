@@ -42,7 +42,7 @@ class ShapeFileTest extends TestCase
      *
      * @dataProvider provideFiles
      */
-    public function testLoad(string $filename, int $records, ?int $parts): void
+    public function testLoad(string $filename, int $records, int|null $parts): void
     {
         $shp = new ShapeFile(1);
         $shp->loadFromFile($filename);
@@ -57,6 +57,8 @@ class ShapeFileTest extends TestCase
 
     /**
      * Data provider for file loading tests.
+     *
+     * @psalm-return list<array{string, int, int|null}>
      */
     public static function provideFiles(): array
     {
@@ -135,6 +137,8 @@ class ShapeFileTest extends TestCase
 
     /**
      * Data provider for file loading error tests.
+     *
+     * @psalm-return list<array{string}>
      */
     public static function provideErrorFiles(): array
     {
@@ -193,7 +197,7 @@ class ShapeFileTest extends TestCase
                     50,
                     0,
                 ],
-            ]
+            ],
         );
 
         $shp->records[0]->dbfData['ID'] = '1';
@@ -305,8 +309,8 @@ class ShapeFileTest extends TestCase
     /**
      * Test shapes save/load round robin.
      *
-     * @param int   $type   Shape type
-     * @param array $points Points
+     * @param int     $type   Shape type
+     * @param mixed[] $points Points
      *
      * @dataProvider shapes
      */
@@ -344,7 +348,7 @@ class ShapeFileTest extends TestCase
 
         $this->assertEquals(
             count($shp->records),
-            count($shp2->records)
+            count($shp2->records),
         );
 
         $record = $shp->records[0];
@@ -369,8 +373,8 @@ class ShapeFileTest extends TestCase
     /**
      * Test shapes save/load round robin with z coordinate.
      *
-     * @param int   $type   Shape type
-     * @param array $points Points
+     * @param int     $type   Shape type
+     * @param mixed[] $points Points
      *
      * @dataProvider shapes
      */
@@ -382,8 +386,8 @@ class ShapeFileTest extends TestCase
     /**
      * Test shapes save/load round robin with measure.
      *
-     * @param int   $type   Shape type
-     * @param array $points Points
+     * @param int     $type   Shape type
+     * @param mixed[] $points Points
      *
      * @dataProvider shapes
      */
@@ -394,6 +398,8 @@ class ShapeFileTest extends TestCase
 
     /**
      * Data provider for save/load testing.
+     *
+     * @psalm-return list<array{int, mixed[]}>
      */
     public static function shapes(): array
     {
@@ -526,7 +532,7 @@ class ShapeFileTest extends TestCase
         /* Nonexisting entry or no dbase support */
         $this->assertEquals(
             -1,
-            $shp->getIndexFromDBFData('CNTRY_NAME', 'nonexisting')
+            $shp->getIndexFromDBFData('CNTRY_NAME', 'nonexisting'),
         );
         if (! ShapeFile::supportsDbase()) {
             return;
@@ -534,7 +540,7 @@ class ShapeFileTest extends TestCase
 
         $this->assertEquals(
             218,
-            $shp->getIndexFromDBFData('CNTRY_NAME', 'Czech Republic')
+            $shp->getIndexFromDBFData('CNTRY_NAME', 'Czech Republic'),
         );
     }
 }

@@ -45,8 +45,7 @@ class ShapeRecord
     /** @var resource|false */
     private $dbfFile = false;
 
-    /** @var ShapeFile */
-    private $shapeFile = null;
+    private ShapeFile|null $shapeFile = null;
 
     private int $size = 0;
 
@@ -54,17 +53,16 @@ class ShapeRecord
 
     public int $recordNumber = 0;
 
-    public int $shapeType;
-
     public string $lastError = '';
 
+    /** @var mixed[] */
     public array $shpData = [];
 
+    /** @var mixed[] */
     public array $dbfData = [];
 
-    public function __construct(int $shapeType)
+    public function __construct(public int $shapeType)
     {
-        $this->shapeType = $shapeType;
     }
 
     /**
@@ -161,7 +159,7 @@ class ShapeRecord
     /**
      * Updates DBF data to match header.
      *
-     * @param array $header DBF structure header
+     * @param mixed[] $header DBF structure header
      */
     public function updateDBFInfo(array $header): void
     {
@@ -229,6 +227,7 @@ class ShapeRecord
         fwrite($this->shpFile, pack('V', $this->shapeType));
     }
 
+    /** @return mixed[] */
     private function loadPoint(): array
     {
         return [
@@ -237,6 +236,7 @@ class ShapeRecord
         ];
     }
 
+    /** @return mixed[] */
     private function loadPointM(): array
     {
         $data = $this->loadPoint();
@@ -246,6 +246,7 @@ class ShapeRecord
         return $data;
     }
 
+    /** @return mixed[] */
     private function loadPointZ(): array
     {
         $data = $this->loadPoint();
@@ -256,12 +257,14 @@ class ShapeRecord
         return $data;
     }
 
+    /** @param mixed[] $data */
     private function savePoint(array $data): void
     {
         fwrite($this->shpFile, Util::packDouble($data['x']));
         fwrite($this->shpFile, Util::packDouble($data['y']));
     }
 
+    /** @param mixed[] $data */
     private function savePointM(array $data): void
     {
         fwrite($this->shpFile, Util::packDouble($data['x']));
@@ -269,6 +272,7 @@ class ShapeRecord
         fwrite($this->shpFile, Util::packDouble($data['m']));
     }
 
+    /** @param mixed[] $data */
     private function savePointZ(array $data): void
     {
         fwrite($this->shpFile, Util::packDouble($data['x']));
@@ -369,7 +373,7 @@ class ShapeRecord
             $this->shpData['xmin'],
             $this->shpData['ymin'],
             $this->shpData['xmax'],
-            $this->shpData['ymax']
+            $this->shpData['ymax'],
         ));
 
         fwrite($this->shpFile, pack('V', $this->shpData['numpoints']));
@@ -480,7 +484,7 @@ class ShapeRecord
             $this->shpData['xmin'],
             $this->shpData['ymin'],
             $this->shpData['xmax'],
-            $this->shpData['ymax']
+            $this->shpData['ymax'],
         ));
 
         fwrite($this->shpFile, pack('VV', $this->shpData['numparts'], $this->shpData['numpoints']));
@@ -554,6 +558,7 @@ class ShapeRecord
         $this->savePolyLineZRecord();
     }
 
+    /** @param mixed[] $point */
     private function adjustBBox(array $point): void
     {
         // Adjusts bounding box based on point
@@ -580,9 +585,9 @@ class ShapeRecord
      * Adjust point and bounding box when adding point.
      * Sets dimension to 0 if not set.
      *
-     * @param array $point Point data
+     * @param mixed[] $point Point data
      *
-     * @return array Fixed point data
+     * @return mixed[] Fixed point data
      */
     private function adjustPoint(array $point): array
     {
@@ -600,8 +605,8 @@ class ShapeRecord
     /**
      * Adds point to a record.
      *
-     * @param array $point     Point data
-     * @param int   $partIndex Part index
+     * @param mixed[] $point     Point data
+     * @param int     $partIndex Part index
      */
     public function addPoint(array $point, int $partIndex = 0): void
     {
@@ -721,7 +726,7 @@ class ShapeRecord
     /**
      * Returns length of content.
      */
-    public function getContentLength(): ?int
+    public function getContentLength(): int|null
     {
         // The content length for a record is the length of the record contents section measured in 16-bit words.
         // one coordinate makes 4 16-bit words (64 bit double)
