@@ -42,9 +42,6 @@ class ShapeRecord
     /** @var resource */
     private $shpFile;
 
-    /** @var resource|false */
-    private $dbfFile = false;
-
     private ShapeFile|null $shapeFile = null;
 
     private int $size = 0;
@@ -69,14 +66,11 @@ class ShapeRecord
      * Loads record from files.
      *
      * @param ShapeFile      $shapeFile The ShapeFile object
-     * @param resource       $shpFile   Opened SHP file
      * @param resource|false $dbfFile   Opened DBF file
      */
-    public function loadFromFile(ShapeFile $shapeFile, $shpFile, $dbfFile): void
+    public function loadFromFile(ShapeFile $shapeFile, $dbfFile): void
     {
         $this->shapeFile = $shapeFile;
-        $this->shpFile = $shpFile;
-        $this->dbfFile = $dbfFile;
         $this->loadHeaders();
 
         /* No header read */
@@ -111,11 +105,11 @@ class ShapeRecord
             $this->setError(sprintf('Failed to parse record, read=%d, size=%d', $this->read, $this->size));
         }
 
-        if (! ShapeFile::supportsDbase()) {
+        if (! ShapeFile::supportsDbase() || $dbfFile === false) {
             return;
         }
 
-        $this->loadDBFData();
+        $this->loadDBFData($dbfFile);
     }
 
     /**
@@ -128,7 +122,6 @@ class ShapeRecord
     public function saveToFile($shpFile, $dbfFile, int $recordNumber): void
     {
         $this->shpFile = $shpFile;
-        $this->dbfFile = $dbfFile;
         $this->recordNumber = $recordNumber;
         $this->saveHeaders();
 
@@ -149,11 +142,11 @@ class ShapeRecord
             default => $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType)),
         };
 
-        if (! ShapeFile::supportsDbase() || $this->dbfFile === false) {
+        if (! ShapeFile::supportsDbase() || $dbfFile === false) {
             return;
         }
 
-        $this->saveDBFData();
+        $this->saveDBFData($dbfFile);
     }
 
     /**
@@ -788,28 +781,26 @@ class ShapeRecord
         return $result;
     }
 
-    private function loadDBFData(): void
+    /** @param resource $dbfFile Opened DBF file */
+    private function loadDBFData($dbfFile): void
     {
-        if ($this->dbfFile === false) {
-            return;
-        }
-
-        $this->dbfData = @dbase_get_record_with_names($this->dbfFile, $this->recordNumber);
+        $this->dbfData = @dbase_get_record_with_names($dbfFile, $this->recordNumber);
         unset($this->dbfData['deleted']);
     }
 
-    private function saveDBFData(): void
+    /** @param resource $dbfFile */
+    private function saveDBFData($dbfFile): void
     {
-        if ($this->dbfData === [] || $this->dbfFile === false) {
+        if ($this->dbfData === []) {
             return;
         }
 
         unset($this->dbfData['deleted']);
-        if ($this->recordNumber <= dbase_numrecords($this->dbfFile)) {
-            if (! dbase_replace_record($this->dbfFile, array_values($this->dbfData), $this->recordNumber)) {
+        if ($this->recordNumber <= dbase_numrecords($dbfFile)) {
+            if (! dbase_replace_record($dbfFile, array_values($this->dbfData), $this->recordNumber)) {
                 $this->setError("I wasn't possible to update the information in the DBF file.");
             }
-        } elseif (! dbase_add_record($this->dbfFile, array_values($this->dbfData))) {
+        } elseif (! dbase_add_record($dbfFile, array_values($this->dbfData))) {
             $this->setError("I wasn't possible to add the information to the DBF file.");
         }
     }

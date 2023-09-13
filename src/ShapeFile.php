@@ -457,7 +457,7 @@ class ShapeFile
         /* Need to start at offset 100 */
         while (! $this->eofSHP()) {
             $record = new ShapeRecord(-1);
-            $record->loadFromFile($this, $this->shpFile, $this->dbfFile);
+            $record->loadFromFile($this, $this->dbfFile);
             if ($record->lastError !== '') {
                 $this->setError($record->lastError);
 

@@ -51,11 +51,6 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#2 \\$shpFile of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadFromFile\\(\\) expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/ShapeFile.php
-
-		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 4
 			path: src/ShapeRecord.php
