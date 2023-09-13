@@ -304,8 +304,8 @@ class ShapeFile
      */
     private function loadDBFHeader(): array
     {
-        $DBFFile = fopen($this->getFilename('.dbf'), 'r');
-        if ($DBFFile === false) {
+        $dbfFile = fopen($this->getFilename('.dbf'), 'r');
+        if ($dbfFile === false) {
             return [];
         }
 
@@ -313,11 +313,11 @@ class ShapeFile
         $i = 1;
 
         while (true) {
-            if (feof($DBFFile)) {
+            if (feof($dbfFile)) {
                 break;
             }
 
-            $buff32 = fread($DBFFile, 32);
+            $buff32 = fread($dbfFile, 32);
             if ($i > 1) {
                 if (substr($buff32, 0, 1) === chr(13)) {
                     break;
@@ -337,7 +337,7 @@ class ShapeFile
             ++$i;
         }
 
-        fclose($DBFFile);
+        fclose($dbfFile);
 
         return $result;
     }
