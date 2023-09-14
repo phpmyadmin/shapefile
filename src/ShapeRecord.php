@@ -79,19 +79,19 @@ class ShapeRecord
         }
 
         match ($this->shapeType) {
-            0 => $this->loadNullRecord(),
-            1 => $this->loadPointRecord(),
-            21 => $this->loadPointMRecord(),
-            11 => $this->loadPointZRecord(),
-            3 => $this->loadPolyLineRecord(),
-            23 => $this->loadPolyLineMRecord(),
-            13 => $this->loadPolyLineZRecord(),
-            5 => $this->loadPolygonRecord(),
-            25 => $this->loadPolygonMRecord(),
-            15 => $this->loadPolygonZRecord(),
-            8 => $this->loadMultiPointRecord(),
-            28 => $this->loadMultiPointMRecord(),
-            18 => $this->loadMultiPointZRecord(),
+            ShapeType::NULL => $this->loadNullRecord(),
+            ShapeType::POINT => $this->loadPointRecord(),
+            ShapeType::POINT_M => $this->loadPointMRecord(),
+            ShapeType::POINT_Z => $this->loadPointZRecord(),
+            ShapeType::POLY_LINE => $this->loadPolyLineRecord(),
+            ShapeType::POLY_LINE_M => $this->loadPolyLineMRecord(),
+            ShapeType::POLY_LINE_Z => $this->loadPolyLineZRecord(),
+            ShapeType::POLYGON => $this->loadPolygonRecord(),
+            ShapeType::POLYGON_M => $this->loadPolygonMRecord(),
+            ShapeType::POLYGON_Z => $this->loadPolygonZRecord(),
+            ShapeType::MULTI_POINT => $this->loadMultiPointRecord(),
+            ShapeType::MULTI_POINT_M => $this->loadMultiPointMRecord(),
+            ShapeType::MULTI_POINT_Z => $this->loadMultiPointZRecord(),
             default => $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType)),
         };
 
@@ -126,19 +126,19 @@ class ShapeRecord
         $this->saveHeaders();
 
         match ($this->shapeType) {
-            0 => null, // Nothing to save
-            1 => $this->savePointRecord(),
-            21 => $this->savePointMRecord(),
-            11 => $this->savePointZRecord(),
-            3 => $this->savePolyLineRecord(),
-            23 => $this->savePolyLineMRecord(),
-            13 => $this->savePolyLineZRecord(),
-            5 => $this->savePolygonRecord(),
-            25 => $this->savePolygonMRecord(),
-            15 => $this->savePolygonZRecord(),
-            8 => $this->saveMultiPointRecord(),
-            28 => $this->saveMultiPointMRecord(),
-            18 => $this->saveMultiPointZRecord(),
+            ShapeType::NULL => null, // Nothing to save
+            ShapeType::POINT => $this->savePointRecord(),
+            ShapeType::POINT_M => $this->savePointMRecord(),
+            ShapeType::POINT_Z => $this->savePointZRecord(),
+            ShapeType::POLY_LINE => $this->savePolyLineRecord(),
+            ShapeType::POLY_LINE_M => $this->savePolyLineMRecord(),
+            ShapeType::POLY_LINE_Z => $this->savePolyLineZRecord(),
+            ShapeType::POLYGON => $this->savePolygonRecord(),
+            ShapeType::POLYGON_M => $this->savePolygonMRecord(),
+            ShapeType::POLYGON_Z => $this->savePolygonZRecord(),
+            ShapeType::MULTI_POINT => $this->saveMultiPointRecord(),
+            ShapeType::MULTI_POINT_M => $this->saveMultiPointMRecord(),
+            ShapeType::MULTI_POINT_Z => $this->saveMultiPointZRecord(),
             default => $this->setError(sprintf('The Shape Type "%s" is not supported.', $this->shapeType)),
         };
 
@@ -584,12 +584,12 @@ class ShapeRecord
      */
     private function adjustPoint(array $point): array
     {
-        $type = $this->shapeType / 10;
-        if ($type >= 2) {
+        if (in_array($this->shapeType, ShapeType::MEASURED_TYPES, true)) {
             $point['m'] ??= 0.0;
-        } elseif ($type >= 1) {
+        }
+
+        if (in_array($this->shapeType, ShapeType::TYPES_WITH_Z, true)) {
             $point['z'] ??= 0.0;
-            $point['m'] ??= 0.0;
         }
 
         return $point;
@@ -605,30 +605,30 @@ class ShapeRecord
     {
         $point = $this->adjustPoint($point);
         switch ($this->shapeType) {
-            case 0:
+            case ShapeType::NULL:
                 //Don't add anything
                 return;
 
-            case 1:
-            case 11:
-            case 21:
+            case ShapeType::POINT:
+            case ShapeType::POINT_Z:
+            case ShapeType::POINT_M:
                 //Substitutes the value of the current point
                 $this->shpData = $point;
                 break;
-            case 3:
-            case 5:
-            case 13:
-            case 15:
-            case 23:
-            case 25:
+            case ShapeType::POLY_LINE:
+            case ShapeType::POLYGON:
+            case ShapeType::POLY_LINE_Z:
+            case ShapeType::POLYGON_Z:
+            case ShapeType::POLY_LINE_M:
+            case ShapeType::POLYGON_M:
                 //Adds a new point to the selected part
                 $this->shpData['parts'][$partIndex]['points'][] = $point;
                 $this->shpData['numparts'] = count($this->shpData['parts']);
                 $this->shpData['numpoints'] = 1 + ($this->shpData['numpoints'] ?? 0);
                 break;
-            case 8:
-            case 18:
-            case 28:
+            case ShapeType::MULTI_POINT:
+            case ShapeType::MULTI_POINT_Z:
+            case ShapeType::MULTI_POINT_M:
                 //Adds a new point
                 $this->shpData['points'][] = $point;
                 $this->shpData['numpoints'] = 1 + ($this->shpData['numpoints'] ?? 0);
@@ -651,30 +651,30 @@ class ShapeRecord
     public function deletePoint(int $pointIndex = 0, int $partIndex = 0): void
     {
         switch ($this->shapeType) {
-            case 0:
+            case ShapeType::NULL:
                 //Don't delete anything
                 break;
-            case 1:
-            case 11:
-            case 21:
+            case ShapeType::POINT:
+            case ShapeType::POINT_Z:
+            case ShapeType::POINT_M:
                 //Sets the value of the point to zero
                 $this->shpData['x'] = 0.0;
                 $this->shpData['y'] = 0.0;
-                if (in_array($this->shapeType, [11, 21])) {
+                if (in_array($this->shapeType, [ShapeType::POINT_Z, ShapeType::POINT_M], true)) {
                     $this->shpData['m'] = 0.0;
                 }
 
-                if ($this->shapeType === 11) {
+                if ($this->shapeType === ShapeType::POINT_Z) {
                     $this->shpData['z'] = 0.0;
                 }
 
                 break;
-            case 3:
-            case 5:
-            case 13:
-            case 15:
-            case 23:
-            case 25:
+            case ShapeType::POLY_LINE:
+            case ShapeType::POLYGON:
+            case ShapeType::POLY_LINE_Z:
+            case ShapeType::POLYGON_Z:
+            case ShapeType::POLY_LINE_M:
+            case ShapeType::POLYGON_M:
                 //Deletes the point from the selected part, if exists
                 if (
                     isset($this->shpData['parts'][$partIndex])
@@ -694,9 +694,9 @@ class ShapeRecord
                 }
 
                 break;
-            case 8:
-            case 18:
-            case 28:
+            case ShapeType::MULTI_POINT:
+            case ShapeType::MULTI_POINT_Z:
+            case ShapeType::MULTI_POINT_M:
                 //Deletes the point, if exists
                 if (isset($this->shpData['points'][$pointIndex])) {
                     $count = count($this->shpData['points']) - 1;
@@ -724,20 +724,20 @@ class ShapeRecord
         // The content length for a record is the length of the record contents section measured in 16-bit words.
         // one coordinate makes 4 16-bit words (64 bit double)
         switch ($this->shapeType) {
-            case 0:
+            case ShapeType::NULL:
                 $result = 0;
                 break;
-            case 1:
+            case ShapeType::POINT:
                 $result = 10;
                 break;
-            case 21:
+            case ShapeType::POINT_M:
                 $result = 10 + 4;
                 break;
-            case 11:
+            case ShapeType::POINT_Z:
                 $result = 10 + 8;
                 break;
-            case 3:
-            case 5:
+            case ShapeType::POLY_LINE:
+            case ShapeType::POLYGON:
                 $count = count($this->shpData['parts']);
                 $result = 22 + 2 * $count;
                 for ($i = 0; $i < $count; ++$i) {
@@ -745,8 +745,8 @@ class ShapeRecord
                 }
 
                 break;
-            case 23:
-            case 25:
+            case ShapeType::POLY_LINE_M:
+            case ShapeType::POLYGON_M:
                 $count = count($this->shpData['parts']);
                 $result = 22 + (2 * 4) + 2 * $count;
                 for ($i = 0; $i < $count; ++$i) {
@@ -754,8 +754,8 @@ class ShapeRecord
                 }
 
                 break;
-            case 13:
-            case 15:
+            case ShapeType::POLY_LINE_Z:
+            case ShapeType::POLYGON_Z:
                 $count = count($this->shpData['parts']);
                 $result = 22 + (4 * 4) + 2 * $count;
                 for ($i = 0; $i < $count; ++$i) {
@@ -763,13 +763,13 @@ class ShapeRecord
                 }
 
                 break;
-            case 8:
+            case ShapeType::MULTI_POINT:
                 $result = 20 + 8 * count($this->shpData['points']);
                 break;
-            case 28:
+            case ShapeType::MULTI_POINT_M:
                 $result = 20 + (2 * 4) + (8 + 4) * count($this->shpData['points']);
                 break;
-            case 18:
+            case ShapeType::MULTI_POINT_Z:
                 $result = 20 + (4 * 4) + (8 + 8) * count($this->shpData['points']);
                 break;
             default:
@@ -815,9 +815,11 @@ class ShapeRecord
 
     /**
      * Returns shape name.
+     *
+     * @psalm-return non-empty-string
      */
     public function getShapeName(): string
     {
-        return Util::nameShape($this->shapeType);
+        return ShapeType::name($this->shapeType);
     }
 }

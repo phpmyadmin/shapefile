@@ -222,11 +222,11 @@ class ShapeFile
         $this->updateBBox('x', $record->shpData);
         $this->updateBBox('y', $record->shpData);
 
-        if (in_array($this->shapeType, [11, 13, 15, 18, 21, 23, 25, 28])) {
+        if (in_array($this->shapeType, ShapeType::MEASURED_TYPES, true)) {
             $this->updateBBox('m', $record->shpData);
         }
 
-        if (in_array($this->shapeType, [11, 13, 15, 18])) {
+        if (in_array($this->shapeType, ShapeType::TYPES_WITH_Z, true)) {
             $this->updateBBox('z', $record->shpData);
         }
 
@@ -669,10 +669,12 @@ class ShapeFile
 
     /**
      * Returns shape name.
+     *
+     * @psalm-return non-empty-string
      */
     public function getShapeName(): string
     {
-        return Util::nameShape($this->shapeType);
+        return ShapeType::name($this->shapeType);
     }
 
     /**
