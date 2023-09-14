@@ -44,5 +44,9 @@ jobs:
         with:
           dependency-versions: highest
 
-      - name: Analyse files
+      - name: Analyse files with PHPStan
         run: composer run phpstan
+
+      - name: Analyse files with Psalm
+        if: always()
+        run: composer run psalm -- --shepherd

@@ -20,9 +20,11 @@
         "phpcs": "@php phpcs",
         "phpstan": "@php phpstan analyse",
         "phpunit": "@php phpunit --color=always",
+        "psalm": "@php psalm",
         "test": [
             "@phpcs",
             "@phpstan",
+            "@psalm",
             "@phpunit"
         ],
         "update:baselines": [
@@ -41,7 +43,9 @@
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-phpunit": "^1.3",
         "phpstan/phpstan-strict-rules": "^1.5",
-        "phpunit/phpunit": "^10.3"
+        "phpunit/phpunit": "^10.3",
+        "psalm/plugin-phpunit": "^0.18.4",
+        "vimeo/psalm": "^5.15"
     },
     "autoload": {
         "psr-4": {
