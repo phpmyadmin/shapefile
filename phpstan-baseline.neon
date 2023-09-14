@@ -131,16 +131,6 @@ parameters:
 			path: src/ShapeRecord.php
 
 		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 1
-			path: tests/ShapeFileTest.php
-
-		-
-			message: "#^Cannot access offset 1 on mixed\\.$#"
-			count: 1
-			path: tests/ShapeFileTest.php
-
-		-
 			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertEquals\\(\\)\\.$#"
 			count: 17
 			path: tests/ShapeFileTest.php
@@ -166,17 +156,7 @@ parameters:
 			path: tests/ShapeFileTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$point of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:addPoint\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/ShapeFileTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, mixed given\\.$#"
-			count: 1
-			path: tests/ShapeFileTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$partIndex of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:addPoint\\(\\) expects int, mixed given\\.$#"
 			count: 1
 			path: tests/ShapeFileTest.php
 

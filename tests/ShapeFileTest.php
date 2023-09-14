@@ -307,33 +307,19 @@ class ShapeFileTest extends TestCase
     }
 
     /**
-     * Test shapes save/load round robin.
+     * Test shapes save/load round-robin.
      *
-     * @param int     $type   Shape type
-     * @param mixed[] $points Points
+     * @psalm-param list<array{mixed[], int}> $points
      *
-     * @dataProvider shapes
+     * @dataProvider shapesProvider
      */
-    public function testShapeSaveLoad(int $type, array $points): void
+    public function testShapeSaveLoad(int $shapeType, array $points): void
     {
-        $filename = './data/test_shape-' . $type . '.*';
-        $shp = new ShapeFile($type);
-        $shp->setDBFHeader([
-            [
-                'ID',
-                'N',
-                19,
-                0,
-            ],
-            [
-                'DESC',
-                'C',
-                14,
-                0,
-            ],
-        ]);
+        $filename = './data/test_shape-' . $shapeType . '.*';
+        $shp = new ShapeFile($shapeType);
+        $shp->setDBFHeader([['ID', 'N', 19, 0], ['DESC', 'C', 14, 0]]);
 
-        $record0 = new ShapeRecord($type);
+        $record0 = new ShapeRecord($shapeType);
 
         foreach ($points as $point) {
             $record0->addPoint($point[0], $point[1]);
@@ -343,21 +329,15 @@ class ShapeFileTest extends TestCase
 
         $shp->saveToFile($filename);
 
-        $shp2 = new ShapeFile($type);
+        $shp2 = new ShapeFile($shapeType);
         $shp2->loadFromFile($filename);
 
-        $this->assertEquals(
-            count($shp->records),
-            count($shp2->records),
-        );
+        $this->assertEquals(count($shp->records), count($shp2->records));
 
         $record = $shp->records[0];
         $record2 = $shp2->records[0];
 
-        $items = [
-            'numparts',
-            'numpoints',
-        ];
+        $items = ['numparts', 'numpoints'];
         foreach ($items as $item) {
             if (! isset($record->shpData[$item])) {
                 continue;
@@ -371,157 +351,49 @@ class ShapeFileTest extends TestCase
     }
 
     /**
-     * Test shapes save/load round robin with z coordinate.
-     *
-     * @param int     $type   Shape type
-     * @param mixed[] $points Points
-     *
-     * @dataProvider shapes
-     */
-    public function testZetShapeSaveLoad(int $type, array $points): void
-    {
-        $this->testShapeSaveLoad($type + 10, $points);
-    }
-
-    /**
-     * Test shapes save/load round robin with measure.
-     *
-     * @param int     $type   Shape type
-     * @param mixed[] $points Points
-     *
-     * @dataProvider shapes
-     */
-    public function testMeasureShapeSaveLoad(int $type, array $points): void
-    {
-        $this->testShapeSaveLoad($type + 20, $points);
-    }
-
-    /**
      * Data provider for save/load testing.
      *
-     * @psalm-return list<array{int, mixed[]}>
+     * @psalm-return list<array{int, list<array{mixed[], int}>}>
      */
-    public static function shapes(): array
+    public static function shapesProvider(): array
     {
+        $pointsForPointType = [[['x' => 10, 'y' => 20], 0]];
+
+        $pointsForPolyLineType = [
+            [['x' => 10, 'y' => 20], 0],
+            [['x' => 20, 'y' => 20], 0],
+            [['x' => 20, 'y' => 20], 1],
+            [['x' => 20, 'y' => 10], 1],
+        ];
+
+        $pointsForPolygonType = [
+            [['x' => 10, 'y' => 20], 0],
+            [['x' => 20, 'y' => 20], 0],
+            [['x' => 20, 'y' => 20], 1],
+            [['x' => 20, 'y' => 10], 1],
+            [['x' => 20, 'y' => 10], 2],
+            [['x' => 10, 'y' => 20], 2],
+        ];
+
+        $pointsForMultiPointType = [
+            [['x' => 10, 'y' => 20], 0],
+            [['x' => 20, 'y' => 20], 0],
+            [['x' => 20, 'y' => 10], 0],
+        ];
+
         return [
-            [
-                1,
-                [
-                    [
-                        [
-                            'x' => 10,
-                            'y' => 20,
-                        ],
-                        0,
-                    ],
-                ],
-            ],
-            [
-                3,
-                [
-                    [
-                        [
-                            'x' => 10,
-                            'y' => 20,
-                        ],
-                        0,
-                    ],
-                    [
-                        [
-                            'x' => 20,
-                            'y' => 20,
-                        ],
-                        0,
-                    ],
-                    [
-                        [
-                            'x' => 20,
-                            'y' => 20,
-                        ],
-                        1,
-                    ],
-                    [
-                        [
-                            'x' => 20,
-                            'y' => 10,
-                        ],
-                        1,
-                    ],
-                ],
-            ],
-            [
-                5,
-                [
-                    [
-                        [
-                            'x' => 10,
-                            'y' => 20,
-                        ],
-                        0,
-                    ],
-                    [
-                        [
-                            'x' => 20,
-                            'y' => 20,
-                        ],
-                        0,
-                    ],
-                    [
-                        [
-                            'x' => 20,
-                            'y' => 20,
-                        ],
-                        1,
-                    ],
-                    [
-                        [
-                            'x' => 20,
-                            'y' => 10,
-                        ],
-                        1,
-                    ],
-                    [
-                        [
-                            'x' => 20,
-                            'y' => 10,
-                        ],
-                        2,
-                    ],
-                    [
-                        [
-                            'x' => 10,
-                            'y' => 20,
-                        ],
-                        2,
-                    ],
-                ],
-            ],
-            [
-                8,
-                [
-                    [
-                        [
-                            'x' => 10,
-                            'y' => 20,
-                        ],
-                        0,
-                    ],
-                    [
-                        [
-                            'x' => 20,
-                            'y' => 20,
-                        ],
-                        0,
-                    ],
-                    [
-                        [
-                            'x' => 20,
-                            'y' => 10,
-                        ],
-                        0,
-                    ],
-                ],
-            ],
+            [1, $pointsForPointType],
+            [3, $pointsForPolyLineType],
+            [5, $pointsForPolygonType],
+            [8, $pointsForMultiPointType],
+            [11, $pointsForPointType],
+            [13, $pointsForPolyLineType],
+            [15, $pointsForPolygonType],
+            [18, $pointsForMultiPointType],
+            [21, $pointsForPointType],
+            [23, $pointsForPolyLineType],
+            [25, $pointsForPolygonType],
+            [28, $pointsForMultiPointType],
         ];
     }
 
