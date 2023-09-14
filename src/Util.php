@@ -27,30 +27,12 @@ namespace PhpMyAdmin\ShapeFile;
 
 use function current;
 use function pack;
-use function sprintf;
 use function strrev;
 use function unpack;
 
 class Util
 {
     private static bool|null $littleEndian = null;
-
-    private const SHAPE_NAMES = [
-        0 => 'Null Shape',
-        1 => 'Point',
-        3 => 'PolyLine',
-        5 => 'Polygon',
-        8 => 'MultiPoint',
-        11 => 'PointZ',
-        13 => 'PolyLineZ',
-        15 => 'PolygonZ',
-        18 => 'MultiPointZ',
-        21 => 'PointM',
-        23 => 'PolyLineM',
-        25 => 'PolygonM',
-        28 => 'MultiPointM',
-        31 => 'MultiPatch',
-    ];
 
     /**
      * Reads data.
@@ -85,13 +67,5 @@ class Util
         }
 
         return strrev($bin);
-    }
-
-    /**
-     * Returns shape name.
-     */
-    public static function nameShape(int $type): string
-    {
-        return self::SHAPE_NAMES[$type] ?? sprintf('Shape %d', $type);
     }
 }

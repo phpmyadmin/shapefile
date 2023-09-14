@@ -117,7 +117,6 @@
       <code>$pointData</code>
       <code>$pointData</code>
       <code><![CDATA[$point['m']]]></code>
-      <code><![CDATA[$point['m']]]></code>
       <code><![CDATA[$point['z']]]></code>
       <code>$recordNumber</code>
       <code>$shapeType</code>

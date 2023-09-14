@@ -24,6 +24,7 @@ declare(strict_types=1);
  */
 
 use PhpMyAdmin\ShapeFile\ShapeFile;
+use PhpMyAdmin\ShapeFile\ShapeType;
 
 /**
  * Displays content of given file.
@@ -33,7 +34,7 @@ use PhpMyAdmin\ShapeFile\ShapeFile;
 // phpcs:ignore Squiz.Functions.GlobalFunction.Found
 function display_file(string $filename): void
 {
-    $shp = new ShapeFile(1);
+    $shp = new ShapeFile(ShapeType::POINT);
     $shp->loadFromFile($filename);
 
     $i = 1;
