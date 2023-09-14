@@ -11,14 +11,14 @@ checks:
   php: true
 tools:
   external_code_coverage:
-    runs: 8 # php 7.x versions * 2
+    runs: 4 # php 7.x versions * 2
     timeout: 480 # 8 min
 build:
   nodes:
     analysis:
       environment:
         php:
-          version: 7.1
+          version: 8.1
           pecl_extensions:
             - dbase
       dependencies:
