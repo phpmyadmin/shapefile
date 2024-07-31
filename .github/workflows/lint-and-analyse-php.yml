@@ -11,10 +11,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up PHP 8.1
+      - name: Set up PHP 8.2
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
@@ -33,10 +33,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up PHP 8.1
+      - name: Set up PHP 8.2
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
           extensions: dbase
 
       - name: Install Composer dependencies

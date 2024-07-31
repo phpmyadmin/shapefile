@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.15.0@5c774aca4746caf3d239d9c8cadb9f882ca29352">
+<files psalm-version="5.25.0@01a8eb06b9e9cc6cfb6a320bf9fb14331919d505">
   <file src="src/ShapeFile.php">
     <InvalidPropertyAssignmentValue>
       <code><![CDATA[$this->shpFile]]></code>
@@ -10,7 +10,7 @@
       <code><![CDATA[$this->boundingBox[$type] ?? 0]]></code>
     </MixedArgument>
     <MixedAssignment>
-      <code>$shapeType</code>
+      <code><![CDATA[$shapeType]]></code>
     </MixedAssignment>
     <PossiblyFalseArgument>
       <code><![CDATA[$this->shpFile]]></code>
@@ -21,13 +21,13 @@
       <code><![CDATA[$this->records[$index]->getContentLength()]]></code>
     </PossiblyNullOperand>
     <PossiblyUnusedReturnValue>
-      <code>bool</code>
-      <code>bool</code>
-      <code>int</code>
+      <code><![CDATA[bool]]></code>
+      <code><![CDATA[bool]]></code>
+      <code><![CDATA[int]]></code>
     </PossiblyUnusedReturnValue>
     <UnusedFunctionCall>
-      <code>dbase_close</code>
-      <code>dbase_pack</code>
+      <code><![CDATA[dbase_close]]></code>
+      <code><![CDATA[dbase_pack]]></code>
     </UnusedFunctionCall>
   </file>
   <file src="src/ShapeRecord.php">
@@ -41,8 +41,8 @@
       <code><![CDATA[$data['y']]]></code>
       <code><![CDATA[$data['y']]]></code>
       <code><![CDATA[$data['z']]]></code>
-      <code>$pointData</code>
-      <code>$pointData[$type]</code>
+      <code><![CDATA[$pointData]]></code>
+      <code><![CDATA[$pointData[$type]]]></code>
       <code><![CDATA[$this->shpData['parts']]]></code>
       <code><![CDATA[$this->shpData['parts']]]></code>
       <code><![CDATA[$this->shpData['parts']]]></code>
@@ -65,7 +65,7 @@
     <MixedArrayAccess>
       <code><![CDATA[$partData['points']]]></code>
       <code><![CDATA[$partData['points']]]></code>
-      <code>$pointData[$type]</code>
+      <code><![CDATA[$pointData[$type]]]></code>
       <code><![CDATA[$this->shpData['parts'][$i]]]></code>
       <code><![CDATA[$this->shpData['parts'][$i]]]></code>
       <code><![CDATA[$this->shpData['parts'][$i]]]></code>
@@ -82,7 +82,7 @@
       <code><![CDATA[$this->shpData['points'][$i]]]></code>
       <code><![CDATA[$this->shpData['points'][$i][$type]]]></code>
       <code><![CDATA[$this->shpData['points'][count($this->shpData['points']) - 1]]]></code>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
     </MixedArrayAccess>
     <MixedArrayAssignment>
       <code><![CDATA[$this->shpData['parts'][$partIndex]]]></code>
@@ -101,46 +101,46 @@
     </MixedArrayAssignment>
     <MixedArrayOffset>
       <code><![CDATA[$this->dbfData[$value]]]></code>
-      <code>$tmp[$value]</code>
+      <code><![CDATA[$tmp[$value]]]></code>
     </MixedArrayOffset>
     <MixedAssignment>
       <code><![CDATA[$data['m']]]></code>
       <code><![CDATA[$data['m']]]></code>
       <code><![CDATA[$data['z']]]></code>
-      <code>$numparts</code>
-      <code>$numparts</code>
-      <code>$numpoints</code>
-      <code>$numpoints</code>
-      <code>$partData</code>
-      <code>$partData</code>
-      <code>$point</code>
-      <code>$pointData</code>
-      <code>$pointData</code>
+      <code><![CDATA[$numparts]]></code>
+      <code><![CDATA[$numparts]]></code>
+      <code><![CDATA[$numpoints]]></code>
+      <code><![CDATA[$numpoints]]></code>
+      <code><![CDATA[$partData]]></code>
+      <code><![CDATA[$partData]]></code>
+      <code><![CDATA[$point]]></code>
+      <code><![CDATA[$pointData]]></code>
+      <code><![CDATA[$pointData]]></code>
       <code><![CDATA[$point['m']]]></code>
       <code><![CDATA[$point['z']]]></code>
-      <code>$recordNumber</code>
-      <code>$shapeType</code>
-      <code>$size</code>
+      <code><![CDATA[$recordNumber]]></code>
+      <code><![CDATA[$shapeType]]></code>
+      <code><![CDATA[$size]]></code>
       <code><![CDATA[$this->size]]></code>
-      <code>[$value]</code>
+      <code><![CDATA[[$value]]]></code>
     </MixedAssignment>
     <MixedOperand>
-      <code>$size</code>
+      <code><![CDATA[$size]]></code>
       <code><![CDATA[$this->shpData['numpoints']]]></code>
       <code><![CDATA[$this->shpData['numpoints']]]></code>
       <code><![CDATA[$this->shpData['numpoints'] ?? 0]]></code>
       <code><![CDATA[$this->shpData['numpoints'] ?? 0]]></code>
     </MixedOperand>
     <PossiblyNullReference>
-      <code>hasMeasure</code>
-      <code>hasMeasure</code>
-      <code>readSHP</code>
+      <code><![CDATA[hasMeasure]]></code>
+      <code><![CDATA[hasMeasure]]></code>
+      <code><![CDATA[readSHP]]></code>
     </PossiblyNullReference>
     <PossiblyUndefinedArrayOffset>
       <code><![CDATA[$this->shpData['parts']]]></code>
     </PossiblyUndefinedArrayOffset>
     <PropertyNotSetInConstructor>
-      <code>$shpFile</code>
+      <code><![CDATA[$shpFile]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="tests/ShapeFileTest.php">

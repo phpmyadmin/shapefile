@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 ### Removed
-- Drop support for PHP 7.1, PHP 7.2, PHP 7.3, PHP 7.4 and PHP 8.0
+- Drop support for PHP 7.1, PHP 7.2, PHP 7.3, PHP 7.4, PHP 8.0 and PHP 8.1
 
 ## [3.0.2] - 2023-09-11
 ### Added
