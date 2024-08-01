@@ -46,6 +46,11 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
+			message: "#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int\\<0, max\\> given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 4
 			path: src/ShapeRecord.php
@@ -57,12 +62,12 @@ parameters:
 
 		-
 			message: "#^Cannot access offset 'points' on mixed\\.$#"
-			count: 17
+			count: 15
 			path: src/ShapeRecord.php
 
 		-
 			message: "#^Cannot access offset int on mixed\\.$#"
-			count: 14
+			count: 12
 			path: src/ShapeRecord.php
 
 		-
@@ -72,7 +77,7 @@ parameters:
 
 		-
 			message: "#^Cannot access offset int\\<0, max\\> on mixed\\.$#"
-			count: 14
+			count: 12
 			path: src/ShapeRecord.php
 
 		-
