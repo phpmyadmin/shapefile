@@ -45,7 +45,7 @@ class ShapeFileTest extends TestCase
      */
     public function testLoad(string $filename, int $records, int|null $parts): void
     {
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile($filename);
         $this->assertEquals('', $shp->lastError);
         $this->assertEquals($records, count($shp->records));
@@ -106,7 +106,7 @@ class ShapeFileTest extends TestCase
      */
     public function testLoadError(string $filename): void
     {
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile($filename);
         $this->assertNotEquals('', $shp->lastError);
     }
@@ -116,7 +116,7 @@ class ShapeFileTest extends TestCase
      */
     public function testLoadEmptyFilename(): void
     {
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile('');
         if (ShapeFile::supportsDbase()) {
             $this->assertEquals('It wasn\'t possible to find the DBase file ""', $shp->lastError);
@@ -132,7 +132,7 @@ class ShapeFileTest extends TestCase
      */
     public function testGetDBFHeader(): void
     {
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
         $this->assertNull($shp->getDBFHeader());
     }
 
@@ -162,18 +162,18 @@ class ShapeFileTest extends TestCase
      */
     private function createTestData(): void
     {
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
 
-        $record0 = new ShapeRecord(ShapeType::POINT);
+        $record0 = new ShapeRecord(ShapeType::Point);
         $record0->addPoint(['x' => 482131.764567, 'y' => 2143634.39608]);
 
-        $record1 = new ShapeRecord(ShapeType::POINT_Z);
+        $record1 = new ShapeRecord(ShapeType::PointZ);
         $record1->addPoint(['x' => 472131.764567, 'y' => 2143634.39608, 'z' => 220, 'm' => 120]);
 
-        $record2 = new ShapeRecord(ShapeType::POINT_M);
+        $record2 = new ShapeRecord(ShapeType::PointM);
         $record2->addPoint(['x' => 492131.764567, 'y' => 2143634.39608, 'z' => 150, 'm' => 80]);
 
-        $record3 = new ShapeRecord(ShapeType::POLY_LINE);
+        $record3 = new ShapeRecord(ShapeType::PolyLine);
         $record3->addPoint(['x' => 482131.764567, 'y' => 2143634.39608], 0);
         $record3->addPoint(['x' => 482132.764567, 'y' => 2143635.39608], 0);
         $record3->addPoint(['x' => 482131.764567, 'y' => 2143635.39608], 1);
@@ -227,7 +227,7 @@ class ShapeFileTest extends TestCase
 
         $this->createTestData();
 
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile('./data/test_shape.*');
         $this->assertEquals(4, count($shp->records));
     }
@@ -243,13 +243,13 @@ class ShapeFileTest extends TestCase
 
         $this->createTestData();
 
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile('./data/test_shape.*');
         $shp->deleteRecord(1);
         $shp->saveToFile();
         $this->assertEquals(3, count($shp->records));
 
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile('./data/test_shape.*');
         $this->assertEquals(3, count($shp->records));
     }
@@ -265,10 +265,10 @@ class ShapeFileTest extends TestCase
 
         $this->createTestData();
 
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile('./data/test_shape.*');
 
-        $record0 = new ShapeRecord(ShapeType::POINT);
+        $record0 = new ShapeRecord(ShapeType::Point);
         $record0->addPoint(['x' => 482131.764567, 'y' => 2143634.39608]);
 
         $shp->addRecord($record0);
@@ -278,7 +278,7 @@ class ShapeFileTest extends TestCase
         $shp->saveToFile();
         $this->assertEquals(5, count($shp->records));
 
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile('./data/test_shape.*');
         $this->assertEquals(5, count($shp->records));
     }
@@ -288,7 +288,7 @@ class ShapeFileTest extends TestCase
      */
     public function testSaveNoDBF(): void
     {
-        $shp = new ShapeFile(ShapeType::POINT);
+        $shp = new ShapeFile(ShapeType::Point);
         $shp->saveToFile('./data/test_nodbf.*');
 
         $this->assertFileDoesNotExist('./data/test_nodbf.dbf');
@@ -299,12 +299,14 @@ class ShapeFileTest extends TestCase
      */
     public function testShapeName(): void
     {
-        $obj = new ShapeRecord(ShapeType::POINT);
+        $obj = new ShapeRecord(ShapeType::Point);
         $this->assertEquals('Point', $obj->getShapeName());
-        $obj = new ShapeFile(ShapeType::POINT);
+        $obj = new ShapeFile(ShapeType::Point);
         $this->assertEquals('Point', $obj->getShapeName());
-        $obj = new ShapeRecord(-1);
-        $this->assertEquals('Shape -1', $obj->getShapeName());
+        $obj = new ShapeRecord(ShapeType::Null);
+        $this->assertEquals('Null Shape', $obj->getShapeName());
+        $obj = new ShapeRecord(ShapeType::Unknown);
+        $this->assertEquals('Unknown Shape', $obj->getShapeName());
     }
 
     /**
@@ -314,9 +316,9 @@ class ShapeFileTest extends TestCase
      *
      * @dataProvider shapesProvider
      */
-    public function testShapeSaveLoad(int $shapeType, array $points): void
+    public function testShapeSaveLoad(ShapeType $shapeType, array $points): void
     {
-        $filename = './data/test_shape-' . $shapeType . '.*';
+        $filename = './data/test_shape-' . $shapeType->value . '.*';
         $shp = new ShapeFile($shapeType);
         $shp->setDBFHeader([['ID', 'N', 19, 0], ['DESC', 'C', 14, 0]]);
 
@@ -354,7 +356,7 @@ class ShapeFileTest extends TestCase
     /**
      * Data provider for save/load testing.
      *
-     * @psalm-return list<array{int, list<array{mixed[], int}>}>
+     * @psalm-return list<array{ShapeType, list<array{mixed[], int}>}>
      */
     public static function shapesProvider(): array
     {
@@ -383,24 +385,24 @@ class ShapeFileTest extends TestCase
         ];
 
         return [
-            [ShapeType::POINT, $pointsForPointType],
-            [ShapeType::POLY_LINE, $pointsForPolyLineType],
-            [ShapeType::POLYGON, $pointsForPolygonType],
-            [ShapeType::MULTI_POINT, $pointsForMultiPointType],
-            [ShapeType::POINT_Z, $pointsForPointType],
-            [ShapeType::POLY_LINE_Z, $pointsForPolyLineType],
-            [ShapeType::POLYGON_Z, $pointsForPolygonType],
-            [ShapeType::MULTI_POINT_Z, $pointsForMultiPointType],
-            [ShapeType::POINT_M, $pointsForPointType],
-            [ShapeType::POLY_LINE_M, $pointsForPolyLineType],
-            [ShapeType::POLYGON_M, $pointsForPolygonType],
-            [ShapeType::MULTI_POINT_M, $pointsForMultiPointType],
+            [ShapeType::Point, $pointsForPointType],
+            [ShapeType::PolyLine, $pointsForPolyLineType],
+            [ShapeType::Polygon, $pointsForPolygonType],
+            [ShapeType::MultiPoint, $pointsForMultiPointType],
+            [ShapeType::PointZ, $pointsForPointType],
+            [ShapeType::PolyLineZ, $pointsForPolyLineType],
+            [ShapeType::PolygonZ, $pointsForPolygonType],
+            [ShapeType::MultiPointZ, $pointsForMultiPointType],
+            [ShapeType::PointM, $pointsForPointType],
+            [ShapeType::PolyLineM, $pointsForPolyLineType],
+            [ShapeType::PolygonM, $pointsForPolygonType],
+            [ShapeType::MultiPointM, $pointsForMultiPointType],
         ];
     }
 
     public function testSearch(): void
     {
-        $shp = new ShapeFile(ShapeType::NULL);
+        $shp = new ShapeFile(ShapeType::Null);
         $shp->loadFromFile('data/capitals.*');
         /* Nonexisting entry or no dbase support */
         $this->assertEquals(

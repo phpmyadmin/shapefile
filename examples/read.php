@@ -34,7 +34,7 @@ use PhpMyAdmin\ShapeFile\ShapeType;
 // phpcs:ignore Squiz.Functions.GlobalFunction.Found
 function display_file(string $filename): void
 {
-    $shp = new ShapeFile(ShapeType::POINT);
+    $shp = new ShapeFile(ShapeType::Point);
     $shp->loadFromFile($filename);
 
     $i = 1;

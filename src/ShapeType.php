@@ -4,71 +4,74 @@ declare(strict_types=1);
 
 namespace PhpMyAdmin\ShapeFile;
 
-final class ShapeType
+enum ShapeType: int
 {
-    public const NULL = 0;
+    case Null = 0;
 
-    public const POINT = 1;
+    case Point = 1;
 
-    public const POLY_LINE = 3;
+    case PolyLine = 3;
 
-    public const POLYGON = 5;
+    case Polygon = 5;
 
-    public const MULTI_POINT = 8;
+    case MultiPoint = 8;
 
-    public const POINT_Z = 11;
+    case PointZ = 11;
 
-    public const POLY_LINE_Z = 13;
+    case PolyLineZ = 13;
 
-    public const POLYGON_Z = 15;
+    case PolygonZ = 15;
 
-    public const MULTI_POINT_Z = 18;
+    case MultiPointZ = 18;
 
-    public const POINT_M = 21;
+    case PointM = 21;
 
-    public const POLY_LINE_M = 23;
+    case PolyLineM = 23;
 
-    public const POLYGON_M = 25;
+    case PolygonM = 25;
 
-    public const MULTI_POINT_M = 28;
+    case MultiPointM = 28;
 
-    public const MULTI_PATCH = 31;
+    case MultiPatch = 31;
+
+    case Unknown = -1;
 
     /** Shape types with a Z coordinate. */
-    public const TYPES_WITH_Z = [self::POINT_Z, self::POLY_LINE_Z, self::POLYGON_Z, self::MULTI_POINT_Z];
+    public const TYPES_WITH_Z = [self::PointZ, self::PolyLineZ, self::PolygonZ, self::MultiPointZ];
 
     /** Shape types with a measure field. */
     public const MEASURED_TYPES = [
-        self::POINT_Z,
-        self::POLY_LINE_Z,
-        self::POLYGON_Z,
-        self::MULTI_POINT_Z,
-        self::POINT_M,
-        self::POLY_LINE_M,
-        self::POLYGON_M,
-        self::MULTI_POINT_M,
+        self::PointZ,
+        self::PolyLineZ,
+        self::PolygonZ,
+        self::MultiPointZ,
+        self::PointM,
+        self::PolyLineM,
+        self::PolygonM,
+        self::MultiPointM,
     ];
 
     public const NAMES = [
-        self::NULL => 'Null Shape',
-        self::POINT => 'Point',
-        self::POLY_LINE => 'PolyLine',
-        self::POLYGON => 'Polygon',
-        self::MULTI_POINT => 'MultiPoint',
-        self::POINT_Z => 'PointZ',
-        self::POLY_LINE_Z => 'PolyLineZ',
-        self::POLYGON_Z => 'PolygonZ',
-        self::MULTI_POINT_Z => 'MultiPointZ',
-        self::POINT_M => 'PointM',
-        self::POLY_LINE_M => 'PolyLineM',
-        self::POLYGON_M => 'PolygonM',
-        self::MULTI_POINT_M => 'MultiPointM',
-        self::MULTI_PATCH => 'MultiPatch',
+        self::Unknown->value => 'Unknown Shape',
+        self::Null->value => 'Null Shape',
+        self::Point->value => 'Point',
+        self::PolyLine->value => 'PolyLine',
+        self::Polygon->value => 'Polygon',
+        self::MultiPoint->value => 'MultiPoint',
+        self::PointZ->value => 'PointZ',
+        self::PolyLineZ->value => 'PolyLineZ',
+        self::PolygonZ->value => 'PolygonZ',
+        self::MultiPointZ->value => 'MultiPointZ',
+        self::PointM->value => 'PointM',
+        self::PolyLineM->value => 'PolyLineM',
+        self::PolygonM->value => 'PolygonM',
+        self::MultiPointM->value => 'MultiPointM',
+        self::MultiPatch->value => 'MultiPatch',
     ];
 
     /** @psalm-return non-empty-string */
-    public static function name(int $shapeType): string
+    public static function name(ShapeType $shapeType): string
     {
-        return self::NAMES[$shapeType] ?? 'Shape ' . $shapeType;
+        return self::NAMES[$shapeType->value];
     }
 }

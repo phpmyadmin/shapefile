@@ -85,12 +85,12 @@ class ShapeFile
     }
 
     /**
-     * @param int         $shapeType   File shape type, should be same as all records
+     * @param ShapeType   $shapeType   File shape type, should be same as all records
      * @param mixed[]     $boundingBox File bounding box
      * @param string|null $fileName    File name
      */
     public function __construct(
-        public int $shapeType,
+        public ShapeType $shapeType,
         public array $boundingBox = [
             'xmin' => 0.0,
             'ymin' => 0.0,
@@ -374,7 +374,11 @@ class ShapeFile
         $this->readSHP(4);
 
         $shapeType = Util::loadData('V', $this->readSHP(4));
-        $this->shapeType = $shapeType === false ? -1 : (int) $shapeType;
+        if ($shapeType === false) {
+            $this->shapeType = ShapeType::Unknown;
+        } else {
+            $this->shapeType = ShapeType::tryFrom((int) $shapeType) ?? ShapeType::Unknown;
+        }
 
         $this->boundingBox = [];
         $this->boundingBox['xmin'] = Util::loadData('d', $this->readSHP(8));
@@ -435,7 +439,7 @@ class ShapeFile
         fwrite($this->shpFile, pack('NNNNNN', self::MAGIC, 0, 0, 0, 0, 0));
         fwrite($this->shpFile, pack('N', $this->fileLength));
         fwrite($this->shpFile, pack('V', 1000));
-        fwrite($this->shpFile, pack('V', $this->shapeType));
+        fwrite($this->shpFile, pack('V', $this->shapeType->value));
         $this->saveBBox($this->shpFile);
 
         if ($this->shxFile === false) {
@@ -445,7 +449,7 @@ class ShapeFile
         fwrite($this->shxFile, pack('NNNNNN', self::MAGIC, 0, 0, 0, 0, 0));
         fwrite($this->shxFile, pack('N', 50 + 4 * count($this->records)));
         fwrite($this->shxFile, pack('V', 1000));
-        fwrite($this->shxFile, pack('V', $this->shapeType));
+        fwrite($this->shxFile, pack('V', $this->shapeType->value));
         $this->saveBBox($this->shxFile);
     }
 
@@ -456,7 +460,7 @@ class ShapeFile
     {
         /* Need to start at offset 100 */
         while (! $this->eofSHP()) {
-            $record = new ShapeRecord(-1);
+            $record = new ShapeRecord(ShapeType::Unknown);
             $record->loadFromFile($this, $this->dbfFile);
             if ($record->lastError !== '') {
                 $this->setError($record->lastError);
@@ -464,7 +468,7 @@ class ShapeFile
                 return false;
             }
 
-            if (($record->shapeType === -1) && $this->eofSHP()) {
+            if (($record->shapeType === ShapeType::Unknown) && $this->eofSHP()) {
                 break;
             }
 
