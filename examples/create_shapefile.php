@@ -29,26 +29,26 @@ use PhpMyAdmin\ShapeFile\ShapeType;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$shp = new ShapeFile(ShapeType::POINT, [
+$shp = new ShapeFile(ShapeType::Point, [
     'xmin' => 464079.002268,
     'ymin' => 2120153.74792,
     'xmax' => 505213.52849,
     'ymax' => 2163205.70036,
 ]);
 
-$record0 = new ShapeRecord(ShapeType::POINT);
+$record0 = new ShapeRecord(ShapeType::Point);
 $record0->addPoint([
     'x' => 482131.764567,
     'y' => 2143634.39608,
 ]);
 
-$record1 = new ShapeRecord(ShapeType::POINT);
+$record1 = new ShapeRecord(ShapeType::Point);
 $record1->addPoint([
     'x' => 472131.764567,
     'y' => 2143634.39608,
 ]);
 
-$record2 = new ShapeRecord(ShapeType::POINT);
+$record2 = new ShapeRecord(ShapeType::Point);
 $record2->addPoint([
     'x' => 492131.764567,
     'y' => 2143634.39608,
