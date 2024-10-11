@@ -47,13 +47,13 @@ class ShapeFileTest extends TestCase
     {
         $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile($filename);
-        $this->assertEquals('', $shp->lastError);
-        $this->assertEquals($records, count($shp->records));
+        self::assertEquals('', $shp->lastError);
+        self::assertEquals($records, count($shp->records));
         if ($parts === null) {
             return;
         }
 
-        $this->assertEquals($parts, count($shp->records[0]->shpData['parts']));
+        self::assertEquals($parts, count($shp->records[0]->shpData['parts']));
     }
 
     /**
@@ -108,7 +108,7 @@ class ShapeFileTest extends TestCase
     {
         $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile($filename);
-        $this->assertNotEquals('', $shp->lastError);
+        self::assertNotEquals('', $shp->lastError);
     }
 
     /**
@@ -119,12 +119,12 @@ class ShapeFileTest extends TestCase
         $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile('');
         if (ShapeFile::supportsDbase()) {
-            $this->assertEquals('It wasn\'t possible to find the DBase file ""', $shp->lastError);
+            self::assertEquals('It wasn\'t possible to find the DBase file ""', $shp->lastError);
 
             return;
         }
 
-        $this->assertEquals('Not a SHP file (file code mismatch)', $shp->lastError);
+        self::assertEquals('Not a SHP file (file code mismatch)', $shp->lastError);
     }
 
     /**
@@ -133,7 +133,7 @@ class ShapeFileTest extends TestCase
     public function testGetDBFHeader(): void
     {
         $shp = new ShapeFile(ShapeType::Point);
-        $this->assertNull($shp->getDBFHeader());
+        self::assertNull($shp->getDBFHeader());
     }
 
     /**
@@ -222,14 +222,14 @@ class ShapeFileTest extends TestCase
     public function testCreate(): void
     {
         if (! ShapeFile::supportsDbase()) {
-            $this->markTestSkipped('dbase extension missing');
+            self::markTestSkipped('dbase extension missing');
         }
 
         $this->createTestData();
 
         $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile('./data/test_shape.*');
-        $this->assertEquals(4, count($shp->records));
+        self::assertEquals(4, count($shp->records));
     }
 
     /**
@@ -238,7 +238,7 @@ class ShapeFileTest extends TestCase
     public function testDelete(): void
     {
         if (! ShapeFile::supportsDbase()) {
-            $this->markTestSkipped('dbase extension missing');
+            self::markTestSkipped('dbase extension missing');
         }
 
         $this->createTestData();
@@ -247,11 +247,11 @@ class ShapeFileTest extends TestCase
         $shp->loadFromFile('./data/test_shape.*');
         $shp->deleteRecord(1);
         $shp->saveToFile();
-        $this->assertEquals(3, count($shp->records));
+        self::assertEquals(3, count($shp->records));
 
         $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile('./data/test_shape.*');
-        $this->assertEquals(3, count($shp->records));
+        self::assertEquals(3, count($shp->records));
     }
 
     /**
@@ -260,7 +260,7 @@ class ShapeFileTest extends TestCase
     public function testAdd(): void
     {
         if (! ShapeFile::supportsDbase()) {
-            $this->markTestSkipped('dbase extension missing');
+            self::markTestSkipped('dbase extension missing');
         }
 
         $this->createTestData();
@@ -276,11 +276,11 @@ class ShapeFileTest extends TestCase
         $shp->records[4]->dbfData['DESC'] = 'CCCCCCCCCCC';
 
         $shp->saveToFile();
-        $this->assertEquals(5, count($shp->records));
+        self::assertEquals(5, count($shp->records));
 
         $shp = new ShapeFile(ShapeType::Point);
         $shp->loadFromFile('./data/test_shape.*');
-        $this->assertEquals(5, count($shp->records));
+        self::assertEquals(5, count($shp->records));
     }
 
     /**
@@ -291,7 +291,7 @@ class ShapeFileTest extends TestCase
         $shp = new ShapeFile(ShapeType::Point);
         $shp->saveToFile('./data/test_nodbf.*');
 
-        $this->assertFileDoesNotExist('./data/test_nodbf.dbf');
+        self::assertFileDoesNotExist('./data/test_nodbf.dbf');
     }
 
     /**
@@ -300,13 +300,13 @@ class ShapeFileTest extends TestCase
     public function testShapeName(): void
     {
         $obj = new ShapeRecord(ShapeType::Point);
-        $this->assertEquals('Point', $obj->getShapeName());
+        self::assertEquals('Point', $obj->getShapeName());
         $obj = new ShapeFile(ShapeType::Point);
-        $this->assertEquals('Point', $obj->getShapeName());
+        self::assertEquals('Point', $obj->getShapeName());
         $obj = new ShapeRecord(ShapeType::Null);
-        $this->assertEquals('Null Shape', $obj->getShapeName());
+        self::assertEquals('Null Shape', $obj->getShapeName());
         $obj = new ShapeRecord(ShapeType::Unknown);
-        $this->assertEquals('Unknown Shape', $obj->getShapeName());
+        self::assertEquals('Unknown Shape', $obj->getShapeName());
     }
 
     /**
@@ -335,7 +335,7 @@ class ShapeFileTest extends TestCase
         $shp2 = new ShapeFile($shapeType);
         $shp2->loadFromFile($filename);
 
-        $this->assertEquals(count($shp->records), count($shp2->records));
+        self::assertEquals(count($shp->records), count($shp2->records));
 
         $record = $shp->records[0];
         $record2 = $shp2->records[0];
@@ -346,7 +346,7 @@ class ShapeFileTest extends TestCase
                 continue;
             }
 
-            $this->assertEquals($record->shpData[$item], $record2->shpData[$item]);
+            self::assertEquals($record->shpData[$item], $record2->shpData[$item]);
         }
 
         /* Test deletion works */
@@ -405,7 +405,7 @@ class ShapeFileTest extends TestCase
         $shp = new ShapeFile(ShapeType::Null);
         $shp->loadFromFile('data/capitals.*');
         /* Nonexisting entry or no dbase support */
-        $this->assertEquals(
+        self::assertEquals(
             -1,
             $shp->getIndexFromDBFData('CNTRY_NAME', 'nonexisting'),
         );
@@ -413,7 +413,7 @@ class ShapeFileTest extends TestCase
             return;
         }
 
-        $this->assertEquals(
+        self::assertEquals(
             218,
             $shp->getIndexFromDBFData('CNTRY_NAME', 'Czech Republic'),
         );

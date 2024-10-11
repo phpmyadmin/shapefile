@@ -40,7 +40,7 @@ class UtilTest extends TestCase
      */
     public function testLoadData(string $type, string|false $data, mixed $expected): void
     {
-        $this->assertEquals(
+        self::assertEquals(
             $expected,
             Util::loadData($type, $data),
         );
