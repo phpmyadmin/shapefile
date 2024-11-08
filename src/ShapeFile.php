@@ -27,6 +27,11 @@ namespace PhpMyAdmin\ShapeFile;
 
 use function chr;
 use function count;
+use function dbase_close;
+use function dbase_create;
+use function dbase_delete_record;
+use function dbase_open;
+use function dbase_pack;
 use function extension_loaded;
 use function fclose;
 use function feof;
@@ -76,6 +81,8 @@ class ShapeFile
     /** @var array<int, ShapeRecord> */
     public array $records = [];
 
+    private bool $allowNoDbf = false;
+
     /**
      * Checks whether dbase manipulations are supported.
      */
@@ -99,6 +106,11 @@ class ShapeFile
         ],
         public string|null $fileName = null,
     ) {
+    }
+
+    public function setAllowNoDbf(bool $allowNoDbf): void
+    {
+        $this->allowNoDbf = $allowNoDbf;
     }
 
     /**
@@ -613,6 +625,10 @@ class ShapeFile
 
         $dbfName = $this->getFilename('.dbf');
         if (! is_readable($dbfName)) {
+            if ($this->allowNoDbf) {
+                return true;
+            }
+
             $this->setError(sprintf('It wasn\'t possible to find the DBase file "%s"', $dbfName));
 
             return false;

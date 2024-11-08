@@ -22,7 +22,6 @@
     </PossiblyNullOperand>
     <PossiblyUnusedReturnValue>
       <code><![CDATA[bool]]></code>
-      <code><![CDATA[bool]]></code>
       <code><![CDATA[int]]></code>
     </PossiblyUnusedReturnValue>
     <UnusedFunctionCall>
