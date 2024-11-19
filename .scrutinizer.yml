@@ -18,7 +18,7 @@ build:
     analysis:
       environment:
         php:
-          version: 7.1
+          version: 7.2
           pecl_extensions:
             - dbase
       dependencies:
