@@ -2,9 +2,12 @@ includes:
     - phpstan-baseline.neon
 parameters:
     level: max
-    checkMissingIterableValueType: false
     paths:
         - src
         - tests
-    reportUnmatchedIgnoredErrors: true
-    inferPrivatePropertyTypeFromConstructor: true
+        - examples
+    checkBenevolentUnionTypes: true
+    checkUninitializedProperties: true
+    checkDynamicProperties: true
+    checkTooWideReturnTypesInProtectedAndPublicMethods: true
+    checkImplicitMixed: true

@@ -1,6 +1,131 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Cannot access offset 'DESC' on mixed\\.$#"
+			count: 3
+			path: examples/create_shapefile.php
+
+		-
+			message: "#^Cannot access offset 'ID' on mixed\\.$#"
+			count: 3
+			path: examples/create_shapefile.php
+
+		-
+			message: "#^Cannot access property \\$dbfData on mixed\\.$#"
+			count: 6
+			path: examples/create_shapefile.php
+
+		-
+			message: "#^Cannot access property \\$dbfData on mixed\\.$#"
+			count: 1
+			path: examples/read.php
+
+		-
+			message: "#^Cannot access property \\$shpData on mixed\\.$#"
+			count: 1
+			path: examples/read.php
+
+		-
+			message: "#^Foreach overwrites \\$i with its key variable\\.$#"
+			count: 1
+			path: examples/read.php
+
+		-
+			message: "#^Call to function in_array\\(\\) requires parameter \\#3 to be set\\.$#"
+			count: 2
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Cannot access offset string on mixed\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Cannot access property \\$dbfData on mixed\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Cannot access property \\$recordNumber on mixed\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Cannot call method getContentLength\\(\\) on mixed\\.$#"
+			count: 3
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Cannot call method saveToFile\\(\\) on mixed\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Cannot call method updateDBFInfo\\(\\) on mixed\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:__construct\\(\\) has parameter \\$boundingBox with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:getDBFHeader\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:getIndexFromDBFData\\(\\) should return int but returns \\(int\\|string\\)\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:loadDBFHeader\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:setDBFHeader\\(\\) has parameter \\$header with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:updateBBox\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, resource\\|false given\\.$#"
+			count: 2
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, resource\\|null given\\.$#"
+			count: 3
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Only numeric types are allowed in \\+, int\\|null given on the left side\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$character of function ord expects string, \\(string\\|false\\) given\\.$#"
+			count: 2
+			path: src/ShapeFile.php
+
+		-
 			message: "#^Parameter \\#1 \\$file of method PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:saveBBox\\(\\) expects resource, resource\\|null given\\.$#"
 			count: 2
 			path: src/ShapeFile.php
@@ -31,12 +156,22 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, \\(string\\|false\\) given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
 		-
+			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
+			count: 2
+			path: src/ShapeFile.php
+
+		-
 			message: "#^Parameter \\#1 \\$type of static method PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:nameShape\\(\\) expects int, int\\|false given\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of static method PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:packDouble\\(\\) expects float, mixed given\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
@@ -46,12 +181,42 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$boundingBox type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$dbfFile \\(resource\\|null\\) does not accept mixed\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
 			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$dbfFile \\(resource\\|null\\) does not accept resource\\|false\\.$#"
 			count: 2
 			path: src/ShapeFile.php
 
 		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$dbfHeader type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$fileLength \\(int\\) does not accept \\(float\\|int\\)\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$records type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
 			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shapeType \\(int\\|false\\) does not accept mixed\\.$#"
+			count: 1
+			path: src/ShapeFile.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeFile\\:\\:\\$shpFile \\(resource\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: src/ShapeFile.php
 
@@ -86,12 +251,147 @@ parameters:
 			path: src/ShapeFile.php
 
 		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 4
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Call to function in_array\\(\\) requires parameter \\#3 to be set\\.$#"
+			count: 2
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Cannot access an offset on mixed\\.$#"
+			count: 4
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Cannot access offset 'points' on mixed\\.$#"
+			count: 15
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Cannot access offset 0 on mixed\\.$#"
+			count: 2
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Cannot access offset int on mixed\\.$#"
+			count: 12
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Cannot access offset int\\<\\-1, max\\> on mixed\\.$#"
+			count: 2
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Cannot access offset int\\<0, max\\> on mixed\\.$#"
+			count: 12
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Cannot access offset int\\<1, max\\> on mixed\\.$#"
+			count: 2
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Cannot access offset string on mixed\\.$#"
+			count: 4
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:addPoint\\(\\) has parameter \\$point with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:adjustBBox\\(\\) has parameter \\$point with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:adjustPoint\\(\\) has parameter \\$point with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:adjustPoint\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:fixPoint\\(\\) has parameter \\$point with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:fixPoint\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPoint\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPointM\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:loadPointZ\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePoint\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePointM\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePointZ\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:updateDBFInfo\\(\\) has parameter \\$header with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Parameter \\#1 \\$data of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:savePoint\\(\\) expects array, mixed given\\.$#"
+			count: 2
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of static method PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:packDouble\\(\\) expects float, mixed given\\.$#"
+			count: 11
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, mixed given\\.$#"
+			count: 16
+			path: src/ShapeRecord.php
+
+		-
 			message: "#^Parameter \\#2 \\$record_number of function dbase_get_record_with_names expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/ShapeRecord.php
 
 		-
 			message: "#^Parameter \\#3 \\$record_number of function dbase_replace_record expects int, int\\|null given\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$dbfData type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/ShapeRecord.php
 
@@ -116,7 +416,157 @@ parameters:
 			path: src/ShapeRecord.php
 
 		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$shpData type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$size \\(int\\) does not accept \\(float\\|int\\)\\.$#"
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
 			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:\\$size \\(int\\) does not accept mixed\\.$#"
 			count: 1
 			path: src/ShapeRecord.php
+
+		-
+			message: "#^Casting to float something that's already float\\.$#"
+			count: 1
+			path: src/Util.php
+
+		-
+			message: "#^Method PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:nameShape\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: src/Util.php
+
+		-
+			message: "#^Property PhpMyAdmin\\\\ShapeFile\\\\Util\\:\\:\\$shapeNames type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Util.php
+
+		-
+			message: "#^Cannot access offset 'DESC' on mixed\\.$#"
+			count: 5
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Cannot access offset 'ID' on mixed\\.$#"
+			count: 5
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Cannot access offset 'numparts'\\|'numpoints' on mixed\\.$#"
+			count: 2
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Cannot access offset 'parts' on mixed\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Cannot access offset 0 on mixed\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Cannot access offset 1 on mixed\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Cannot access property \\$dbfData on mixed\\.$#"
+			count: 10
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Cannot access property \\$shpData on mixed\\.$#"
+			count: 3
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Cannot call method deletePoint\\(\\) on mixed\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertEquals\\(\\)\\.$#"
+			count: 17
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertFileNotExists\\(\\)\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotEquals\\(\\)\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\)\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:markTestSkipped\\(\\)\\.$#"
+			count: 3
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method PhpMyAdminTest\\\\ShapeFile\\\\ShapeFileTest\\:\\:provideErrorFiles\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method PhpMyAdminTest\\\\ShapeFile\\\\ShapeFileTest\\:\\:provideFiles\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method PhpMyAdminTest\\\\ShapeFile\\\\ShapeFileTest\\:\\:shapes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method PhpMyAdminTest\\\\ShapeFile\\\\ShapeFileTest\\:\\:testMeasureShapeSaveLoad\\(\\) has parameter \\$points with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method PhpMyAdminTest\\\\ShapeFile\\\\ShapeFileTest\\:\\:testShapeSaveLoad\\(\\) has parameter \\$points with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Method PhpMyAdminTest\\\\ShapeFile\\\\ShapeFileTest\\:\\:testZetShapeSaveLoad\\(\\) has parameter \\$points with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$point of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:addPoint\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, mixed given\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$partIndex of method PhpMyAdmin\\\\ShapeFile\\\\ShapeRecord\\:\\:addPoint\\(\\) expects int, mixed given\\.$#"
+			count: 1
+			path: tests/ShapeFileTest.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertEquals\\(\\)\\.$#"
+			count: 2
+			path: tests/UtilTest.php
+
+		-
+			message: "#^Method PhpMyAdminTest\\\\ShapeFile\\\\UtilTest\\:\\:data\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/UtilTest.php
 
