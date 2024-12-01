@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Foreach overwrites \\$i with its key variable\\.$#"
+			count: 1
+			path: examples/read.php
+
+		-
 			message: "#^Cannot cast mixed to int\\.$#"
 			count: 1
 			path: src/ShapeFile.php
