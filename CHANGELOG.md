@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Removed
 - Drop support for PHP 7.1, PHP 7.2, PHP 7.3, PHP 7.4, PHP 8.0 and PHP 8.1
 
+## [3.1.0] - YYYY-MM-DD
+
+### Added
+
+-  Adds a toggle to allow shape files with no dbf (#41)
+
 ## [3.0.2] - 2023-09-11
 ### Added
 - Support for PHP 8.3
@@ -121,6 +127,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Initial release based on bfShapeFiles
 
 [Unreleased]: https://github.com/phpmyadmin/shapefile/compare/3.0.2...HEAD
+[3.1.0]: https://github.com/phpmyadmin/shapefile/compare/3.0.2...3.1.x
 [3.0.2]: https://github.com/phpmyadmin/shapefile/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/phpmyadmin/shapefile/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/phpmyadmin/shapefile/compare/2.1...3.0.0

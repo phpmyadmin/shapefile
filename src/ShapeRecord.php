@@ -27,6 +27,10 @@ namespace PhpMyAdmin\ShapeFile;
 
 use function array_values;
 use function count;
+use function dbase_add_record;
+use function dbase_get_record_with_names;
+use function dbase_numrecords;
+use function dbase_replace_record;
 use function fwrite;
 use function in_array;
 use function is_array;
