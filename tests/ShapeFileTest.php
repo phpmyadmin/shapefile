@@ -548,4 +548,15 @@ class ShapeFileTest extends TestCase
             $shp->getIndexFromDBFData('CNTRY_NAME', 'Czech Republic')
         );
     }
+
+    public function testAllowsNoDbf(): void
+    {
+        if (! ShapeFile::supportsDbase()) {
+            self::markTestSkipped();
+        }
+
+        $shp = new ShapeFile(0);
+        $shp->setAllowNoDbf(true);
+        self::assertTrue($shp->loadFromFile('data/no-dbf.*'));
+    }
 }

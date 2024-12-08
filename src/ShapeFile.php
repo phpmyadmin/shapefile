@@ -87,6 +87,9 @@ class ShapeFile
     /** @var array */
     public $records = [];
 
+    /** @var bool */
+    private $allowNoDbf = false;
+
     /**
      * Checks whether dbase manipulations are supported.
      */
@@ -119,6 +122,11 @@ class ShapeFile
          * (including the fifty 16-bit words that make up the header).
          */
         $this->fileLength = 50;
+    }
+
+    public function setAllowNoDbf(bool $allowNoDbf): void
+    {
+        $this->allowNoDbf = $allowNoDbf;
     }
 
     /**
@@ -326,8 +334,16 @@ class ShapeFile
      */
     private function loadDBFHeader(): array
     {
-        $DBFFile = fopen($this->getFilename('.dbf'), 'r');
+        if (! self::supportsDbase()) {
+            return [];
+        }
 
+        $dbfName = $this->getFilename('.dbf');
+        if (! file_exists($dbfName)) {
+            return [];
+        }
+
+        $DBFFile = fopen($dbfName, 'r');
         $result = [];
         $i = 1;
         $inHeader = true;
@@ -405,9 +421,7 @@ class ShapeFile
         $this->boundingBox['mmin'] = Util::loadData('d', $this->readSHP(8));
         $this->boundingBox['mmax'] = Util::loadData('d', $this->readSHP(8));
 
-        if (self::supportsDbase()) {
-            $this->dbfHeader = $this->loadDBFHeader();
-        }
+        $this->dbfHeader = $this->loadDBFHeader();
 
         return true;
     }
@@ -620,6 +634,10 @@ class ShapeFile
 
         $dbfName = $this->getFilename('.dbf');
         if (! is_readable($dbfName)) {
+            if ($this->allowNoDbf) {
+                return true;
+            }
+
             $this->setError(sprintf('It wasn\'t possible to find the DBase file "%s"', $dbfName));
 
             return false;
