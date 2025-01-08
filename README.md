@@ -1,7 +1,7 @@
 # shapefile
 ShapeFile library for PHP
 
-![Test-suite](https://github.com/phpmyadmin/shapefile/workflows/Run%20tests/badge.svg?branch=master)
+[![Test-suite](https://github.com/phpmyadmin/shapefile/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/phpmyadmin/shapefile/actions/workflows/tests.yml?query=branch%3Amaster)
 [![codecov.io](https://codecov.io/github/phpmyadmin/shapefile/coverage.svg?branch=master)](https://codecov.io/github/phpmyadmin/shapefile?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/phpmyadmin/shapefile/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/phpmyadmin/shapefile/?branch=master)
 [![Packagist](https://img.shields.io/packagist/dt/phpmyadmin/shapefile.svg)](https://packagist.org/packages/phpmyadmin/shapefile)
