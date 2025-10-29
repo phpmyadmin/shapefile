@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
   <file src="src/ShapeFile.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ShapeFile]]></code>
+    </ClassMustBeFinal>
     <InvalidPropertyAssignmentValue>
       <code><![CDATA[$this->shpFile]]></code>
       <code><![CDATA[$this->shxFile]]></code>
@@ -13,6 +16,12 @@
       <code><![CDATA[$shapeType]]></code>
     </MixedAssignment>
     <PossiblyFalseArgument>
+      <code><![CDATA[$buff32]]></code>
+      <code><![CDATA[$buff32]]></code>
+      <code><![CDATA[$buff32]]></code>
+      <code><![CDATA[$buff32]]></code>
+      <code><![CDATA[$buff32]]></code>
+      <code><![CDATA[$buff32]]></code>
       <code><![CDATA[$this->shpFile]]></code>
     </PossiblyFalseArgument>
     <PossiblyNullOperand>
@@ -30,6 +39,9 @@
     </UnusedFunctionCall>
   </file>
   <file src="src/ShapeRecord.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ShapeRecord]]></code>
+    </ClassMustBeFinal>
     <MixedArgument>
       <code><![CDATA[$data['m']]]></code>
       <code><![CDATA[$data['m']]]></code>
@@ -142,9 +154,22 @@
       <code><![CDATA[$shpFile]]></code>
     </PropertyNotSetInConstructor>
   </file>
+  <file src="src/Util.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Util]]></code>
+    </ClassMustBeFinal>
+  </file>
   <file src="tests/ShapeFileTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ShapeFileTest]]></code>
+    </ClassMustBeFinal>
     <MixedArgument>
       <code><![CDATA[$shp->records[0]->shpData['parts']]]></code>
     </MixedArgument>
+  </file>
+  <file src="tests/UtilTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[UtilTest]]></code>
+    </ClassMustBeFinal>
   </file>
 </files>

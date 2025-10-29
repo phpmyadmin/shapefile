@@ -28,7 +28,8 @@
             "@phpunit"
         ],
         "update:baselines": [
-            "@php phpstan analyse --generate-baseline"
+            "@php phpstan analyse --generate-baseline",
+            "@php psalm --set-baseline=psalm-baseline.xml"
         ]
     },
     "require": {
@@ -45,8 +46,8 @@
         "phpstan/phpstan-phpunit": "^1.4",
         "phpstan/phpstan-strict-rules": "^1.6",
         "phpunit/phpunit": "^10.5",
-        "psalm/plugin-phpunit": "^0.18.4",
-        "vimeo/psalm": "^5.15"
+        "psalm/plugin-phpunit": "^0.19.5",
+        "vimeo/psalm": "^6.13"
     },
     "autoload": {
         "psr-4": {
