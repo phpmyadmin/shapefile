@@ -52,8 +52,12 @@ jobs:
           php -f examples/read_polygon.php > /dev/null
 
       - name: Send coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
+        # Do not run this step on forked versions of the main repository (example: contributor forks)
+        if: github.repository == 'phpmyadmin/shapefile'
         with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
           flags: unit-${{ matrix.php-version }}-${{ matrix.php-extensions }}-${{ matrix.os }}
           name: phpunit-${{ matrix.php-version }}-${{ matrix.php-extensions }}-${{ matrix.os }}
 
