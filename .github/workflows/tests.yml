@@ -60,7 +60,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unit-${{ matrix.php-version }}-${{ matrix.php-extensions }}-${{ matrix.os }}
           name: phpunit-${{ matrix.php-version }}-${{ matrix.php-extensions }}-${{ matrix.os }}
-          report-type: coverage
+          report_type: coverage
 
       - name: Upload test results
         uses: codecov/codecov-action@v5
@@ -71,7 +71,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unit-${{ matrix.php-version }}-${{ matrix.php-extensions }}-${{ matrix.os }}
           name: phpunit-${{ matrix.php-version }}-${{ matrix.php-extensions }}-${{ matrix.os }}
-          report-type: test_results
+          report_type: test_results
 
       - name: Send coverage to Scrutinizer
         uses: sudo-bot/action-scrutinizer@latest
