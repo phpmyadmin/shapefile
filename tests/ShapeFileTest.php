@@ -28,6 +28,7 @@ namespace PhpMyAdminTest\ShapeFile;
 use PhpMyAdmin\ShapeFile\ShapeFile;
 use PhpMyAdmin\ShapeFile\ShapeRecord;
 use PhpMyAdmin\ShapeFile\ShapeType;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function count;
@@ -40,9 +41,8 @@ class ShapeFileTest extends TestCase
      * @param string   $filename Name of file
      * @param int      $records  Expected number of records
      * @param int|null $parts    Expected number of parts in first record
-     *
-     * @dataProvider provideFiles
      */
+    #[DataProvider('provideFiles')]
     public function testLoad(string $filename, int $records, int|null $parts): void
     {
         $shp = new ShapeFile(ShapeType::Point);
@@ -101,9 +101,8 @@ class ShapeFileTest extends TestCase
      * Test error handling in loader.
      *
      * @param string $filename name to load
-     *
-     * @dataProvider provideErrorFiles
      */
+    #[DataProvider('provideErrorFiles')]
     public function testLoadError(string $filename): void
     {
         $shp = new ShapeFile(ShapeType::Point);
@@ -313,9 +312,8 @@ class ShapeFileTest extends TestCase
      * Test shapes save/load round-robin.
      *
      * @psalm-param list<array{mixed[], int}> $points
-     *
-     * @dataProvider shapesProvider
      */
+    #[DataProvider('shapesProvider')]
     public function testShapeSaveLoad(ShapeType $shapeType, array $points): void
     {
         $filename = './data/test_shape-' . $shapeType->value . '.*';
