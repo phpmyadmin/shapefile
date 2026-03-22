@@ -19,7 +19,7 @@ build:
     analysis:
       environment:
         php:
-          version: 8.2.30
+          version: 8.2.29
           pecl_extensions:
             - dbase
       dependencies:
