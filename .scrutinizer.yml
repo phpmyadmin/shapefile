@@ -11,10 +11,10 @@ checks:
   php: true
 tools:
   external_code_coverage:
-    runs: 4 # php 7.x versions * 2
+    runs: 4 # php 8.x versions * 2
     timeout: 480 # 8 min
 build:
-  image: default-bionic # Needed to make PHP 7.2 compile
+  image: default-bionic # Needed to make PHP 8.x compile
   nodes:
     analysis:
       environment:
