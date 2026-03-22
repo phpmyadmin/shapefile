@@ -14,6 +14,7 @@ tools:
     runs: 4 # php 7.x versions * 2
     timeout: 480 # 8 min
 build:
+  image: default-bionic # Needed to make PHP 7.2 compile
   nodes:
     analysis:
       environment:
@@ -23,6 +24,8 @@ build:
             - dbase
       dependencies:
         before:
+          - sudo /home/scrutinizer/.phpenv/shims/php -f /usr/bin/composer.phar self-update --2
+          - composer --version
           - composer install
       tests:
         override:
