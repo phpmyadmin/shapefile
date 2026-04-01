@@ -37,7 +37,7 @@ jobs:
           coverage: xdebug
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v2
+        uses: ramsey/composer-install@v3
         with:
           dependency-versions: highest
           composer-options: ${{ matrix.composer-options }}
@@ -52,7 +52,7 @@ jobs:
           php -f examples/read_polygon.php > /dev/null
 
       - name: Send coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         # Do not run this step on forked versions of the main repository (example: contributor forks)
         if: github.repository == 'phpmyadmin/shapefile'
         with:
@@ -63,7 +63,7 @@ jobs:
           report_type: coverage
 
       - name: Upload test results
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         # Do not run this step on forked versions of the main repository (example: contributor forks)
         if: ${{ github.repository == 'phpmyadmin/shapefile' && !cancelled() }}
         with:
