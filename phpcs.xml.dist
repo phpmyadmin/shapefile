@@ -7,25 +7,30 @@
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
 
+    <!-- Make sniff report relative -->
+    <arg name="basepath" value="."/>
+
     <file>examples</file>
     <file>src</file>
     <file>tests</file>
 
-    <exclude-pattern>*/examples/index.php</exclude-pattern>
+    <exclude-pattern>examples/index.php</exclude-pattern>
 
-    <rule ref="PhpMyAdmin">
-        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint"/>
+    <rule ref="PhpMyAdmin"/>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation">
+        <exclude-pattern>src/ShapeRecord.php</exclude-pattern>
+        <exclude-pattern>tests/UtilTest.php</exclude-pattern>
+        <exclude-pattern>tests/ShapeFileTest.php</exclude-pattern>
     </rule>
 
-    <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition"/>
-    <rule ref="SlevomatCodingStandard.Functions.RequireSingleLineCall"/>
-    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
-        <properties>
-            <property name="ignoreSpacesInComment" value="true"/>
-        </properties>
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification">
+        <severity>4</severity>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification">
+        <severity>4</severity>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification">
+        <severity>4</severity>
     </rule>
 </ruleset>
