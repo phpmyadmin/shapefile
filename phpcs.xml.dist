@@ -7,11 +7,14 @@
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
 
+    <!-- Make sniff report relative -->
+    <arg name="basepath" value="."/>
+
     <file>examples</file>
     <file>src</file>
     <file>tests</file>
 
-    <exclude-pattern>*/examples/index.php</exclude-pattern>
+    <exclude-pattern>examples/index.php</exclude-pattern>
 
     <rule ref="PhpMyAdmin"/>
 
