@@ -17,12 +17,4 @@
     <exclude-pattern>examples/index.php</exclude-pattern>
 
     <rule ref="PhpMyAdmin"/>
-
-    <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition"/>
-    <rule ref="SlevomatCodingStandard.Functions.RequireSingleLineCall"/>
-    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
-        <properties>
-            <property name="ignoreSpacesInComment" value="true"/>
-        </properties>
-    </rule>
 </ruleset>
