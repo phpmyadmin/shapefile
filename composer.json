@@ -39,7 +39,7 @@
         "ext-dbase": "For dbf files parsing"
     },
     "require-dev": {
-        "phpmyadmin/coding-standard": "^4.0",
+        "phpmyadmin/coding-standard": "^5.0",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
