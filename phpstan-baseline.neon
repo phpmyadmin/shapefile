@@ -163,6 +163,12 @@ parameters:
 			path: src/ShapeRecord.php
 
 		-
+			message: '#^Cannot use array destructuring on mixed\.$#'
+			identifier: offsetAccess.nonArray
+			count: 1
+			path: src/ShapeRecord.php
+
+		-
 			message: '#^Parameter \#1 \$data of method PhpMyAdmin\\ShapeFile\\ShapeRecord\:\:savePoint\(\) expects array\<mixed\>, mixed given\.$#'
 			identifier: argument.type
 			count: 2
