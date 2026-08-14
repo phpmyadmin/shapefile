@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#33](https://github.com/phpmyadmin/shapefile/pull/33): Drop support for PHP 7.2, PHP 7.3, PHP 7.4, PHP 8.0 and PHP 8.1
 - [#25](https://github.com/phpmyadmin/shapefile/pull/25): Removed parameter `$shpFile` from `ShapeRecord::loadFromFile()`
 
+## [3.1.1] - 2026-08-14
+
+### Added
+
+- [#48](https://github.com/phpmyadmin/shapefile/pull/48): Support for PHPUnit 13
+
 ## [3.1.0] - 2025-10-29
 
 ### Added
@@ -140,6 +146,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Initial release based on bfShapeFiles
 
 [4.0.0]: https://github.com/phpmyadmin/shapefile/compare/3.1.0...4.0.0
+[3.1.1]: https://github.com/phpmyadmin/shapefile/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/phpmyadmin/shapefile/compare/3.0.2...3.1.0
 [3.0.2]: https://github.com/phpmyadmin/shapefile/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/phpmyadmin/shapefile/compare/3.0.0...3.0.1

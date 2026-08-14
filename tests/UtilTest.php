@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace PhpMyAdminTest\ShapeFile;
 
 use PhpMyAdmin\ShapeFile\Util;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class UtilTest extends TestCase
@@ -38,6 +39,7 @@ class UtilTest extends TestCase
      *
      * @dataProvider data
      */
+    #[DataProvider('data')]
     public function testLoadData(string $type, string|false $data, mixed $expected): void
     {
         self::assertEquals(
