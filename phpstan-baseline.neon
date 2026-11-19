@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Foreach overwrites \$i with its key variable\.$#'
-			identifier: foreach.keyOverwrite
-			count: 1
-			path: examples/read.php
-
-		-
 			message: '#^Cannot cast mixed to int\.$#'
 			identifier: cast.int
 			count: 1
@@ -136,6 +130,12 @@ parameters:
 			message: '#^Cannot access offset string on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 4
+			path: src/ShapeRecord.php
+
+		-
+			message: '#^Cannot call method eofSHP\(\) on PhpMyAdmin\\ShapeFile\\ShapeFile\|null\.$#'
+			identifier: method.nonObject
+			count: 1
 			path: src/ShapeRecord.php
 
 		-
