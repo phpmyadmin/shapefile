@@ -30,6 +30,7 @@ use function count;
 use function fwrite;
 use function in_array;
 use function is_array;
+use function is_int;
 use function pack;
 use function sprintf;
 use function strlen;
@@ -134,9 +135,19 @@ class ShapeRecord
                 break;
         }
 
+        if ($this->lastError !== '') {
+            return;
+        }
+
         /* We need to skip rest of the record */
         while ($this->read < $this->size) {
+            $before = $this->read;
             $this->loadData('V', 4);
+            if ($this->read === $before || $this->shapeFile->eofSHP()) {
+                $this->setError('Failed to parse record.');
+
+                return;
+            }
         }
 
         /* Check if we didn't read too much */
@@ -340,17 +351,38 @@ class ShapeRecord
 
     private function loadPointRecord(): void
     {
-        $this->shpData = $this->loadPoint();
+        $point = $this->loadPoint();
+        if ($point['x'] === false || $point['y'] === false) {
+            $this->setError('Failed to parse record.');
+
+            return;
+        }
+
+        $this->shpData = $point;
     }
 
     private function loadPointMRecord(): void
     {
-        $this->shpData = $this->loadPointM();
+        $point = $this->loadPointM();
+        if ($point['x'] === false || $point['y'] === false || $point['m'] === false) {
+            $this->setError('Failed to parse record.');
+
+            return;
+        }
+
+        $this->shpData = $point;
     }
 
     private function loadPointZRecord(): void
     {
-        $this->shpData = $this->loadPointZ();
+        $point = $this->loadPointZ();
+        if ($point['x'] === false || $point['y'] === false || $point['m'] === false || $point['z'] === false) {
+            $this->setError('Failed to parse record.');
+
+            return;
+        }
+
+        $this->shpData = $point;
     }
 
     private function savePointRecord(): void
@@ -381,10 +413,22 @@ class ShapeRecord
         $this->shpData = [];
         $this->loadBBox();
 
-        $this->shpData['numpoints'] = $this->loadData('V', 4);
+        $numPoints = $this->loadData('V', 4);
+        if (! is_int($numPoints) || $numPoints < 0) {
+            $this->setError('Failed to parse record.');
 
+            return;
+        }
+
+        $this->shpData['numpoints'] = $numPoints;
         for ($i = 0; $i < $this->shpData['numpoints']; ++$i) {
-            $this->shpData['points'][] = $this->loadPoint();
+            $point = $this->loadPoint();
+            if ($point['x'] === false || $point['y'] === false) {
+                $this->setError('Failed to parse record.');
+                break;
+            }
+
+            $this->shpData['points'][] = $point;
         }
     }
 
@@ -399,7 +443,13 @@ class ShapeRecord
         $this->shpData[$type . 'max'] = $this->loadData('d', 8);
 
         for ($i = 0; $i < $this->shpData['numpoints']; ++$i) {
-            $this->shpData['points'][$i][$type] = $this->loadData('d', 8);
+            $point = $this->loadData('d', 8);
+            if ($point === false) {
+                $this->setError('Failed to parse record.');
+                break;
+            }
+
+            $this->shpData['points'][$i][$type] = $point;
         }
     }
 
@@ -469,9 +519,21 @@ class ShapeRecord
 
         $numparts = $this->shpData['numparts'];
         $numpoints = $this->shpData['numpoints'];
+        if (! is_int($numpoints) || $numpoints < 0 || ! is_int($numparts) || $numparts < 0) {
+            $this->setError('Failed to parse record.');
+
+            return;
+        }
 
         for ($i = 0; $i < $numparts; ++$i) {
-            $this->shpData['parts'][$i] = $this->loadData('V', 4);
+            $partData = $this->loadData('V', 4);
+            if ($partData === false) {
+                $this->setError('Failed to parse record.');
+
+                return;
+            }
+
+            $this->shpData['parts'][$i] = $partData;
         }
 
         $part = 0;
@@ -487,7 +549,14 @@ class ShapeRecord
                 $this->shpData['parts'][$part] = ['points' => []];
             }
 
-            $this->shpData['parts'][$part]['points'][] = $this->loadPoint();
+            $point = $this->loadPoint();
+            if ($point['x'] === false || $point['y'] === false) {
+                $this->setError('Failed to parse record.');
+
+                return;
+            }
+
+            $this->shpData['parts'][$part]['points'][] = $point;
         }
     }
 
@@ -503,6 +572,11 @@ class ShapeRecord
 
         $numparts = $this->shpData['numparts'];
         $numpoints = $this->shpData['numpoints'];
+        if (! is_int($numpoints) || $numpoints < 0 || ! is_int($numparts) || $numparts < 0) {
+            $this->setError('Failed to parse record.');
+
+            return;
+        }
 
         $part = 0;
         for ($i = 0; $i < $numpoints; ++$i) {
@@ -510,7 +584,14 @@ class ShapeRecord
                 ++$part;
             }
 
-            $this->shpData['parts'][$part]['points'][$i][$type] = $this->loadData('d', 8);
+            $point = $this->loadData('d', 8);
+            if ($point === false) {
+                $this->setError('Failed to parse record.');
+
+                return;
+            }
+
+            $this->shpData['parts'][$part]['points'][$i][$type] = $point;
         }
     }
 
