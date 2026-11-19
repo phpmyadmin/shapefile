@@ -433,4 +433,21 @@ class ShapeFileTest extends TestCase
         $shp->setAllowNoDbf(true);
         self::assertTrue($shp->loadFromFile('data/no-dbf.*'));
     }
+
+    #[DataProvider('providerForTestInvalidShpFile')]
+    public function testInvalidShpFile(string $file): void
+    {
+        $shp = new ShapeFile(ShapeType::Unknown);
+        $shp->setAllowNoDbf(true);
+        $shp->loadFromFile(__DIR__ . '/../' . $file);
+        self::assertSame('Failed to parse record.', $shp->lastError);
+        self::assertSame([], $shp->records);
+    }
+
+    /** @return iterable<int, array{string}> */
+    public static function providerForTestInvalidShpFile(): iterable
+    {
+        yield ['data/invalid-shp-point.*'];
+        yield ['data/invalid-shp-multipoint.*'];
+    }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.16.1@f1f5de594dc76faf8784e02d3dc4716c91c6f6ac">
+<files psalm-version="6.20.13@9dd07528c4f058df1572d40ab2db5c1566a728f2">
   <file src="src/ShapeFile.php">
     <ClassMustBeFinal>
       <code><![CDATA[ShapeFile]]></code>
@@ -118,12 +118,11 @@
       <code><![CDATA[$data['m']]]></code>
       <code><![CDATA[$data['m']]]></code>
       <code><![CDATA[$data['z']]]></code>
-      <code><![CDATA[$numparts]]></code>
-      <code><![CDATA[$numparts]]></code>
-      <code><![CDATA[$numpoints]]></code>
-      <code><![CDATA[$numpoints]]></code>
       <code><![CDATA[$partData]]></code>
       <code><![CDATA[$partData]]></code>
+      <code><![CDATA[$partData]]></code>
+      <code><![CDATA[$point]]></code>
+      <code><![CDATA[$point]]></code>
       <code><![CDATA[$point]]></code>
       <code><![CDATA[$pointData]]></code>
       <code><![CDATA[$pointData]]></code>
